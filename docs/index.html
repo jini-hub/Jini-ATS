@@ -2179,6 +2179,678 @@ a:hover{
    END - Jini-ATS 2.0 STEP 4
    ========================================================= */
 
+  /* =========================================================
+   Jini-ATS 2.0
+   STEP 5 - Dashboard
+   ========================================================= */
+
+.dashboard-hero{
+  position:relative;
+  min-height:220px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:34px 38px;
+  border-radius:26px;
+  background:
+    linear-gradient(
+      135deg,
+      #FFFFFF 0%,
+      #F8FAFF 55%,
+      #EEF5FF 100%
+    );
+  border:1px solid rgba(229,229,234,.9);
+  box-shadow:
+    0 8px 30px rgba(0,0,0,.045),
+    0 2px 8px rgba(0,0,0,.025);
+}
+
+.dashboard-hero-text{
+  position:relative;
+  z-index:2;
+}
+
+.dashboard-eyebrow{
+  margin-bottom:10px;
+  color:#007AFF;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.2px;
+}
+
+.dashboard-hero h2{
+  margin:0;
+  color:#1C1C1E;
+  font-size:31px;
+  line-height:1.22;
+  font-weight:800;
+  letter-spacing:-1.1px;
+}
+
+.dashboard-hero p{
+  margin:14px 0 0;
+  color:#6E6E73;
+  font-size:13px;
+  line-height:1.7;
+}
+
+.dashboard-hero-mark{
+  position:absolute;
+  right:30px;
+  top:50%;
+  width:210px;
+  height:210px;
+  transform:translateY(-50%);
+}
+
+.dashboard-hero-orb{
+  position:absolute;
+  width:170px;
+  height:170px;
+  right:0;
+  top:20px;
+  border-radius:50%;
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      rgba(255,255,255,.95) 0%,
+      rgba(110,170,255,.55) 24%,
+      rgba(88,86,214,.30) 58%,
+      rgba(0,122,255,.05) 76%,
+      transparent 78%
+    );
+  filter:blur(.2px);
+}
+
+.dashboard-hero-orb::after{
+  content:"";
+  position:absolute;
+  width:85px;
+  height:85px;
+  right:40px;
+  top:40px;
+  border-radius:50%;
+  background:rgba(255,255,255,.48);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+
+
+.dashboard-kpi-grid{
+  display:grid;
+  grid-template-columns:
+    repeat(4,minmax(0,1fr));
+  gap:14px;
+}
+
+.dashboard-kpi-card{
+  min-width:0;
+  padding:20px;
+  border-radius:20px;
+  background:#FFFFFF;
+  border:1px solid rgba(229,229,234,.9);
+  box-shadow:
+    0 4px 18px rgba(0,0,0,.035),
+    0 1px 4px rgba(0,0,0,.02);
+  transition:
+    transform .18s ease,
+    box-shadow .18s ease;
+}
+
+.dashboard-kpi-card:hover{
+  transform:translateY(-2px);
+  box-shadow:
+    0 10px 28px rgba(0,0,0,.065);
+}
+
+.dashboard-kpi-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:18px;
+}
+
+.dashboard-kpi-icon{
+  width:38px;
+  height:38px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:12px;
+  font-size:14px;
+  font-weight:800;
+}
+
+.dashboard-kpi-icon.blue{
+  background:#EAF3FF;
+  color:#007AFF;
+}
+
+.dashboard-kpi-icon.indigo{
+  background:#EEEDFF;
+  color:#5856D6;
+}
+
+.dashboard-kpi-icon.green{
+  background:#EAF9EE;
+  color:#248A3D;
+}
+
+.dashboard-kpi-icon.orange{
+  background:#FFF4E5;
+  color:#C93400;
+}
+
+.dashboard-kpi-label{
+  color:#6E6E73;
+  font-size:12px;
+  font-weight:700;
+}
+
+.dashboard-kpi-number{
+  margin-top:4px;
+  color:#1C1C1E;
+  font-size:31px;
+  line-height:1.1;
+  font-weight:850;
+  letter-spacing:-1px;
+}
+
+.dashboard-kpi-description{
+  margin-top:8px;
+  color:#8E8E93;
+  font-size:11px;
+}
+
+
+.dashboard-main-grid{
+  display:grid;
+  grid-template-columns:
+    minmax(0,1.08fr)
+    minmax(0,.92fr);
+  gap:14px;
+}
+
+.dashboard-panel{
+  min-width:0;
+  padding:21px;
+  border-radius:20px;
+  background:#FFFFFF;
+  border:1px solid rgba(229,229,234,.9);
+  box-shadow:
+    0 4px 18px rgba(0,0,0,.035),
+    0 1px 4px rgba(0,0,0,.02);
+}
+
+.dashboard-panel-header{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:20px;
+}
+
+.dashboard-panel-title{
+  color:#1C1C1E;
+  font-size:16px;
+  font-weight:800;
+  letter-spacing:-.35px;
+}
+
+.dashboard-panel-subtitle{
+  margin-top:4px;
+  color:#8E8E93;
+  font-size:11px;
+}
+
+.dashboard-panel-icon{
+  width:34px;
+  height:34px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:11px;
+  background:#F2F2F7;
+  color:#636366;
+  font-size:14px;
+  font-weight:800;
+}
+
+.dashboard-more-btn{
+  border:0;
+  background:transparent;
+  color:#007AFF;
+  padding:6px 0;
+  font-family:inherit;
+  font-size:12px;
+  font-weight:750;
+  cursor:pointer;
+}
+
+.dashboard-more-btn:hover{
+  color:#005FCC;
+}
+
+
+.dashboard-funnel{
+  display:grid;
+  gap:17px;
+}
+
+.dashboard-funnel-row{
+  display:grid;
+  grid-template-columns:76px minmax(0,1fr) 42px;
+  align-items:center;
+  gap:10px;
+}
+
+.dashboard-funnel-label{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  color:#636366;
+  font-size:11px;
+  font-weight:650;
+}
+
+.dashboard-funnel-label b{
+  color:#1C1C1E;
+  font-size:12px;
+}
+
+.dashboard-funnel-track{
+  height:9px;
+  overflow:hidden;
+  border-radius:999px;
+  background:#F2F2F7;
+}
+
+.dashboard-funnel-fill{
+  height:100%;
+  min-width:0;
+  border-radius:999px;
+  background:
+    linear-gradient(
+      90deg,
+      #007AFF,
+      #5856D6
+    );
+  transition:width .35s ease;
+}
+
+.dashboard-funnel-percent{
+  color:#8E8E93;
+  text-align:right;
+  font-size:10px;
+  font-weight:700;
+}
+
+
+.dashboard-candidate-list{
+  display:grid;
+}
+
+.dashboard-candidate-row{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  min-width:0;
+  padding:12px 0;
+  border-bottom:1px solid #F0F0F2;
+}
+
+.dashboard-candidate-row:first-child{
+  padding-top:0;
+}
+
+.dashboard-candidate-row:last-child{
+  padding-bottom:0;
+  border-bottom:0;
+}
+
+.dashboard-candidate-avatar{
+  width:38px;
+  height:38px;
+  min-width:38px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:
+    linear-gradient(
+      135deg,
+      #EAF3FF,
+      #EEEDFF
+    );
+  color:#007AFF;
+  font-size:12px;
+  font-weight:800;
+}
+
+.dashboard-candidate-info{
+  min-width:0;
+  flex:1;
+}
+
+.dashboard-candidate-name{
+  overflow:hidden;
+  color:#1C1C1E;
+  font-size:12px;
+  font-weight:750;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.dashboard-candidate-meta{
+  margin-top:3px;
+  overflow:hidden;
+  color:#8E8E93;
+  font-size:10px;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.dashboard-candidate-score{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  min-width:36px;
+}
+
+.dashboard-candidate-score strong{
+  font-size:15px;
+  font-weight:850;
+}
+
+.dashboard-candidate-score strong.good{
+  color:#248A3D;
+}
+
+.dashboard-candidate-score strong.mid{
+  color:#C93400;
+}
+
+.dashboard-candidate-score strong.low{
+  color:#D70015;
+}
+
+.dashboard-candidate-score span{
+  margin-top:1px;
+  color:#AEAEB2;
+  font-size:9px;
+}
+
+
+.dashboard-job-list{
+  display:grid;
+}
+
+.dashboard-job-row{
+  display:grid;
+  grid-template-columns:
+    minmax(0,1fr)
+    90px
+    90px;
+  align-items:center;
+  gap:20px;
+  padding:16px 4px;
+  border-top:1px solid #F0F0F2;
+}
+
+.dashboard-job-row:first-child{
+  border-top:0;
+}
+
+.dashboard-job-main{
+  min-width:0;
+}
+
+.dashboard-job-status{
+  display:inline-flex;
+  margin-bottom:5px;
+  padding:4px 8px;
+  border-radius:999px;
+  background:#EAF9EE;
+  color:#248A3D;
+  font-size:9px;
+  font-weight:750;
+}
+
+.dashboard-job-title{
+  overflow:hidden;
+  color:#1C1C1E;
+  font-size:13px;
+  font-weight:750;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.dashboard-job-meta{
+  margin-top:4px;
+  overflow:hidden;
+  color:#8E8E93;
+  font-size:10px;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.dashboard-job-stat{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:3px;
+}
+
+.dashboard-job-stat span{
+  color:#8E8E93;
+  font-size:10px;
+}
+
+.dashboard-job-stat strong{
+  color:#1C1C1E;
+  font-size:15px;
+  font-weight:800;
+}
+
+.dashboard-job-stat strong.good{
+  color:#248A3D;
+}
+
+.dashboard-job-stat strong.mid{
+  color:#C93400;
+}
+
+.dashboard-job-stat strong.low{
+  color:#D70015;
+}
+
+
+.dashboard-empty{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:120px;
+  color:#8E8E93;
+  font-size:12px;
+}
+
+.dashboard-empty-large{
+  flex-direction:column;
+  gap:12px;
+  min-height:150px;
+}
+
+.dashboard-empty-icon{
+  width:42px;
+  height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:#F2F2F7;
+  color:#8E8E93;
+  font-size:20px;
+}
+
+.dashboard-save-info{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:13px 16px;
+  color:#6E6E73;
+  font-size:11px;
+  line-height:1.6;
+}
+
+.dashboard-save-info b{
+  display:block;
+  margin-bottom:1px;
+  color:#3A3A3C;
+  font-size:11px;
+}
+
+.dashboard-save-icon{
+  width:30px;
+  height:30px;
+  min-width:30px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:#EAF9EE;
+  color:#248A3D;
+  font-size:12px;
+  font-weight:800;
+}
+
+
+@media(max-width:980px){
+
+  .dashboard-kpi-grid{
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+  }
+
+  .dashboard-main-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+
+@media(max-width:720px){
+
+  .dashboard-hero{
+    min-height:190px;
+    padding:25px 22px;
+    border-radius:22px;
+  }
+
+  .dashboard-hero h2{
+    font-size:24px;
+  }
+
+  .dashboard-hero p{
+    max-width:240px;
+    font-size:11px;
+  }
+
+  .dashboard-hero-mark{
+    right:-30px;
+    opacity:.7;
+  }
+
+  .dashboard-kpi-grid{
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+    gap:10px;
+  }
+
+  .dashboard-kpi-card{
+    padding:16px;
+    border-radius:18px;
+  }
+
+  .dashboard-kpi-icon{
+    width:34px;
+    height:34px;
+    border-radius:10px;
+  }
+
+  .dashboard-kpi-number{
+    font-size:26px;
+  }
+
+  .dashboard-panel{
+    padding:17px;
+    border-radius:18px;
+  }
+
+  .dashboard-job-row{
+    grid-template-columns:
+      minmax(0,1fr)
+      65px
+      65px;
+    gap:8px;
+  }
+
+}
+
+
+@media(max-width:420px){
+
+  .dashboard-hero{
+    min-height:180px;
+    padding:22px 18px;
+  }
+
+  .dashboard-hero h2{
+    font-size:21px;
+  }
+
+  .dashboard-hero p{
+    max-width:210px;
+  }
+
+  .dashboard-kpi-grid{
+    gap:8px;
+  }
+
+  .dashboard-kpi-card{
+    padding:13px;
+  }
+
+  .dashboard-kpi-label{
+    font-size:10px;
+  }
+
+  .dashboard-kpi-number{
+    font-size:23px;
+  }
+
+  .dashboard-kpi-description{
+    font-size:9px;
+  }
+
+  .dashboard-funnel-row{
+    grid-template-columns:65px minmax(0,1fr) 35px;
+    gap:7px;
+  }
+
+  .dashboard-job-row{
+    grid-template-columns:1fr;
+    gap:9px;
+  }
+
+  .dashboard-job-stat{
+    align-items:flex-start;
+    flex-direction:row;
+    gap:8px;
+  }
+
+}
+  
 </style>
   
 </head>
@@ -3390,7 +4062,6 @@ mobileMenuButtons.forEach(
 /* ============================================================
    대시보드
    ============================================================ */
-
 function renderDashboard(){
 
   const avg =
@@ -3415,113 +4086,325 @@ function renderDashboard(){
       c=>(Number(c.score)||0)>=85
     ).length;
 
+
+  /* ----------------------------------------------------------
+     최근 지원자
+     ---------------------------------------------------------- */
+
+  const recentCandidates =
+    state.candidates
+      .slice()
+      .sort(
+        (a,b)=>
+          (Number(b.score)||0) -
+          (Number(a.score)||0)
+      )
+      .slice(0,6);
+
+
+  /* ----------------------------------------------------------
+     진행중 공고
+     ---------------------------------------------------------- */
+
+  const openJobs =
+    state.jobs
+      .filter(
+        j=>j.status==='진행중'
+      )
+      .slice(0,5);
+
+
   $('#page').innerHTML = `
 
-    <div class="grid g4">
+    <!-- ======================================================
+         Dashboard Hero
+         ====================================================== -->
 
-      <div class="card">
-        <div class="stat">
-          <div>
-            <div class="eyebrow">진행중 공고</div>
-            <div class="num">${open}</div>
-          </div>
-          <span class="badge b-blue">LIVE</span>
+    <section class="dashboard-hero">
+
+      <div class="dashboard-hero-text">
+
+        <div class="dashboard-eyebrow">
+          Jini-ATS
         </div>
+
+        <h2>
+          채용 현황을<br>
+          한눈에 확인하세요.
+        </h2>
+
+        <p>
+          현재 진행 중인 채용과 지원자 현황을
+          한 곳에서 확인할 수 있습니다.
+        </p>
+
       </div>
 
-      <div class="card">
-        <div class="stat">
-          <div>
-            <div class="eyebrow">전체 지원자</div>
-            <div class="num">${state.candidates.length}</div>
-          </div>
-          <span class="badge b-gray">전체</span>
-        </div>
+      <div class="dashboard-hero-mark">
+        <div class="dashboard-hero-orb"></div>
       </div>
 
-      <div class="card">
-        <div class="stat">
-          <div>
-            <div class="eyebrow">평균 ATS 점수</div>
-            <div class="num">${avg}</div>
-          </div>
-          <span class="badge b-green">ATS</span>
-        </div>
-      </div>
+    </section>
 
-      <div class="card">
-        <div class="stat">
-          <div>
-            <div class="eyebrow">추천 후보</div>
-            <div class="num">${high}</div>
-          </div>
-          <span class="badge b-amber">85점+</span>
-        </div>
-      </div>
-
-    </div>
 
     <div style="height:18px"></div>
 
-    <div class="grid g2">
 
-      <div class="card">
+    <!-- ======================================================
+         KPI
+         ====================================================== -->
 
-        <div class="title-row">
-          <h2>채용 Funnel</h2>
-          <span class="muted mini">
-            전체 공고 기준
+    <section class="dashboard-kpi-grid">
+
+
+      <!-- 진행중 공고 -->
+
+      <div class="dashboard-kpi-card">
+
+        <div class="dashboard-kpi-top">
+
+          <div class="dashboard-kpi-icon blue">
+            ✓
+          </div>
+
+          <span class="badge b-blue">
+            LIVE
           </span>
+
         </div>
 
-        ${stages.map(
-          (s,i)=>{
+        <div class="dashboard-kpi-label">
+          진행중 공고
+        </div>
 
-            const n =
-              state.candidates.filter(
-                c=>(Number(c.stage)||0)>=i
-              ).length;
+        <div class="dashboard-kpi-number">
+          ${open}
+        </div>
 
-            const pct =
-              Math.round(
-                n /
-                Math.max(
-                  1,
-                  state.candidates.length
-                ) *
-                100
-              );
-
-            return `
-
-              <div class="kpi-line">
-
-                <span>${s}</span>
-
-                <div class="bar">
-                  <i style="width:${pct}%"></i>
-                </div>
-
-                <b>${n}명</b>
-
-              </div>
-
-            `;
-
-          }
-        ).join('')}
+        <div class="dashboard-kpi-description">
+          현재 모집 중인 채용공고
+        </div>
 
       </div>
 
 
-      <div class="card">
+      <!-- 전체 지원자 -->
 
-        <div class="title-row">
+      <div class="dashboard-kpi-card">
 
-          <h2>최근 지원자</h2>
+        <div class="dashboard-kpi-top">
+
+          <div class="dashboard-kpi-icon indigo">
+            사람
+          </div>
+
+          <span class="badge b-gray">
+            전체
+          </span>
+
+        </div>
+
+        <div class="dashboard-kpi-label">
+          전체 지원자
+        </div>
+
+        <div class="dashboard-kpi-number">
+          ${state.candidates.length}
+        </div>
+
+        <div class="dashboard-kpi-description">
+          등록된 전체 지원자
+        </div>
+
+      </div>
+
+
+      <!-- 평균 ATS -->
+
+      <div class="dashboard-kpi-card">
+
+        <div class="dashboard-kpi-top">
+
+          <div class="dashboard-kpi-icon green">
+            A
+          </div>
+
+          <span class="badge b-green">
+            ATS
+          </span>
+
+        </div>
+
+        <div class="dashboard-kpi-label">
+          평균 ATS 점수
+        </div>
+
+        <div class="dashboard-kpi-number">
+          ${avg}
+        </div>
+
+        <div class="dashboard-kpi-description">
+          전체 지원자 평균 점수
+        </div>
+
+      </div>
+
+
+      <!-- 추천 후보 -->
+
+      <div class="dashboard-kpi-card">
+
+        <div class="dashboard-kpi-top">
+
+          <div class="dashboard-kpi-icon orange">
+            ★
+          </div>
+
+          <span class="badge b-amber">
+            85점+
+          </span>
+
+        </div>
+
+        <div class="dashboard-kpi-label">
+          추천 후보
+        </div>
+
+        <div class="dashboard-kpi-number">
+          ${high}
+        </div>
+
+        <div class="dashboard-kpi-description">
+          ATS 85점 이상 후보자
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <div style="height:18px"></div>
+
+
+    <!-- ======================================================
+         채용 Funnel + 최근 지원자
+         ====================================================== -->
+
+    <section class="dashboard-main-grid">
+
+
+      <!-- ====================================================
+           채용 Funnel
+           ==================================================== -->
+
+      <div class="dashboard-panel">
+
+        <div class="dashboard-panel-header">
+
+          <div>
+
+            <div class="dashboard-panel-title">
+              채용 진행 현황
+            </div>
+
+            <div class="dashboard-panel-subtitle">
+              전체 공고 기준
+            </div>
+
+          </div>
+
+          <span class="dashboard-panel-icon">
+            ↗
+          </span>
+
+        </div>
+
+
+        <div class="dashboard-funnel">
+
+          ${
+            stages.map(
+              (s,i)=>{
+
+                const n =
+                  state.candidates.filter(
+                    c=>(Number(c.stage)||0)>=i
+                  ).length;
+
+                const pct =
+                  Math.round(
+                    n /
+                    Math.max(
+                      1,
+                      state.candidates.length
+                    ) *
+                    100
+                  );
+
+                return `
+
+                  <div class="dashboard-funnel-row">
+
+                    <div class="dashboard-funnel-label">
+
+                      <span>
+                        ${esc(s)}
+                      </span>
+
+                      <b>
+                        ${n}명
+                      </b>
+
+                    </div>
+
+                    <div class="dashboard-funnel-track">
+
+                      <div
+                        class="dashboard-funnel-fill"
+                        style="width:${pct}%"
+                      ></div>
+
+                    </div>
+
+                    <div class="dashboard-funnel-percent">
+                      ${pct}%
+                    </div>
+
+                  </div>
+
+                `;
+
+              }
+            ).join('')
+          }
+
+        </div>
+
+      </div>
+
+
+      <!-- ====================================================
+           최근 지원자
+           ==================================================== -->
+
+      <div class="dashboard-panel">
+
+        <div class="dashboard-panel-header">
+
+          <div>
+
+            <div class="dashboard-panel-title">
+              추천 지원자
+            </div>
+
+            <div class="dashboard-panel-subtitle">
+              ATS 점수가 높은 순서
+            </div>
+
+          </div>
 
           <button
-            class="link-btn"
+            class="dashboard-more-btn"
             onclick="go('candidates')"
           >
             전체 보기 →
@@ -3529,29 +4412,15 @@ function renderDashboard(){
 
         </div>
 
-        <table class="table">
 
-          <thead>
-            <tr>
-              <th>지원자</th>
-              <th>공고</th>
-              <th>ATS</th>
-              <th>상태</th>
-            </tr>
-          </thead>
-
-          <tbody>
+        <div class="dashboard-candidate-list">
 
           ${
-            state.candidates
-              .slice()
-              .sort(
-                (a,b)=>
-                  (Number(b.score)||0) -
-                  (Number(a.score)||0)
-              )
-              .slice(0,6)
-              .map(c=>{
+            recentCandidates.length
+            ?
+
+            recentCandidates.map(
+              c=>{
 
                 const j =
                   state.jobs.find(
@@ -3561,103 +4430,297 @@ function renderDashboard(){
                 const first =
                   (c.name || '?')[0];
 
+                const score =
+                  Number(c.score)||0;
+
                 return `
 
-                <tr>
+                  <div class="dashboard-candidate-row">
 
-                  <td>
+                    <div class="dashboard-candidate-avatar">
+                      ${esc(first)}
+                    </div>
 
-                    <div class="person">
 
-                      <div class="avatar">
-                        ${esc(first)}
+                    <div class="dashboard-candidate-info">
+
+                      <div class="dashboard-candidate-name">
+                        ${esc(
+                          c.name ||
+                          '이름 미확인'
+                        )}
                       </div>
 
-                      <div>
+                      <div class="dashboard-candidate-meta">
 
-                        <b>
-                          ${esc(c.name || '이름 미확인')}
-                        </b>
+                        ${esc(
+                          j?.title ||
+                          '공고 미지정'
+                        )}
 
-                        <div class="muted mini">
-                          ${esc(c.years || 0)}년
-                          ·
-                          ${esc(c.education || '학력 미확인')}
-                        </div>
+                        ·
+
+                        ${esc(
+                          c.years ||
+                          0
+                        )}년
 
                       </div>
 
                     </div>
 
-                  </td>
 
-                  <td>
-                    ${esc(j?.title || '-')}
-                  </td>
+                    <div class="dashboard-candidate-score">
 
-                  <td>
+                      <strong
+                        class="${
+                          score>=85
+                            ? 'good'
+                            : score>=70
+                              ? 'mid'
+                              : 'low'
+                        }"
+                      >
+                        ${score}
+                      </strong>
 
-                    <b class="score ${
-                      c.score>=85
-                        ? 'good'
-                        : c.score>=70
-                          ? 'mid'
-                          : 'low'
-                    }">
-                      ${Number(c.score)||0}
-                    </b>
+                      <span>
+                        ATS
+                      </span>
 
-                  </td>
+                    </div>
 
-                  <td>
-
-                    <span class="badge ${
-                      c.stage>=3
-                        ? 'b-green'
-                        : c.stage>=2
-                          ? 'b-blue'
-                          : 'b-gray'
-                    }">
-
-                      ${stages[
-                        Math.max(
-                          0,
-                          Math.min(
-                            5,
-                            Number(c.stage)||0
-                          )
-                        )
-                      ]}
-
-                    </span>
-
-                  </td>
-
-                </tr>
+                  </div>
 
                 `;
 
-              })
-              .join('')
+              }
+            ).join('')
+
+            :
+
+            `
+
+              <div class="dashboard-empty">
+                등록된 지원자가 없습니다.
+              </div>
+
+            `
           }
 
-          </tbody>
+        </div>
 
-        </table>
+      </div>
+
+    </section>
+
+
+    <div style="height:18px"></div>
+
+
+    <!-- ======================================================
+         진행중인 채용공고
+         ====================================================== -->
+
+    <section class="dashboard-panel">
+
+      <div class="dashboard-panel-header">
+
+        <div>
+
+          <div class="dashboard-panel-title">
+            진행중인 채용공고
+          </div>
+
+          <div class="dashboard-panel-subtitle">
+            현재 모집 중인 포지션
+          </div>
+
+        </div>
+
+        <button
+          class="dashboard-more-btn"
+          onclick="go('jobs')"
+        >
+          전체 보기 →
+        </button>
+
+      </div>
+
+
+      ${
+        openJobs.length
+
+        ?
+
+        `
+
+        <div class="dashboard-job-list">
+
+          ${
+            openJobs.map(
+              j=>{
+
+                const applicants =
+                  state.candidates.filter(
+                    c=>c.job===j.id
+                  );
+
+                const jobAvg =
+                  Math.round(
+                    applicants.reduce(
+                      (a,c)=>
+                        a+(Number(c.score)||0),
+                      0
+                    ) /
+                    Math.max(
+                      1,
+                      applicants.length
+                    )
+                  );
+
+                return `
+
+                  <div class="dashboard-job-row">
+
+
+                    <div class="dashboard-job-main">
+
+                      <div class="dashboard-job-status">
+                        진행중
+                      </div>
+
+                      <div class="dashboard-job-title">
+                        ${esc(
+                          j.title ||
+                          '채용공고'
+                        )}
+                      </div>
+
+                      <div class="dashboard-job-meta">
+
+                        ${esc(
+                          j.dept ||
+                          ''
+                        )}
+
+                        ${
+                          j.location
+                          ? ` · ${esc(j.location)}`
+                          : ''
+                        }
+
+                      </div>
+
+                    </div>
+
+
+                    <div class="dashboard-job-stat">
+
+                      <span>
+                        지원자
+                      </span>
+
+                      <strong>
+                        ${applicants.length}
+                      </strong>
+
+                    </div>
+
+
+                    <div class="dashboard-job-stat">
+
+                      <span>
+                        평균 ATS
+                      </span>
+
+                      <strong
+                        class="${
+                          jobAvg>=85
+                            ? 'good'
+                            : jobAvg>=70
+                              ? 'mid'
+                              : 'low'
+                        }"
+                      >
+                        ${jobAvg}
+                      </strong>
+
+                    </div>
+
+
+                  </div>
+
+                `;
+
+              }
+            ).join('')
+          }
+
+        </div>
+
+        `
+
+        :
+
+        `
+
+          <div class="dashboard-empty dashboard-empty-large">
+
+            <div class="dashboard-empty-icon">
+              +
+            </div>
+
+            <div>
+              진행중인 채용공고가 없습니다.
+            </div>
+
+            <button
+              class="btn primary"
+              onclick="go('jobs')"
+            >
+              채용공고 등록하기
+            </button>
+
+          </div>
+
+        `
+      }
+
+    </section>
+
+
+    <div style="height:18px"></div>
+
+
+    <!-- ======================================================
+         저장 안내
+         ====================================================== -->
+
+    <div class="data-info dashboard-save-info">
+
+      <span class="dashboard-save-icon">
+        ✓
+      </span>
+
+      <div>
+
+        <b>
+          데이터 자동 저장
+        </b>
+
+        <div>
+          지원자와 채용공고 변경사항은
+          브라우저/APK 저장공간에 자동 저장됩니다.
+        </div>
 
       </div>
 
     </div>
 
-    <div class="data-info">
-      💾 데이터는 브라우저/APK 저장공간에 자동 저장됩니다.
-      지원자 추가·수정·삭제 및 채용공고 변경 시 즉시 저장됩니다.
-    </div>
-
   `;
 
 }
-
 
 /* ============================================================
    채용공고
