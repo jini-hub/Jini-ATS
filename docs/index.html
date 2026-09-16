@@ -3664,333 +3664,438 @@ function showAnalysis(cid,jid){
 
   const c =
     state.candidates.find(
-      x=>x.id==cid
+      x => String(x.id) === String(cid)
     );
 
   const j =
     state.jobs.find(
-      x=>x.id==jid
+      x => String(x.id) === String(jid)
     );
 
-
-  if(!c || !j)
+  if(!c){
+    alert('지원자 정보를 찾을 수 없습니다.');
     return;
-
-
-  const a =
-    computeAnalysis(
-      c,
-      j
-    );
-
+  }
 
   const result =
-    $('#analysisResult');
-
-
-  if(!result)
-    return;
-
-
-  /*
-   * 지원자 핵심 요약
-   *
-   * 우선순위:
-   * 1. careerSummary
-   * 2. resumeSummary
-   * 3. resume
-   */
+    computeAnalysis(c,j);
 
   const coreSummary =
     c.careerSummary ||
     c.resumeSummary ||
-    c.resume ||
     'AI 요약 없음';
 
+  /*
+   * 주요 경력은 반드시 keyCareers / careerDetail에서 가져온다.
+   * resume를 fallback으로 사용하지 않는다.
+   * 그래야 지원자 핵심 요약과 동일한 문장이 반복되지 않는다.
+   */
+  let careerDetail = '';
+
+  if(
+    Array.isArray(c.keyCareers) &&
+    c.keyCareers.length
+  ){
+    careerDetail =
+      c.keyCareers
+        .map(
+          x => {
+            if(
+              typeof x === 'string'
+            ){
+              return x;
+            }
+
+            if(
+              x &&
+              typeof x === 'object'
+            ){
+              return [
+                x.company || '',
+                x.position || x.role || '',
+                x.period || x.duration || '',
+                x.description || x.detail || ''
+              ]
+                .filter(Boolean)
+                .join(' · ');
+            }
+
+            return '';
+          }
+        )
+        .filter(Boolean)
+        .join('\n');
+  }
+  else if(
+    typeof c.keyCareers === 'string' &&
+    c.keyCareers.trim()
+  ){
+    careerDetail =
+      c.keyCareers.trim();
+  }
+  else if(
+    c.careerDetail &&
+    String(c.careerDetail).trim()
+  ){
+    careerDetail =
+      String(c.careerDetail).trim();
+  }
 
   /*
-   * 주요 경력
-   *
-   * 기존 주요 경력 내용은
-   * 절대 삭제하지 않음.
+   * 주요 경력 데이터가 실제로 없는 경우에는
+   * 지원자 핵심 요약을 복사하지 않고 안내문을 표시한다.
    */
+  if(!careerDetail){
+    careerDetail =
+      '등록된 주요 경력 정보가 없습니다.';
+  }
 
-  const careerDetail =
-    c.keyCareers
-      ? (
-          Array.isArray(c.keyCareers)
-            ? c.keyCareers.join('\n')
-            : c.keyCareers
-        )
-      : (
-          c.careerDetail ||
-          c.resume ||
-          '경력 정보 없음'
-        );
+  const hitHtml =
+    result.hit.length
+      ? result.hit
+          .map(
+            k =>
+              `<span class="tag">${escapeHtml(k)}</span>`
+          )
+          .join(' ')
+      : '없음';
 
+  const missHtml =
+    result.miss.length
+      ? result.miss
+          .map(
+            k =>
+              `<span class="tag">${escapeHtml(k)}</span>`
+          )
+          .join(' ')
+      : '없음';
 
-  result.innerHTML = `
+  const jdKeywords =
+    Array.isArray(j?.keywords)
+      ? j.keywords
+      : [];
+
+  const jdKeywordHtml =
+    jdKeywords.length
+      ? jdKeywords
+          .map(
+            k =>
+              `<span class="tag">${escapeHtml(k)}</span>`
+          )
+          .join(' ')
+      : '등록된 JD 키워드가 없습니다.';
+
+  const name =
+    c.name || '이름 없음';
+
+  const jobTitle =
+    j?.title || '지원공고 없음';
+
+  const careerYears =
+    Number(c.years) || 0;
+
+  const score =
+    Number(result.score) || 0;
+
+  const recommendation =
+    score >= 75
+      ? '추천'
+      : score >= 50
+        ? '검토'
+        : '보류';
+
+  const page =
+    $('#page');
+
+  if(!page){
+    return;
+  }
+
+  page.innerHTML = `
 
     <div class="card">
 
-      <div class="title-row">
+      <div
+        style="
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          gap:12px;
+          margin-bottom:18px;
+          flex-wrap:wrap;
+        "
+      >
 
-        <h2>
+        <div>
 
-          ${esc(
-            c.name ||
-            '이름 미확인'
-          )}
+          <div
+            style="
+              font-size:22px;
+              font-weight:800;
+              margin-bottom:5px;
+            "
+          >
+            ${escapeHtml(name)}
+          </div>
 
-          ·
+          <div
+            style="
+              color:#666;
+              font-size:14px;
+            "
+          >
+            ${escapeHtml(jobTitle)}
+          </div>
 
-          ${esc(j.title)}
+        </div>
 
-          적합도
-
-        </h2>
-
-
-        <button
-          class="btn"
-          onclick="openCandidate(${c.id})"
+        <div
+          style="
+            font-size:30px;
+            font-weight:900;
+          "
         >
-          지원자 보기
-        </button>
+          ${score}점
+        </div>
 
       </div>
 
 
-      <div class="analysis-grid">
+      <div
+        style="
+          display:grid;
+          grid-template-columns:
+            repeat(4,minmax(0,1fr));
+          gap:10px;
+          margin-bottom:20px;
+        "
+      >
 
-
-        <!-- ATS 점수 -->
-
-        <div>
-
-          <div
-            class="score-ring"
-            style="--score:${a.score}"
-          >
-
-            <div class="ring-inner">
-              ${a.score}
-            </div>
-
-          </div>
-
-
-          <div
-            style="text-align:center"
-            class="muted"
-          >
-            ATS 종합 적합도
-          </div>
-
+        <div class="stat">
+          <div class="stat-label">ATS 점수</div>
+          <div class="stat-value">${score}</div>
         </div>
 
-
-
-        <!-- 상세 분석 -->
-
-        <div>
-
-
-          <!-- 점수 구성 -->
-
-          <div class="grid g3">
-
-
-            <div
-              class="card"
-              style="box-shadow:none"
-            >
-
-              <div class="eyebrow">
-                키워드
-              </div>
-
-              <div
-                class="num"
-                style="font-size:24px"
-              >
-                ${a.base}%
-              </div>
-
-            </div>
-
-
-            <div
-              class="card"
-              style="box-shadow:none"
-            >
-
-              <div class="eyebrow">
-                경력 가점
-              </div>
-
-              <div
-                class="num"
-                style="font-size:24px"
-              >
-                +${a.exp}
-              </div>
-
-            </div>
-
-
-            <div
-              class="card"
-              style="box-shadow:none"
-            >
-
-              <div class="eyebrow">
-                학력 보정
-              </div>
-
-              <div
-                class="num"
-                style="font-size:24px"
-              >
-                +${a.edu}
-              </div>
-
-            </div>
-
-
+        <div class="stat">
+          <div class="stat-label">경력</div>
+          <div class="stat-value">
+            ${careerYears}년
           </div>
+        </div>
 
-
-
-          <!-- 지원자 핵심 요약 -->
-
-          <h3
-            style="
-              font-size:14px;
-              margin:20px 0 10px
-            "
-          >
-            지원자 핵심 요약
-          </h3>
-
-
-          <div
-            class="notice"
-            style="
-              line-height:1.7;
-              white-space:pre-wrap;
-            "
-          >
-            ${esc(coreSummary)}
+        <div class="stat">
+          <div class="stat-label">경력 적합도</div>
+          <div class="stat-value">
+            ${result.base || 0}
           </div>
+        </div>
 
-
-
-          <!-- 주요 경력 -->
-
-          <h3
-            style="
-              font-size:14px;
-              margin:20px 0 10px
-            "
-          >
-            주요 경력
-          </h3>
-
-
-          <div
-            class="card"
-            style="
-              box-shadow:none;
-              background:#fafbfc;
-              line-height:1.7;
-              font-size:13px;
-              white-space:pre-wrap;
-            "
-          >
-
-            ${esc(careerDetail)}
-
+        <div class="stat">
+          <div class="stat-label">추천</div>
+          <div class="stat-value">
+            ${recommendation}
           </div>
+        </div>
+
+      </div>
 
 
+      <!-- 지원자 핵심 요약 -->
 
-          <!-- JD 핵심 키워드 -->
+      <div
+        class="card"
+        style="
+          margin-bottom:16px;
+        "
+      >
 
-          <h3
-            style="
-              font-size:14px;
-              margin:20px 0 10px
-            "
-          >
-            JD 핵심 키워드
-          </h3>
+        <h3>지원자 핵심 요약</h3>
 
+        <div
+          style="
+            white-space:pre-wrap;
+            line-height:1.7;
+          "
+        >
+          ${escapeHtml(coreSummary)}
+        </div>
 
-          <div class="keyword-wrap">
-
-            ${
-              a.hit.map(
-                k=>
-                  `<span class="keyword kw-hit">
-                    ✓ ${esc(k)}
-                  </span>`
-              ).join('')
-            }
+      </div>
 
 
-            ${
-              a.miss.map(
-                k=>
-                  `<span class="keyword kw-miss">
-                    × ${esc(k)}
-                  </span>`
-              ).join('')
-            }
+      <!-- 주요 경력 -->
 
-          </div>
+      <div
+        class="card"
+        style="
+          margin-bottom:16px;
+        "
+      >
 
+        <h3>주요 경력</h3>
 
+        <div
+          style="
+            white-space:pre-wrap;
+            line-height:1.8;
+          "
+        >
+          ${escapeHtml(careerDetail)}
+        </div>
 
-          <!-- 분석 결과 -->
-
-          <h3
-            style="
-              font-size:14px;
-              margin:20px 0 10px
-            "
-          >
-            분석 결과
-          </h3>
+      </div>
 
 
-          <div class="notice">
+      <!-- 핵심 역량 -->
 
-            ${
-              a.score>=85
+      <div
+        class="card"
+        style="
+          margin-bottom:16px;
+        "
+      >
 
-                ? 'ATS 기준 높은 적합도를 보이는 후보입니다.'
+        <h3>핵심 역량</h3>
 
-                : a.score>=70
+        <div
+          style="
+            display:flex;
+            flex-wrap:wrap;
+            gap:6px;
+          "
+        >
 
-                  ? 'ATS 기준 추가 검토가 필요한 후보입니다.'
-
-                  : 'ATS 기준 직무 키워드 및 경력 적합성을 추가 검토할 필요가 있습니다.'
-            }
-
-          </div>
-
+          ${
+            Array.isArray(c.skills) &&
+            c.skills.length
+              ? c.skills
+                  .map(
+                    s =>
+                      `<span class="tag">${escapeHtml(s)}</span>`
+                  )
+                  .join('')
+              : '등록된 핵심 역량이 없습니다.'
+          }
 
         </div>
 
       </div>
+
+
+      <!-- JD 키워드 -->
+
+      <div
+        class="card"
+        style="
+          margin-bottom:16px;
+        "
+      >
+
+        <h3>채용공고 핵심 키워드</h3>
+
+        <div
+          style="
+            display:flex;
+            flex-wrap:wrap;
+            gap:6px;
+          "
+        >
+          ${jdKeywordHtml}
+        </div>
+
+      </div>
+
+
+      <!-- ATS 분석 -->
+
+      <div
+        class="card"
+        style="
+          margin-bottom:16px;
+        "
+      >
+
+        <h3>ATS 분석 결과</h3>
+
+        <div
+          style="
+            margin-bottom:14px;
+          "
+        >
+          <strong>일치 키워드</strong>
+
+          <div
+            style="
+              margin-top:8px;
+              display:flex;
+              flex-wrap:wrap;
+              gap:6px;
+            "
+          >
+            ${hitHtml}
+          </div>
+        </div>
+
+
+        <div
+          style="
+            margin-bottom:14px;
+          "
+        >
+          <strong>부족 키워드</strong>
+
+          <div
+            style="
+              margin-top:8px;
+              display:flex;
+              flex-wrap:wrap;
+              gap:6px;
+            "
+          >
+            ${missHtml}
+          </div>
+        </div>
+
+
+        <div
+          style="
+            line-height:1.7;
+          "
+        >
+
+          <div>
+            키워드 적합도:
+            <strong>${result.base || 0}점</strong>
+          </div>
+
+          <div>
+            경력 점수:
+            <strong>${result.exp || 0}점</strong>
+          </div>
+
+          <div>
+            학력 점수:
+            <strong>${result.edu || 0}점</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="btn"
+        type="button"
+        onclick="go('analysis')"
+      >
+        ← ATS 분석 목록으로
+      </button>
 
     </div>
 
   `;
 
 }
-
 /* ============================================================
    분석 보기
    기존 코드에서 빠져있던 함수
