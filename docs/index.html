@@ -7417,7 +7417,39 @@ a:hover{
 </div>
 
 <div class="page" id="page"></div>
+<nav class="mobile-bottom-nav" id="mobileBottomNav">
 
+  <button data-page="dashboard">
+    <span class="bottom-icon">⌂</span>
+    <span>대시보드</span>
+  </button>
+
+  <button data-page="jobs">
+    <span class="bottom-icon">▣</span>
+    <span>채용공고</span>
+  </button>
+
+  <button data-page="candidates">
+    <span class="bottom-icon">♙</span>
+    <span>지원자관리</span>
+  </button>
+
+  <button data-page="analysis">
+    <span class="bottom-icon">◉</span>
+    <span>ATS분석</span>
+  </button>
+
+  <button data-page="reports">
+    <span class="bottom-icon">▤</span>
+    <span>리포트</span>
+  </button>
+
+  <button data-page="settings">
+    <span class="bottom-icon">⚙</span>
+    <span>설정</span>
+  </button>
+
+</nav>
   </main>
 
 </div>
@@ -8577,10 +8609,12 @@ mobileMenuButtons.forEach(
     settings:renderSettings
   }[state.page];
 
-  if(renderer)
-    renderer();
+if(renderer)
+  renderer();
 
-  updateSaveStatus();
+updateMobileBottomNav();
+
+updateSaveStatus();
 
 }
 
@@ -16513,104 +16547,217 @@ document.addEventListener(
 load();
 
 </script>
+
 <style>
-/* 모바일 3단 메뉴 */
-.mobile-menu-btn {
-  display: none;
+
+/* =========================================================
+   STEP 9-4
+   Mobile Bottom Navigation 하단 네비게이
+   ========================================================= */
+
+.mobile-menu-btn{
+  display:none !important;
 }
 
-.mobile-menu {
-  display: none;
+.mobile-bottom-nav{
+  display:none;
 }
 
-@media (max-width: 720px) {
+@media (max-width:720px){
 
-  .mobile-menu-btn {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    width: 42px;
-    height: 42px;
-    border: 0;
-    border-radius: 10px;
-    background: #111827;
-    color: white;
-    font-size: 22px;
-    cursor: pointer;
-    position: relative;
-    z-index: 10001;
+  /* 기존 상단 햄버거 메뉴 제거 */
+  .mobile-menu-btn{
+    display:none !important;
   }
 
-  .mobile-menu {
-    position: fixed;
-    top: 70px;
-    left: 10px;
-    right: 10px;
-    z-index: 10000;
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 14px;
-    padding: 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,.2);
+  /* 기존 펼침형 모바일 메뉴 제거 */
+  .mobile-menu{
+    display:none !important;
   }
 
-  .mobile-menu.open {
-    display: block !important;
+  /* 하단 메뉴와 본문이 겹치지 않도록 여백 확보 */
+  .page{
+    padding-bottom:96px !important;
   }
 
-  .mobile-menu button {
-    display: block;
-    width: 100%;
-    padding: 14px;
-    border: 0;
-    background: transparent;
-    text-align: left;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    border-radius: 8px;
+  /* =====================================================
+     하단 고정 네비게이션
+     ===================================================== */
+
+  .mobile-bottom-nav{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+
+    height:72px;
+
+    background:rgba(255,255,255,.94);
+
+    border-top:1px solid rgba(229,229,234,.95);
+
+    box-shadow:
+      0 -4px 20px rgba(0,0,0,.06);
+
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+
+    padding:
+      7px
+      4px
+      calc(7px + env(safe-area-inset-bottom));
+
+    z-index:9999;
   }
 
-  .mobile-menu button:active {
-    background: #f3f4f6;
+  /* 메뉴 하나 */
+  .mobile-bottom-nav button{
+
+    min-width:0;
+
+    border:0;
+    background:transparent;
+
+    color:#8E8E93;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    gap:4px;
+
+    padding:4px 1px;
+
+    border-radius:12px;
+
+    font-family:inherit;
+
+    font-size:10px;
+    font-weight:600;
+
+    line-height:1.15;
+
+    white-space:nowrap;
+
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  /* 아이콘 */
+  .mobile-bottom-nav .bottom-icon{
+    width:23px;
+    height:23px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:19px;
+    line-height:1;
+  }
+
+  /* 현재 선택된 메뉴 */
+  .mobile-bottom-nav button.active{
+    color:var(--primary);
+    font-weight:800;
+  }
+
+  .mobile-bottom-nav button.active
+  .bottom-icon{
+    transform:translateY(-1px);
+  }
+
+  .mobile-bottom-nav button:active{
+    background:#F2F2F7;
+    transform:scale(.96);
   }
 
 }
-</style>
+
+</style>  
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
 
-  const btn = document.getElementById('mobileMenuBtn');
-  const menu = document.getElementById('mobileMenu');
+/* =========================================================
+   STEP 9-4
+   Mobile Bottom Navigation
+   ========================================================= */
 
-  if (!btn || !menu) return;
+document.addEventListener(
+  'DOMContentLoaded',
+  function(){
 
-  btn.addEventListener('click', function (e) {
-    e.preventDefault();
-    e.stopPropagation();
+    const nav =
+      document.getElementById(
+        'mobileBottomNav'
+      );
 
-    menu.classList.toggle('open');
-  });
+    if(!nav){
+      return;
+    }
 
-  menu.querySelectorAll('button').forEach(function (button) {
+    nav
+      .querySelectorAll('button')
+      .forEach(
+        function(button){
 
-    button.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopPropagation();
+          button.addEventListener(
+            'click',
+            function(){
 
-      const page = button.dataset.page;
+              const page =
+                button.dataset.page;
 
-      if (typeof go === 'function') {
-        go(page);
+              if(
+                typeof go === 'function'
+              ){
+
+                go(page);
+
+              }
+
+            }
+          );
+
+        }
+      );
+
+  }
+);
+
+
+/* 현재 페이지 표시 */
+
+function updateMobileBottomNav(){
+
+  const nav =
+    document.getElementById(
+      'mobileBottomNav'
+    );
+
+  if(!nav){
+    return;
+  }
+
+  nav
+    .querySelectorAll('button')
+    .forEach(
+      function(button){
+
+        button.classList.toggle(
+          'active',
+          button.dataset.page ===
+          state.page
+        );
+
       }
+    );
 
-      menu.classList.remove('open');
-    });
+}
 
-  });
-
-});
 </script>
   
 </body>
