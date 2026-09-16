@@ -3677,33 +3677,65 @@ function showAnalysis(cid,jid){
     return;
   }
 
+
+  /* ATS 분석 */
   const result =
     computeAnalysis(c,j);
 
 
-  /*
-   * 지원자 관리에서 사용하는 실제 주요 경력 데이터를
-   * 그대로 ATS 분석에서도 사용한다.
-   *
-   * 우선순위
-   * 1. careerDetail
-   * 2. keyCareers
-   *
-   * resume를 주요 경력으로 대신 사용하지 않는다.
-   */
+  /* --------------------------------
+     지원자 핵심 요약
+     -------------------------------- */
 
-  let careerDetail = '';
-
+  let coreSummary =
+    '';
 
   if(
-    c.careerDetail &&
-    String(c.careerDetail).trim()
+    c.careerSummary &&
+    String(c.careerSummary).trim()
+  ){
+    coreSummary =
+      String(c.careerSummary).trim();
+  }
+  else if(
+    c.resumeSummary &&
+    String(c.resumeSummary).trim()
+  ){
+    coreSummary =
+      String(c.resumeSummary).trim();
+  }
+  else{
+    coreSummary =
+      'AI 요약 없음';
+  }
+
+
+  /* --------------------------------
+     주요 경력
+     
+     지원자 관리에서 저장된
+     실제 경력 데이터를 사용
+     -------------------------------- */
+
+  let careerDetail =
+    '';
+
+
+  /* 1. careerDetail이 문자열이면 그대로 사용 */
+
+  if(
+    typeof c.careerDetail === 'string' &&
+    c.careerDetail.trim()
   ){
 
     careerDetail =
-      String(c.careerDetail).trim();
+      c.careerDetail.trim();
 
   }
+
+
+  /* 2. keyCareers가 있으면 사용 */
+
   else if(
     Array.isArray(c.keyCareers) &&
     c.keyCareers.length
@@ -3714,41 +3746,143 @@ function showAnalysis(cid,jid){
         .map(
           item => {
 
+            /* 문자열 */
             if(
               typeof item === 'string'
             ){
               return item;
             }
 
+
+            /* 객체 */
+
             if(
               item &&
               typeof item === 'object'
             ){
 
-              return Object
-                .values(item)
-                .filter(
-                  value =>
-                    value !== null &&
-                    value !== undefined &&
-                    String(value).trim()
-                )
-                .map(
-                  value =>
-                    String(value).trim()
-                )
-                .join(' ');
+              const parts = [];
+
+
+              /*
+               * 흔히 사용되는 경력 객체 필드
+               */
+
+              if(item.company)
+                parts.push(
+                  String(item.company)
+                );
+
+              if(item.name)
+                parts.push(
+                  String(item.name)
+                );
+
+              if(item.position)
+                parts.push(
+                  String(item.position)
+                );
+
+              if(item.role)
+                parts.push(
+                  String(item.role)
+                );
+
+              if(item.title)
+                parts.push(
+                  String(item.title)
+                );
+
+              if(item.period)
+                parts.push(
+                  String(item.period)
+                );
+
+              if(item.duration)
+                parts.push(
+                  String(item.duration)
+                );
+
+              if(item.description)
+                parts.push(
+                  String(item.description)
+                );
+
+              if(item.detail)
+                parts.push(
+                  String(item.detail)
+                );
+
+              if(item.responsibility)
+                parts.push(
+                  String(item.responsibility)
+                );
+
+              if(item.tasks)
+                parts.push(
+                  String(item.tasks)
+                );
+
+              if(item.work)
+                parts.push(
+                  String(item.work)
+                );
+
+
+              /*
+               * 위 필드명이 아닌 경우
+               * 객체 안의 값을 모두 가져옴
+               */
+
+              if(!parts.length){
+
+                Object.values(item)
+                  .forEach(
+                    value => {
+
+                      if(
+                        value === null ||
+                        value === undefined
+                      ){
+                        return;
+                      }
+
+                      if(
+                        typeof value === 'object'
+                      ){
+                        return;
+                      }
+
+                      const text =
+                        String(value).trim();
+
+                      if(text){
+                        parts.push(text);
+                      }
+
+                    }
+                  );
+
+              }
+
+
+              return parts.join(' · ');
 
             }
+
 
             return '';
 
           }
         )
         .filter(Boolean)
-        .join('\n');
+        .join('\n\n');
 
   }
+
+
+  /* 3. keyCareers가 문자열이면 사용 */
+
   else if(
     typeof c.keyCareers === 'string' &&
     c.keyCareers.trim()
@@ -3768,84 +3902,166 @@ function showAnalysis(cid,jid){
   }
 
 
-  /*
-   * 지원자 핵심 요약
-   */
-  const coreSummary =
-    c.careerSummary ||
-    c.resumeSummary ||
-    'AI 요약 없음';
+  /* --------------------------------
+     안전한 HTML 문자열
+     -------------------------------- */
+
+  const safe =
+    value =>
+      String(
+        value ?? ''
+      )
+      .replace(
+        /&/g,
+        '&amp;'
+      )
+      .replace(
+        /</g,
+        '&lt;'
+      )
+      .replace(
+        />/g,
+        '&gt;'
+      )
+      .replace(
+        /"/g,
+        '&quot;'
+      )
+      .replace(
+        /'/g,
+        '&#039;'
+      );
+
+
+  /* --------------------------------
+     기본 정보
+     -------------------------------- */
+
+  const name =
+    c.name || '이름 없음';
+
+  const jobTitle =
+    j?.title || '지원공고 없음';
+
+  const years =
+    Number(c.years) || 0;
+
+  const score =
+    Number(result?.score) || 0;
+
+
+  /* --------------------------------
+     추천 상태
+     -------------------------------- */
+
+  let recommendation =
+    '보류';
+
+  if(score >= 75){
+
+    recommendation =
+      '추천';
+
+  }
+  else if(score >= 50){
+
+    recommendation =
+      '검토';
+
+  }
+
+
+  /* --------------------------------
+     키워드
+     -------------------------------- */
+
+  const hit =
+    Array.isArray(result?.hit)
+      ? result.hit
+      : [];
+
+  const miss =
+    Array.isArray(result?.miss)
+      ? result.miss
+      : [];
+
+  const keywords =
+    Array.isArray(j?.keywords)
+      ? j.keywords
+      : [];
 
 
   const hitHtml =
-    result.hit.length
-      ? result.hit
+    hit.length
+      ? hit
           .map(
             k =>
-              `<span class="tag">${escapeHtml(k)}</span>`
+              `<span class="tag">${safe(k)}</span>`
           )
           .join(' ')
       : '없음';
 
 
   const missHtml =
-    result.miss.length
-      ? result.miss
+    miss.length
+      ? miss
           .map(
             k =>
-              `<span class="tag">${escapeHtml(k)}</span>`
+              `<span class="tag">${safe(k)}</span>`
           )
           .join(' ')
       : '없음';
 
 
-  const jdKeywords =
-    Array.isArray(j?.keywords)
-      ? j.keywords
-      : [];
-
-
-  const jdKeywordHtml =
-    jdKeywords.length
-      ? jdKeywords
+  const keywordHtml =
+    keywords.length
+      ? keywords
           .map(
             k =>
-              `<span class="tag">${escapeHtml(k)}</span>`
+              `<span class="tag">${safe(k)}</span>`
           )
           .join(' ')
-      : '등록된 JD 키워드가 없습니다.';
+      : '등록된 키워드가 없습니다.';
 
 
-  const name =
-    c.name || '이름 없음';
+  /* --------------------------------
+     핵심 역량
+     -------------------------------- */
+
+  let skillsHtml =
+    '등록된 핵심 역량이 없습니다.';
 
 
-  const jobTitle =
-    j?.title || '지원공고 없음';
+  if(
+    Array.isArray(c.skills) &&
+    c.skills.length
+  ){
+
+    skillsHtml =
+      c.skills
+        .map(
+          skill =>
+            `<span class="tag">${safe(skill)}</span>`
+        )
+        .join(' ');
+
+  }
 
 
-  const careerYears =
-    Number(c.years) || 0;
-
-
-  const score =
-    Number(result.score) || 0;
-
-
-  const recommendation =
-    score >= 75
-      ? '추천'
-      : score >= 50
-        ? '검토'
-        : '보류';
-
+  /* --------------------------------
+     페이지
+     -------------------------------- */
 
   const page =
-    $('#page');
+    document.getElementById('page');
 
 
   if(!page){
+
+    alert('ATS 분석 화면을 찾을 수 없습니다.');
+
     return;
+
   }
 
 
@@ -3853,13 +4069,15 @@ function showAnalysis(cid,jid){
 
     <div class="card">
 
+      <!-- 상단 -->
+
       <div
         style="
           display:flex;
           justify-content:space-between;
           align-items:center;
-          gap:12px;
-          margin-bottom:18px;
+          gap:16px;
+          margin-bottom:20px;
           flex-wrap:wrap;
         "
       >
@@ -3868,12 +4086,12 @@ function showAnalysis(cid,jid){
 
           <div
             style="
-              font-size:22px;
+              font-size:24px;
               font-weight:800;
-              margin-bottom:5px;
+              margin-bottom:6px;
             "
           >
-            ${escapeHtml(name)}
+            ${safe(name)}
           </div>
 
           <div
@@ -3882,7 +4100,7 @@ function showAnalysis(cid,jid){
               font-size:14px;
             "
           >
-            ${escapeHtml(jobTitle)}
+            ${safe(jobTitle)}
           </div>
 
         </div>
@@ -3890,7 +4108,7 @@ function showAnalysis(cid,jid){
 
         <div
           style="
-            font-size:30px;
+            font-size:32px;
             font-weight:900;
           "
         >
@@ -3899,6 +4117,8 @@ function showAnalysis(cid,jid){
 
       </div>
 
+
+      <!-- 점수 요약 -->
 
       <div
         style="
@@ -3911,32 +4131,54 @@ function showAnalysis(cid,jid){
       >
 
         <div class="stat">
-          <div class="stat-label">ATS 점수</div>
-          <div class="stat-value">${score}</div>
-        </div>
 
-
-        <div class="stat">
-          <div class="stat-label">경력</div>
-          <div class="stat-value">
-            ${careerYears}년
+          <div class="stat-label">
+            ATS 점수
           </div>
-        </div>
 
-
-        <div class="stat">
-          <div class="stat-label">경력 적합도</div>
           <div class="stat-value">
-            ${result.base || 0}
+            ${score}
           </div>
+
         </div>
 
 
         <div class="stat">
-          <div class="stat-label">추천</div>
+
+          <div class="stat-label">
+            경력
+          </div>
+
+          <div class="stat-value">
+            ${years}년
+          </div>
+
+        </div>
+
+
+        <div class="stat">
+
+          <div class="stat-label">
+            경력 적합도
+          </div>
+
+          <div class="stat-value">
+            ${Number(result?.base) || 0}
+          </div>
+
+        </div>
+
+
+        <div class="stat">
+
+          <div class="stat-label">
+            추천
+          </div>
+
           <div class="stat-value">
             ${recommendation}
           </div>
+
         </div>
 
       </div>
@@ -3951,15 +4193,17 @@ function showAnalysis(cid,jid){
         "
       >
 
-        <h3>지원자 핵심 요약</h3>
+        <h3>
+          지원자 핵심 요약
+        </h3>
 
         <div
           style="
             white-space:pre-wrap;
-            line-height:1.7;
+            line-height:1.8;
           "
         >
-          ${escapeHtml(coreSummary)}
+          ${safe(coreSummary)}
         </div>
 
       </div>
@@ -3974,7 +4218,9 @@ function showAnalysis(cid,jid){
         "
       >
 
-        <h3>주요 경력</h3>
+        <h3>
+          주요 경력
+        </h3>
 
         <div
           style="
@@ -3982,7 +4228,7 @@ function showAnalysis(cid,jid){
             line-height:1.8;
           "
         >
-          ${escapeHtml(careerDetail)}
+          ${safe(careerDetail)}
         </div>
 
       </div>
@@ -3997,7 +4243,9 @@ function showAnalysis(cid,jid){
         "
       >
 
-        <h3>핵심 역량</h3>
+        <h3>
+          핵심 역량
+        </h3>
 
         <div
           style="
@@ -4006,25 +4254,13 @@ function showAnalysis(cid,jid){
             gap:6px;
           "
         >
-
-          ${
-            Array.isArray(c.skills) &&
-            c.skills.length
-              ? c.skills
-                  .map(
-                    s =>
-                      `<span class="tag">${escapeHtml(String(s))}</span>`
-                  )
-                  .join('')
-              : '등록된 핵심 역량이 없습니다.'
-          }
-
+          ${skillsHtml}
         </div>
 
       </div>
 
 
-      <!-- JD 키워드 -->
+      <!-- 채용공고 키워드 -->
 
       <div
         class="card"
@@ -4033,7 +4269,9 @@ function showAnalysis(cid,jid){
         "
       >
 
-        <h3>채용공고 핵심 키워드</h3>
+        <h3>
+          채용공고 핵심 키워드
+        </h3>
 
         <div
           style="
@@ -4042,7 +4280,7 @@ function showAnalysis(cid,jid){
             gap:6px;
           "
         >
-          ${jdKeywordHtml}
+          ${keywordHtml}
         </div>
 
       </div>
@@ -4057,16 +4295,20 @@ function showAnalysis(cid,jid){
         "
       >
 
-        <h3>ATS 분석 결과</h3>
+        <h3>
+          ATS 분석 결과
+        </h3>
 
 
         <div
           style="
-            margin-bottom:14px;
+            margin-bottom:16px;
           "
         >
 
-          <strong>일치 키워드</strong>
+          <strong>
+            일치 키워드
+          </strong>
 
           <div
             style="
@@ -4084,11 +4326,13 @@ function showAnalysis(cid,jid){
 
         <div
           style="
-            margin-bottom:14px;
+            margin-bottom:16px;
           "
         >
 
-          <strong>부족 키워드</strong>
+          <strong>
+            부족 키워드
+          </strong>
 
           <div
             style="
@@ -4106,23 +4350,29 @@ function showAnalysis(cid,jid){
 
         <div
           style="
-            line-height:1.7;
+            line-height:1.8;
           "
         >
 
           <div>
-            키워드 적합도:
-            <strong>${result.base || 0}점</strong>
+            키워드 적합도 :
+            <strong>
+              ${Number(result?.base) || 0}점
+            </strong>
           </div>
 
           <div>
-            경력 점수:
-            <strong>${result.exp || 0}점</strong>
+            경력 점수 :
+            <strong>
+              ${Number(result?.exp) || 0}점
+            </strong>
           </div>
 
           <div>
-            학력 점수:
-            <strong>${result.edu || 0}점</strong>
+            학력 점수 :
+            <strong>
+              ${Number(result?.edu) || 0}점
+            </strong>
           </div>
 
         </div>
