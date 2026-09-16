@@ -11036,38 +11036,265 @@ function runAnalysis(){
 
 function renderReports(){
 
-  const reports =
-    state.jobs.map(
-      j=>{
+  const page = $('#page');
 
-        const cs =
-          state.candidates.filter(
-            c=>c.job===j.id
+  if(!page) return;
+
+  const jobs =
+    Array.isArray(state.jobs)
+      ? state.jobs
+      : [];
+
+  const candidates =
+    Array.isArray(state.candidates)
+      ? state.candidates
+      : [];
+
+
+  const totalJobs =
+    jobs.length;
+
+
+  const totalCandidates =
+    candidates.length;
+
+
+  const getCandidateJob =
+    c => {
+
+      const jobId =
+        c.jobId ||
+        c.job ||
+        c.jobPostId ||
+        '';
+
+      return jobs.find(
+        j =>
+          String(j.id) ===
+          String(jobId)
+      );
+
+    };
+
+
+  const stageMap = {
+
+    applied:
+      '지원',
+
+    review:
+      '서류검토',
+
+    interview1:
+      '1차면접',
+
+    interview2:
+      '2차면접',
+
+    final:
+      '최종면접',
+
+    hired:
+      '최종합격'
+
+  };
+
+
+  const stageKeys = [
+    'applied',
+    'review',
+    'interview1',
+    'interview2',
+    'final',
+    'hired'
+  ];
+
+
+  const stageLabels = [
+    '지원',
+    '서류검토',
+    '1차면접',
+    '2차면접',
+    '최종면접',
+    '최종합격'
+  ];
+
+
+  const stageCounts =
+    stageKeys.map(
+      key => {
+
+        return candidates.filter(
+          c =>
+            String(
+              c.stage ||
+              c.status ||
+              'applied'
+            ).toLowerCase() ===
+            key
+        ).length;
+
+      }
+    );
+
+
+  const hiredCount =
+    candidates.filter(
+      c =>
+        String(
+          c.stage ||
+          c.status ||
+          ''
+        ).toLowerCase() ===
+        'hired'
+    ).length;
+
+
+  const totalScore =
+    candidates.reduce(
+      (sum,c) => {
+
+        const job =
+          getCandidateJob(c);
+
+        if(!job)
+          return sum;
+
+        const analysis =
+          computeAnalysis(
+            c,
+            job
           );
+
+        return (
+          sum +
+          (
+            Number(
+              analysis.score
+            ) || 0
+          )
+        );
+
+      },
+      0
+    );
+
+
+  const scoredCandidates =
+    candidates.filter(
+      c =>
+        getCandidateJob(c)
+    );
+
+
+  const averageScore =
+    scoredCandidates.length
+      ? Math.round(
+          totalScore /
+          scoredCandidates.length
+        )
+      : 0;
+
+
+  const conversionRate =
+    totalCandidates
+      ? Math.round(
+          (
+            hiredCount /
+            totalCandidates
+          ) * 100
+        )
+      : 0;
+
+
+  const jobReports =
+    jobs.map(
+      job => {
+
+        const jobCandidates =
+          candidates.filter(
+            c => {
+
+              const jobId =
+                c.jobId ||
+                c.job ||
+                c.jobPostId ||
+                '';
+
+              return (
+                String(jobId) ===
+                String(job.id)
+              );
+
+            }
+          );
+
+
+        let scoreTotal = 0;
+
+        jobCandidates.forEach(
+          c => {
+
+            const analysis =
+              computeAnalysis(
+                c,
+                job
+              );
+
+            scoreTotal +=
+              Number(
+                analysis.score
+              ) || 0;
+
+          }
+        );
+
+
+        const jobAverage =
+          jobCandidates.length
+            ? Math.round(
+                scoreTotal /
+                jobCandidates.length
+              )
+            : 0;
+
+
+        const hired =
+          jobCandidates.filter(
+            c =>
+              String(
+                c.stage ||
+                c.status ||
+                ''
+              ).toLowerCase() ===
+              'hired'
+          ).length;
+
+
+        const conversion =
+          jobCandidates.length
+            ? Math.round(
+                (
+                  hired /
+                  jobCandidates.length
+                ) * 100
+              )
+            : 0;
+
 
         return {
 
-          ...j,
+          job,
 
-          n:cs.length,
+          count:
+            jobCandidates.length,
 
-          avg:
-            Math.round(
-              cs.reduce(
-                (a,c)=>
-                  a+(Number(c.score)||0),
-                0
-              ) /
-              Math.max(
-                1,
-                cs.length
-              )
-            ),
+          average:
+            jobAverage,
 
-          high:
-            cs.filter(
-              c=>(Number(c.score)||0)>=85
-            ).length
+          hired,
+
+          conversion
 
         };
 
@@ -11075,128 +11302,568 @@ function renderReports(){
     );
 
 
-  $('#page').innerHTML = `
+  const scoreBuckets = [
 
-    <div class="title-row">
+    {
+      label:'90점 이상',
+      min:90,
+      max:101
+    },
+
+    {
+      label:'80~89점',
+      min:80,
+      max:90
+    },
+
+    {
+      label:'70~79점',
+      min:70,
+      max:80
+    },
+
+    {
+      label:'60~69점',
+      min:60,
+      max:70
+    },
+
+    {
+      label:'59점 이하',
+      min:0,
+      max:60
+    }
+
+  ];
+
+
+  const scoreDistribution =
+    scoreBuckets.map(
+      bucket => {
+
+        let count = 0;
+
+        candidates.forEach(
+          c => {
+
+            const job =
+              getCandidateJob(c);
+
+            if(!job)
+              return;
+
+            const score =
+              Number(
+                computeAnalysis(
+                  c,
+                  job
+                ).score
+              ) || 0;
+
+            if(
+              score >= bucket.min &&
+              score < bucket.max
+            ){
+
+              count++;
+
+            }
+
+          }
+        );
+
+
+        return {
+
+          label:
+            bucket.label,
+
+          count
+
+        };
+
+      }
+    );
+
+
+  page.innerHTML = `
+
+    <section class="report-hero">
 
       <div>
 
-        <h2>리포트</h2>
+        <div class="report-eyebrow">
+          RECRUITING REPORT
+        </div>
 
-        <div class="muted mini">
-          채용공고별 ATS 지표를 비교합니다.
+        <h2>
+          채용 데이터를 한눈에 확인하세요
+        </h2>
+
+        <p>
+          채용공고와 지원자 데이터를 기반으로
+          현재 채용 현황과 성과를 확인할 수 있습니다.
+        </p>
+
+      </div>
+
+      <div class="report-hero-icon">
+        ◫
+      </div>
+
+    </section>
+
+
+    <section class="report-kpi-grid">
+
+
+      <div class="report-kpi-card">
+
+        <div class="report-kpi-icon blue">
+          ◎
+        </div>
+
+        <div>
+
+          <div class="report-kpi-label">
+            전체 채용공고
+          </div>
+
+          <strong>
+            ${totalJobs}
+          </strong>
+
+          <span>
+            등록된 공고
+          </span>
+
         </div>
 
       </div>
 
-      <button
-        class="btn"
-        onclick="toast('CSV 리포트 기능은 다음 확장 모듈에 연결할 수 있습니다.')"
-      >
-        CSV 내보내기
-      </button>
 
-    </div>
+      <div class="report-kpi-card">
+
+        <div class="report-kpi-icon purple">
+          👤
+        </div>
+
+        <div>
+
+          <div class="report-kpi-label">
+            전체 지원자
+          </div>
+
+          <strong>
+            ${totalCandidates}
+          </strong>
+
+          <span>
+            등록된 지원자
+          </span>
+
+        </div>
+
+      </div>
 
 
-    <div class="card">
+      <div class="report-kpi-card">
 
-      ${
-        reports.length
+        <div class="report-kpi-icon green">
+          ★
+        </div>
 
-        ?
+        <div>
 
-        `<table class="table">
+          <div class="report-kpi-label">
+            평균 ATS
+          </div>
 
-          <thead>
+          <strong>
+            ${averageScore}
+          </strong>
 
-            <tr>
-              <th>공고</th>
-              <th>지원자</th>
-              <th>평균 ATS</th>
-              <th>85점+ 후보</th>
-              <th>진행</th>
-            </tr>
+          <span>
+            분석 가능한 지원자 기준
+          </span>
 
-          </thead>
+        </div>
 
-          <tbody>
+      </div>
+
+
+      <div class="report-kpi-card">
+
+        <div class="report-kpi-icon orange">
+          ✓
+        </div>
+
+        <div>
+
+          <div class="report-kpi-label">
+            최종합격
+          </div>
+
+          <strong>
+            ${hiredCount}
+          </strong>
+
+          <span>
+            전환율 ${conversionRate}%
+          </span>
+
+        </div>
+
+      </div>
+
+
+    </section>
+
+
+    <section class="report-section-grid">
+
+
+      <div class="report-card report-funnel-card">
+
+        <div class="report-card-head">
+
+          <div>
+
+            <div class="report-section-eyebrow">
+              RECRUITING FUNNEL
+            </div>
+
+            <h3>
+              채용 진행 현황
+            </h3>
+
+          </div>
+
+          <span>
+            ${totalCandidates}명
+          </span>
+
+        </div>
+
+
+        <div class="report-funnel">
 
           ${
-            reports.map(
-              j=>`
+            stageLabels.map(
+              (label,index) => {
 
-              <tr>
+                const count =
+                  stageCounts[index];
 
-                <td>
+                const max =
+                  Math.max(
+                    ...stageCounts,
+                    1
+                  );
 
-                  <b>
-                    ${esc(j.title)}
-                  </b>
+                const width =
+                  Math.max(
+                    8,
+                    Math.round(
+                      (
+                        count /
+                        max
+                      ) * 100
+                    )
+                  );
 
-                  <div class="muted mini">
-                    ${esc(j.dept)}
+
+                return `
+
+                  <div class="report-funnel-row">
+
+                    <div class="report-funnel-label">
+
+                      <span>
+                        ${label}
+                      </span>
+
+                      <strong>
+                        ${count}
+                      </strong>
+
+                    </div>
+
+                    <div class="report-funnel-bar">
+
+                      <div
+                        style="
+                          width:${width}%
+                        "
+                      ></div>
+
+                    </div>
+
                   </div>
 
-                </td>
+                `;
 
-                <td>
-                  ${j.n}
-                </td>
-
-                <td>
-
-                  <b class="score ${
-                    j.avg>=85
-                      ? 'good'
-                      : j.avg>=70
-                        ? 'mid'
-                        : 'low'
-                  }">
-
-                    ${j.avg}
-
-                  </b>
-
-                </td>
-
-                <td>
-                  ${j.high}
-                </td>
-
-                <td>
-
-                  <span class="badge ${
-                    j.status==='진행중'
-                      ? 'b-green'
-                      : 'b-gray'
-                  }">
-
-                    ${esc(
-                      j.status ||
-                      ''
-                    )}
-
-                  </span>
-
-                </td>
-
-              </tr>
-
-              `
+              }
             ).join('')
           }
 
-          </tbody>
+        </div>
 
-        </table>`
+      </div>
 
-        :
 
-        `<div class="empty">
-          등록된 채용공고가 없습니다.
-        </div>`
-      }
+      <div class="report-card">
+
+        <div class="report-card-head">
+
+          <div>
+
+            <div class="report-section-eyebrow">
+              ATS DISTRIBUTION
+            </div>
+
+            <h3>
+              ATS 점수 분포
+            </h3>
+
+          </div>
+
+        </div>
+
+
+        <div class="report-score-list">
+
+          ${
+            scoreDistribution.map(
+              item => {
+
+                const width =
+                  totalCandidates
+                    ? Math.round(
+                        (
+                          item.count /
+                          totalCandidates
+                        ) * 100
+                      )
+                    : 0;
+
+
+                return `
+
+                  <div class="report-score-row">
+
+                    <div>
+
+                      <span>
+                        ${item.label}
+                      </span>
+
+                      <strong>
+                        ${item.count}명
+                      </strong>
+
+                    </div>
+
+                    <div class="report-score-bar">
+
+                      <div
+                        style="
+                          width:${width}%
+                        "
+                      ></div>
+
+                    </div>
+
+                  </div>
+
+                `;
+
+              }
+            ).join('')
+          }
+
+        </div>
+
+      </div>
+
+
+    </section>
+
+
+    <section class="report-card report-job-card">
+
+      <div class="report-card-head">
+
+        <div>
+
+          <div class="report-section-eyebrow">
+            JOB PERFORMANCE
+          </div>
+
+          <h3>
+            공고별 채용 성과
+          </h3>
+
+          <p>
+            각 채용공고의 지원자와 ATS 현황을 확인하세요.
+          </p>
+
+        </div>
+
+        <span>
+          ${jobs.length}개 공고
+        </span>
+
+      </div>
+
+
+      <div class="report-job-list">
+
+        ${
+          jobReports.length
+
+            ?
+
+            jobReports.map(
+              item => `
+
+                <div class="report-job-row">
+
+                  <div class="report-job-title">
+
+                    <div class="report-job-avatar">
+                      ${esc(
+                        (
+                          item.job.title ||
+                          '채용'
+                        ).charAt(0)
+                      )}
+                    </div>
+
+                    <div>
+
+                      <strong>
+                        ${esc(
+                          item.job.title ||
+                          '채용공고'
+                        )}
+                      </strong>
+
+                      <span>
+                        ${esc(
+                          item.job.department ||
+                          item.job.dept ||
+                          '부서 미지정'
+                        )}
+                      </span>
+
+                    </div>
+
+                  </div>
+
+
+                  <div class="report-job-stat">
+
+                    <span>
+                      지원자
+                    </span>
+
+                    <strong>
+                      ${item.count}
+                    </strong>
+
+                  </div>
+
+
+                  <div class="report-job-stat">
+
+                    <span>
+                      평균 ATS
+                    </span>
+
+                    <strong>
+                      ${item.average}
+                    </strong>
+
+                  </div>
+
+
+                  <div class="report-job-stat">
+
+                    <span>
+                      최종합격
+                    </span>
+
+                    <strong>
+                      ${item.hired}
+                    </strong>
+
+                  </div>
+
+
+                  <div class="report-job-stat">
+
+                    <span>
+                      전환율
+                    </span>
+
+                    <strong>
+                      ${item.conversion}%
+                    </strong>
+
+                  </div>
+
+                </div>
+
+              `
+            ).join('')
+
+            :
+
+            `
+
+              <div class="report-empty">
+
+                <div>
+                  ◫
+                </div>
+
+                <strong>
+                  아직 채용 데이터가 없습니다.
+                </strong>
+
+                <p>
+                  채용공고와 지원자를 등록하면
+                  리포트가 자동으로 생성됩니다.
+                </p>
+
+              </div>
+
+            `
+        }
+
+      </div>
+
+    </section>
+
+
+    <div class="data-info report-save-info">
+
+      <span>
+        ✓
+      </span>
+
+      <div>
+
+        <b>
+          리포트는 현재 등록된 채용 데이터를 기준으로 계산됩니다.
+        </b>
+
+        <div>
+          채용공고와 지원자 정보가 변경되면 리포트도 자동으로 업데이트됩니다.
+        </div>
+
+      </div>
 
     </div>
 
