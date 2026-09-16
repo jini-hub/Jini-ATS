@@ -725,9 +725,128 @@ button{cursor:pointer}
 }
 
 @media(max-width:720px){
+
   .sidebar{
     display:none
   }
+
+  .mobile-menu-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:42px;
+    height:42px;
+    border:0;
+    border-radius:10px;
+    background:#111827;
+    color:#fff;
+    font-size:22px;
+    font-weight:800;
+    flex:none;
+  }
+
+  .mobile-menu{
+    display:none;
+    position:fixed;
+    top:70px;
+    left:10px;
+    right:10px;
+    background:#111827;
+    border-radius:14px;
+    padding:10px;
+    z-index:100;
+    box-shadow:0 12px 30px rgba(0,0,0,.25);
+  }
+
+  .mobile-menu.open{
+    display:grid;
+    gap:5px;
+  }
+
+  .mobile-menu button{
+    width:100%;
+    border:0;
+    background:transparent;
+    color:#cbd5e1;
+    text-align:left;
+    padding:14px;
+    border-radius:10px;
+    font-size:14px;
+    font-weight:700;
+  }
+
+  .mobile-menu button.active,
+  .mobile-menu button:active{
+    background:#1f2937;
+    color:#fff;
+  }
+
+  .topbar{
+    padding:10px 14px;
+    align-items:flex-start
+  }
+
+  .top-left{
+    align-items:center
+  }
+
+  .topbar h1{
+    font-size:17px
+  }
+
+  .top-actions{
+    gap:6px
+  }
+
+  .top-actions .seed-btn{
+    display:none
+  }
+
+  .save-status{
+    display:none
+  }
+
+  .home-btn{
+    padding:9px 10px
+  }
+
+  .page{
+    padding:18px
+  }
+
+  .g4,
+  .g3,
+  .g2{
+    grid-template-columns:1fr
+  }
+
+  .board{
+    grid-template-columns:1fr
+  }
+
+  .kpi-line{
+    grid-template-columns:105px 1fr 50px
+  }
+
+  .modal{
+    padding:10px
+  }
+
+  .modal-box{
+    padding:18px;
+    max-height:94vh
+  }
+
+  .title-row{
+    align-items:flex-start;
+    flex-direction:column
+  }
+
+  .title-row>button,
+  .title-row>div+button{
+    align-self:flex-end
+  }
+}
 
   .topbar{
     padding:10px 14px;
@@ -826,18 +945,27 @@ button{cursor:pointer}
 
   <main class="main">
 
-    <header class="topbar">
+<div class="top-left">
 
-      <div class="top-left">
+  <button
+    class="mobile-menu-btn"
+    id="mobileMenuBtn"
+    title="메뉴"
+  >
+    ☰
+  </button>
 
-        <!-- v1.1 신규 홈 버튼 -->
-        <button class="btn home-btn" id="homeBtn" title="대시보드로 이동">
-          ⌂ 홈
-        </button>
+  <button
+    class="btn home-btn"
+    id="homeBtn"
+    title="대시보드로 이동"
+  >
+    ⌂ 홈
+  </button>
 
-        <h1 id="pageTitle">대시보드</h1>
+  <h1 id="pageTitle">대시보드</h1>
 
-      </div>
+</div>
 
       <div class="top-actions">
 
@@ -856,9 +984,33 @@ button{cursor:pointer}
 
       </div>
 
-    </header>
+</header>
 
-    <div class="page" id="page"></div>
+<div class="mobile-menu" id="mobileMenu">
+
+  <button data-page="dashboard">
+    대시보드
+  </button>
+
+  <button data-page="jobs">
+    채용공고
+  </button>
+
+  <button data-page="candidates">
+    지원자 관리
+  </button>
+
+  <button data-page="analysis">
+    ATS 분석
+  </button>
+
+  <button data-page="reports">
+    리포트
+  </button>
+
+</div>
+
+<div class="page" id="page"></div>
 
   </main>
 
@@ -1911,15 +2063,46 @@ function render(){
   $('#pageTitle').textContent =
     title;
 
-  $$('.nav button')
-    .forEach(
-      b =>
-        b.classList.toggle(
-          'active',
-          b.dataset.page === state.page
-        )
-    );
+/* PC 사이드바 메뉴 활성화 */
 
+$$('.nav button')
+  .forEach(
+    b =>
+      b.classList.toggle(
+        'active',
+        b.dataset.page === state.page
+      )
+  );
+
+
+/* APK 모바일 메뉴 활성화 */
+
+$$('.mobile-menu button')
+  .forEach(
+    b =>
+      b.classList.toggle(
+        'active',
+        b.dataset.page === state.page
+      )
+  );
+
+// 모바일 APK용 메뉴
+const mobileMenu = $('#mobileMenu');
+
+if (mobileMenu) {
+  mobileMenu.classList.remove('open');
+}
+
+const mobileMenuButtons = $$('.mobile-menu button');
+
+mobileMenuButtons.forEach(
+  b => {
+    b.classList.toggle(
+      'active',
+      b.dataset.page === state.page
+    );
+  }
+);
   const renderer = {
 
     dashboard:renderDashboard,
