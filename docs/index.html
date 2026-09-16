@@ -3426,7 +3426,7 @@ function renderAnalysis(){
         <h2>ATS 분석 센터</h2>
 
         <div class="muted mini">
-          지원자별 점수와 이력서/경력기술서 요약을 함께 확인합니다.
+          지원자별 ATS 적합도와 상세 분석 결과를 확인합니다.
         </div>
 
       </div>
@@ -3503,14 +3503,16 @@ function renderAnalysis(){
             <thead>
 
               <tr>
-                <th>지원자</th>
+
+                <th>이름</th>
                 <th>ATS</th>
                 <th>경력</th>
-                <th>핵심경력 요약</th>
                 <th>추천</th>
+
               </tr>
 
             </thead>
+
 
             <tbody>
 
@@ -3531,6 +3533,7 @@ function renderAnalysis(){
                         : x.score>=70
                           ? '검토 추천'
                           : '보완 검토';
+
 
                     return `
 
@@ -3560,16 +3563,16 @@ function renderAnalysis(){
 
                       <td>
 
-                        <b class="score ${
-                          x.score>=85
-                            ? 'good'
-                            : x.score>=70
-                              ? 'mid'
-                              : 'low'
-                        }">
-
+                        <b
+                          class="score ${
+                            x.score>=85
+                              ? 'good'
+                              : x.score>=70
+                                ? 'mid'
+                                : 'low'
+                          }"
+                        >
                           ${Number(x.score)||0}
-
                         </b>
 
                       </td>
@@ -3594,30 +3597,18 @@ function renderAnalysis(){
                       </td>
 
 
-                      <td style="min-width:350px">
-
-                        ${esc(
-                          x.careerSummary ||
-                          x.resumeSummary ||
-                          x.resume ||
-                          '요약 없음'
-                        )}
-
-                      </td>
-
-
                       <td>
 
-                        <span class="badge ${
-                          x.score>=85
-                            ? 'b-green'
-                            : x.score>=70
-                              ? 'b-blue'
-                              : 'b-red'
-                        }">
-
+                        <span
+                          class="badge ${
+                            x.score>=85
+                              ? 'b-green'
+                              : x.score>=70
+                                ? 'b-blue'
+                                : 'b-red'
+                          }"
+                        >
                           ${rec}
-
                         </span>
 
                       </td>
@@ -3665,7 +3656,6 @@ function renderAnalysis(){
 
 }
 
-
 /* ============================================================
    분석 상세
    ============================================================ */
@@ -3682,6 +3672,7 @@ function showAnalysis(cid,jid){
       x=>x.id==jid
     );
 
+
   if(!c || !j)
     return;
 
@@ -3696,8 +3687,46 @@ function showAnalysis(cid,jid){
   const result =
     $('#analysisResult');
 
+
   if(!result)
     return;
+
+
+  /*
+   * 지원자 핵심 요약
+   *
+   * 우선순위:
+   * 1. careerSummary
+   * 2. resumeSummary
+   * 3. resume
+   */
+
+  const coreSummary =
+    c.careerSummary ||
+    c.resumeSummary ||
+    c.resume ||
+    'AI 요약 없음';
+
+
+  /*
+   * 주요 경력
+   *
+   * 기존 주요 경력 내용은
+   * 절대 삭제하지 않음.
+   */
+
+  const careerDetail =
+    c.keyCareers
+      ? (
+          Array.isArray(c.keyCareers)
+            ? c.keyCareers.join('\n')
+            : c.keyCareers
+        )
+      : (
+          c.careerDetail ||
+          c.resume ||
+          '경력 정보 없음'
+        );
 
 
   result.innerHTML = `
@@ -3707,11 +3736,20 @@ function showAnalysis(cid,jid){
       <div class="title-row">
 
         <h2>
-          ${esc(c.name || '이름 미확인')}
+
+          ${esc(
+            c.name ||
+            '이름 미확인'
+          )}
+
           ·
+
           ${esc(j.title)}
+
           적합도
+
         </h2>
+
 
         <button
           class="btn"
@@ -3726,6 +3764,8 @@ function showAnalysis(cid,jid){
       <div class="analysis-grid">
 
 
+        <!-- ATS 점수 -->
+
         <div>
 
           <div
@@ -3739,6 +3779,7 @@ function showAnalysis(cid,jid){
 
           </div>
 
+
           <div
             style="text-align:center"
             class="muted"
@@ -3749,9 +3790,16 @@ function showAnalysis(cid,jid){
         </div>
 
 
+
+        <!-- 상세 분석 -->
+
         <div>
 
+
+          <!-- 점수 구성 -->
+
           <div class="grid g3">
+
 
             <div
               class="card"
@@ -3809,35 +3857,46 @@ function showAnalysis(cid,jid){
 
             </div>
 
+
           </div>
+
 
 
           <!-- 지원자 핵심 요약 -->
 
           <h3
-            style="font-size:14px;margin:20px 0 10px"
+            style="
+              font-size:14px;
+              margin:20px 0 10px
+            "
           >
             지원자 핵심 요약
           </h3>
 
-          <div class="notice">
 
-            ${esc(
-              c.resumeSummary ||
-              c.careerSummary ||
-              'AI 요약 없음'
-            )}
-
+          <div
+            class="notice"
+            style="
+              line-height:1.7;
+              white-space:pre-wrap;
+            "
+          >
+            ${esc(coreSummary)}
           </div>
+
 
 
           <!-- 주요 경력 -->
 
           <h3
-            style="font-size:14px;margin:20px 0 10px"
+            style="
+              font-size:14px;
+              margin:20px 0 10px
+            "
           >
             주요 경력
           </h3>
+
 
           <div
             class="card"
@@ -3845,129 +3904,24 @@ function showAnalysis(cid,jid){
               box-shadow:none;
               background:#fafbfc;
               line-height:1.7;
-              font-size:13px
+              font-size:13px;
+              white-space:pre-wrap;
             "
           >
 
-            ${
-              Array.isArray(c.keyCareers) &&
-              c.keyCareers.length
-
-                ?
-
-                c.keyCareers
-                  .map(
-                    x=>`
-
-                      <div
-                        style="
-                          padding:10px 0;
-                          border-bottom:1px solid #e5e7eb
-                        "
-                      >
-
-                        <div
-                          style="
-                            font-weight:700;
-                            margin-bottom:4px
-                          "
-                        >
-                          ${esc(
-                            [
-                              x.company,
-                              x.position
-                            ]
-                            .filter(Boolean)
-                            .join(' · ')
-                          )}
-                        </div>
-
-                        ${
-                          x.period
-                            ? `
-                              <div
-                                class="mini muted"
-                                style="margin-bottom:4px"
-                              >
-                                ${esc(x.period)}
-                              </div>
-                            `
-                            : ''
-                        }
-
-                        <div>
-                          ${esc(
-                            x.description ||
-                            ''
-                          )}
-                        </div>
-
-                      </div>
-
-                    `
-                  )
-                  .join('')
-
-                :
-
-                esc(
-                  c.careerDetail ||
-                  c.careerSummary ||
-                  c.resume ||
-                  '경력 정보 없음'
-                )
-            }
+            ${esc(careerDetail)}
 
           </div>
 
-
-          <!-- 핵심 역량 -->
-
-          <h3
-            style="font-size:14px;margin:20px 0 10px"
-          >
-            핵심 역량
-          </h3>
-
-          <div class="keyword-wrap">
-
-            ${
-              Array.isArray(c.skills)
-
-                ?
-
-                c.skills
-                  .filter(Boolean)
-                  .map(
-                    k=>
-                      `<span class="keyword kw-hit">
-                        ${esc(k)}
-                      </span>`
-                  )
-                  .join('')
-
-                :
-
-                c.skills
-                  ? `
-                    <span class="keyword kw-hit">
-                      ${esc(c.skills)}
-                    </span>
-                  `
-                  : `
-                    <span class="muted">
-                      등록된 핵심 역량 없음
-                    </span>
-                  `
-            }
-
-          </div>
 
 
           <!-- JD 핵심 키워드 -->
 
           <h3
-            style="font-size:14px;margin:20px 0 10px"
+            style="
+              font-size:14px;
+              margin:20px 0 10px
+            "
           >
             JD 핵심 키워드
           </h3>
@@ -3997,25 +3951,35 @@ function showAnalysis(cid,jid){
           </div>
 
 
+
           <!-- 분석 결과 -->
 
           <h3
-            style="font-size:14px;margin:20px 0 10px"
+            style="
+              font-size:14px;
+              margin:20px 0 10px
+            "
           >
             분석 결과
           </h3>
+
 
           <div class="notice">
 
             ${
               a.score>=85
+
                 ? 'ATS 기준 높은 적합도를 보이는 후보입니다.'
+
                 : a.score>=70
+
                   ? 'ATS 기준 추가 검토가 필요한 후보입니다.'
+
                   : 'ATS 기준 직무 키워드 및 경력 적합성을 추가 검토할 필요가 있습니다.'
             }
 
           </div>
+
 
         </div>
 
