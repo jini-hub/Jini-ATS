@@ -6456,6 +6456,7 @@ a:hover{
       <button data-page="candidates">지원자 관리</button>
       <button data-page="analysis">ATS 분석</button>
       <button data-page="reports">리포트</button>
+      <button data-page="settings">설정</button>
     </div>
 
     <div class="side-foot">
@@ -6529,7 +6530,10 @@ a:hover{
   <button data-page="reports">
     리포트
   </button>
-
+<button data-page="settings">
+  설정
+</button>
+  
 </div>
 
 <div class="page" id="page"></div>
@@ -6910,6 +6914,7 @@ function normalizeState(saved){
       'candidates',
       'analysis',
       'reports'
+      'settings'
     ].includes(s.page)
       ? s.page
       : 'dashboard',
@@ -6986,6 +6991,56 @@ function save(){
 
 }
 
+  /* ============================================================
+   전체 데이터 초기화
+   ============================================================ */
+
+function resetAllData(){
+
+  const answer =
+    confirm(
+      '정말 모든 데이터를 삭제하시겠습니까?\n\n' +
+      '채용공고와 지원자 데이터가 모두 삭제됩니다.\n' +
+      '이 작업은 되돌릴 수 없습니다.'
+    );
+
+
+  if(!answer)
+    return;
+
+
+  const currentAiKey =
+    state.aiKey ||
+    '';
+
+
+  state =
+    normalizeState({
+
+      ...createDefaultState(),
+
+      jobs:[],
+
+      candidates:[],
+
+      page:'settings',
+
+      aiKey:
+        currentAiKey
+
+    });
+
+
+  save();
+
+  render();
+
+
+  toast(
+    '채용 데이터가 초기화되었습니다.'
+  );
+
+}
 
 /* ============================================================
    불러오기
@@ -7575,7 +7630,7 @@ function render(){
     candidates:'지원자 관리',
     analysis:'ATS 분석',
     reports:'리포트'
-
+    settings:'설정'
   };
 
   const title =
@@ -7632,7 +7687,7 @@ mobileMenuButtons.forEach(
     candidates:renderCandidates,
     analysis:renderAnalysis,
     reports:renderReports
-
+    settings:renderSettings
   }[state.page];
 
   if(renderer)
@@ -12425,6 +12480,537 @@ const hired =
 
 }
 
+/* ============================================================
+   설정
+   ============================================================ */
+
+function renderSettings(){
+
+  const page = $('#page');
+
+  if(!page)
+    return;
+
+
+  const apiKey =
+    String(
+      state.aiKey ||
+      ''
+    ).trim();
+
+
+  const maskedKey =
+    apiKey
+      ? (
+          apiKey.length > 12
+            ? (
+                apiKey.slice(0,6) +
+                '••••••••' +
+                apiKey.slice(-4)
+              )
+            : '••••••••'
+        )
+      : '설정되지 않음';
+
+
+  const totalJobs =
+    Array.isArray(state.jobs)
+      ? state.jobs.length
+      : 0;
+
+
+  const totalCandidates =
+    Array.isArray(state.candidates)
+      ? state.candidates.length
+      : 0;
+
+
+  page.innerHTML = `
+
+    <section class="settings-hero">
+
+      <div>
+
+        <div class="settings-eyebrow">
+          SETTINGS
+        </div>
+
+        <h2>
+          Jini-ATS를 원하는 방식으로 설정하세요
+        </h2>
+
+        <p>
+          AI 분석, ATS 기준, 데이터 관리 등
+          서비스의 주요 설정을 관리할 수 있습니다.
+        </p>
+
+      </div>
+
+      <div class="settings-hero-icon">
+        ⚙
+      </div>
+
+    </section>
+
+
+    <section class="settings-section">
+
+      <div class="settings-section-head">
+
+        <div>
+
+          <div class="settings-section-eyebrow">
+            GENERAL
+          </div>
+
+          <h3>
+            기본 설정
+          </h3>
+
+          <p>
+            현재 ATS의 기본 정보를 확인합니다.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="settings-list">
+
+
+        <div class="settings-row">
+
+          <div class="settings-row-icon blue">
+            ◉
+          </div>
+
+          <div class="settings-row-content">
+
+            <strong>
+              서비스 이름
+            </strong>
+
+            <span>
+              Jini-ATS Studio
+            </span>
+
+          </div>
+
+          <span class="settings-value">
+            v2.0.0
+          </span>
+
+        </div>
+
+
+        <div class="settings-row">
+
+          <div class="settings-row-icon purple">
+            ◇
+          </div>
+
+          <div class="settings-row-content">
+
+            <strong>
+              저장 방식
+            </strong>
+
+            <span>
+              현재 브라우저의 LocalStorage에 데이터를 저장합니다.
+            </span>
+
+          </div>
+
+          <span class="settings-status-badge">
+            정상
+          </span>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+    <section class="settings-section">
+
+      <div class="settings-section-head">
+
+        <div>
+
+          <div class="settings-section-eyebrow">
+            ATS
+          </div>
+
+          <h3>
+            ATS 분석 기준
+          </h3>
+
+          <p>
+            현재 지원자 적합도 계산에 사용되는 기준입니다.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="settings-score-grid">
+
+        <div class="settings-score-card">
+
+          <span>
+            키워드
+          </span>
+
+          <strong>
+            40점
+          </strong>
+
+          <small>
+            JD 핵심 키워드 일치
+          </small>
+
+        </div>
+
+
+        <div class="settings-score-card">
+
+          <span>
+            직무경력
+          </span>
+
+          <strong>
+            30점
+          </strong>
+
+          <small>
+            경력 및 직무 적합성
+          </small>
+
+        </div>
+
+
+        <div class="settings-score-card">
+
+          <span>
+            경력연차
+          </span>
+
+          <strong>
+            15점
+          </strong>
+
+          <small>
+            총 경력연차
+          </small>
+
+        </div>
+
+
+        <div class="settings-score-card">
+
+          <span>
+            핵심스킬
+          </span>
+
+          <strong>
+            10점
+          </strong>
+
+          <small>
+            보유 역량
+          </small>
+
+        </div>
+
+
+        <div class="settings-score-card">
+
+          <span>
+            학력
+          </span>
+
+          <strong>
+            5점
+          </strong>
+
+          <small>
+            학력 정보
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <div class="settings-total">
+
+        <span>
+          총점
+        </span>
+
+        <strong>
+          100점
+        </strong>
+
+      </div>
+
+    </section>
+
+
+    <section class="settings-section">
+
+      <div class="settings-section-head">
+
+        <div>
+
+          <div class="settings-section-eyebrow">
+            AI
+          </div>
+
+          <h3>
+            Gemini AI
+          </h3>
+
+          <p>
+            이력서 PDF 분석과 지원자 정보 자동 구조화에 사용됩니다.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="settings-ai-card">
+
+        <div class="settings-ai-main">
+
+          <div class="settings-ai-icon">
+            ✦
+          </div>
+
+          <div>
+
+            <strong>
+              Gemini API
+            </strong>
+
+            <span>
+              ${
+                apiKey
+                  ? 'API Key가 설정되어 있습니다.'
+                  : 'API Key가 설정되지 않았습니다.'
+              }
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="settings-ai-key">
+
+          <span>
+            ${esc(maskedKey)}
+          </span>
+
+          <button
+            class="btn"
+            type="button"
+            onclick="openAISettings()"
+          >
+            AI 설정
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="settings-notice">
+
+        <span>
+          !
+        </span>
+
+        <div>
+
+          <strong>
+            API Key 보안 안내
+          </strong>
+
+          <p>
+            API Key는 공개 GitHub 저장소에 직접 입력하지 않는 것을 권장합니다.
+            개인 테스트 환경에서만 사용하고, 실제 서비스에서는 서버 측에서 안전하게 관리해야 합니다.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="settings-section">
+
+      <div class="settings-section-head">
+
+        <div>
+
+          <div class="settings-section-eyebrow">
+            DATA
+          </div>
+
+          <h3>
+            데이터 관리
+          </h3>
+
+          <p>
+            현재 브라우저에 저장된 채용 데이터를 확인합니다.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="settings-data-grid">
+
+
+        <div class="settings-data-card">
+
+          <span>
+            채용공고
+          </span>
+
+          <strong>
+            ${totalJobs}
+          </strong>
+
+          <small>
+            등록된 공고
+          </small>
+
+        </div>
+
+
+        <div class="settings-data-card">
+
+          <span>
+            지원자
+          </span>
+
+          <strong>
+            ${totalCandidates}
+          </strong>
+
+          <small>
+            등록된 지원자
+          </small>
+
+        </div>
+
+
+        <div class="settings-data-card">
+
+          <span>
+            저장 상태
+          </span>
+
+          <strong>
+            정상
+          </strong>
+
+          <small>
+            자동 저장 활성화
+          </small>
+
+        </div>
+
+
+      </div>
+
+
+      <div class="settings-danger-zone">
+
+        <div>
+
+          <strong>
+            데모 데이터 다시 불러오기
+          </strong>
+
+          <span>
+            현재 저장된 채용공고와 지원자 데이터를
+            데모 데이터로 교체합니다.
+          </span>
+
+        </div>
+
+        <button
+          class="btn"
+          type="button"
+          onclick="$('#seedBtn').click()"
+        >
+          데모 데이터
+        </button>
+
+      </div>
+
+
+      <div class="settings-danger-zone danger">
+
+        <div>
+
+          <strong>
+            전체 데이터 초기화
+          </strong>
+
+          <span>
+            현재 브라우저에 저장된 모든 채용공고와 지원자 데이터를 삭제합니다.
+          </span>
+
+        </div>
+
+        <button
+          class="btn danger-btn"
+          type="button"
+          onclick="resetAllData()"
+        >
+          데이터 초기화
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <div class="data-info settings-save-info">
+
+      <span>
+        ✓
+      </span>
+
+      <div>
+
+        <b>
+          설정 및 채용 데이터는 현재 브라우저에 자동 저장됩니다.
+        </b>
+
+        <div>
+          다른 브라우저나 다른 기기에서는 별도의 저장 데이터가 사용됩니다.
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+  
 
 /* ============================================================
    페이지 이동
