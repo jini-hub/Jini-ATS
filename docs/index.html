@@ -2850,6 +2850,710 @@ a:hover{
   }
 
 }
+
+  /* =========================================================
+   Jini-ATS 2.0
+   STEP 6 - Jobs / Recruitment
+   ========================================================= */
+
+.jobs-hero{
+  position:relative;
+  overflow:hidden;
+  min-height:190px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:25px;
+  padding:30px 34px;
+  border-radius:26px;
+  background:
+    linear-gradient(
+      135deg,
+      #FFFFFF 0%,
+      #F8FAFF 55%,
+      #EEF5FF 100%
+    );
+  border:1px solid rgba(229,229,234,.9);
+  box-shadow:
+    0 8px 30px rgba(0,0,0,.045),
+    0 2px 8px rgba(0,0,0,.025);
+}
+
+.jobs-hero::after{
+  content:"";
+  position:absolute;
+  width:240px;
+  height:240px;
+  right:-55px;
+  top:-90px;
+  border-radius:50%;
+  background:
+    radial-gradient(
+      circle,
+      rgba(0,122,255,.16),
+      rgba(88,86,214,.07) 45%,
+      transparent 70%
+    );
+}
+
+.jobs-hero-content{
+  position:relative;
+  z-index:2;
+}
+
+.jobs-eyebrow{
+  margin-bottom:8px;
+  color:#007AFF;
+  font-size:11px;
+  font-weight:850;
+  letter-spacing:.8px;
+}
+
+.jobs-hero h2{
+  margin:0;
+  color:#1C1C1E;
+  font-size:30px;
+  font-weight:850;
+  letter-spacing:-1px;
+}
+
+.jobs-hero p{
+  margin:10px 0 0;
+  color:#6E6E73;
+  font-size:12px;
+  line-height:1.7;
+}
+
+.jobs-hero-button{
+  position:relative;
+  z-index:3;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  border:0;
+  border-radius:14px;
+  padding:12px 17px;
+  background:#007AFF;
+  color:#fff;
+  font-family:inherit;
+  font-size:12px;
+  font-weight:750;
+  cursor:pointer;
+  box-shadow:
+    0 6px 18px rgba(0,122,255,.20);
+  transition:
+    transform .15s ease,
+    background .15s ease,
+    box-shadow .15s ease;
+}
+
+.jobs-hero-button:hover{
+  background:#005FCC;
+  box-shadow:
+    0 9px 24px rgba(0,122,255,.25);
+}
+
+.jobs-hero-button:active{
+  transform:scale(.97);
+}
+
+.jobs-hero-button span{
+  font-size:17px;
+  line-height:1;
+}
+
+
+.jobs-summary-grid{
+  display:grid;
+  grid-template-columns:
+    repeat(4,minmax(0,1fr));
+  gap:14px;
+}
+
+.jobs-summary-card{
+  min-width:0;
+  padding:19px;
+  border-radius:20px;
+  background:#fff;
+  border:1px solid rgba(229,229,234,.9);
+  box-shadow:
+    0 4px 18px rgba(0,0,0,.035),
+    0 1px 4px rgba(0,0,0,.02);
+  transition:
+    transform .18s ease,
+    box-shadow .18s ease;
+}
+
+.jobs-summary-card:hover{
+  transform:translateY(-2px);
+  box-shadow:
+    0 10px 28px rgba(0,0,0,.065);
+}
+
+.jobs-summary-icon{
+  width:36px;
+  height:36px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:11px;
+  margin-bottom:14px;
+  font-size:13px;
+  font-weight:850;
+}
+
+.jobs-summary-icon.blue{
+  background:#EAF3FF;
+  color:#007AFF;
+}
+
+.jobs-summary-icon.green{
+  background:#EAF9EE;
+  color:#248A3D;
+}
+
+.jobs-summary-icon.gray{
+  background:#F2F2F7;
+  color:#636366;
+}
+
+.jobs-summary-icon.indigo{
+  background:#EEEDFF;
+  color:#5856D6;
+}
+
+.jobs-summary-label{
+  color:#6E6E73;
+  font-size:11px;
+  font-weight:700;
+}
+
+.jobs-summary-number{
+  margin-top:3px;
+  color:#1C1C1E;
+  font-size:29px;
+  font-weight:850;
+  letter-spacing:-.8px;
+}
+
+.jobs-summary-description{
+  margin-top:6px;
+  color:#8E8E93;
+  font-size:10px;
+}
+
+
+.jobs-list-section{
+  padding:21px;
+  border-radius:20px;
+  background:#fff;
+  border:1px solid rgba(229,229,234,.9);
+  box-shadow:
+    0 4px 18px rgba(0,0,0,.035),
+    0 1px 4px rgba(0,0,0,.02);
+}
+
+.jobs-list-header{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:18px;
+}
+
+.jobs-list-title{
+  color:#1C1C1E;
+  font-size:16px;
+  font-weight:800;
+  letter-spacing:-.3px;
+}
+
+.jobs-list-subtitle{
+  margin-top:4px;
+  color:#8E8E93;
+  font-size:10px;
+}
+
+.jobs-list-count{
+  padding:7px 10px;
+  border-radius:999px;
+  background:#EAF9EE;
+  color:#248A3D;
+  font-size:10px;
+  font-weight:750;
+}
+
+
+.jobs-grid{
+  display:grid;
+  grid-template-columns:
+    repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+
+
+.job-card{
+  position:relative;
+  min-width:0;
+  padding:19px;
+  border-radius:19px;
+  background:#fff;
+  border:1px solid #E5E5EA;
+  box-shadow:
+    0 3px 13px rgba(0,0,0,.03);
+  transition:
+    transform .18s ease,
+    box-shadow .18s ease,
+    border-color .18s ease;
+}
+
+.job-card:hover{
+  transform:translateY(-2px);
+  border-color:#D5D5DA;
+  box-shadow:
+    0 10px 28px rgba(0,0,0,.065);
+}
+
+
+.job-card-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.job-status{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  padding:5px 9px;
+  border-radius:999px;
+  font-size:9px;
+  font-weight:800;
+}
+
+.job-status.active{
+  background:#EAF9EE;
+  color:#248A3D;
+}
+
+.job-status.closed{
+  background:#F2F2F7;
+  color:#636366;
+}
+
+.job-status-dot{
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:currentColor;
+}
+
+
+.job-card-actions{
+  display:flex;
+  align-items:center;
+  gap:3px;
+}
+
+.job-action-btn{
+  border:0;
+  background:transparent;
+  color:#636366;
+  padding:5px 6px;
+  border-radius:8px;
+  font-family:inherit;
+  font-size:10px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.job-action-btn:hover{
+  background:#F2F2F7;
+  color:#1C1C1E;
+}
+
+.job-action-btn.danger{
+  color:#FF3B30;
+}
+
+.job-action-btn.danger:hover{
+  background:#FFF0F0;
+  color:#D70015;
+}
+
+
+.job-card-title{
+  margin-top:14px;
+  overflow:hidden;
+  color:#1C1C1E;
+  font-size:17px;
+  line-height:1.35;
+  font-weight:800;
+  letter-spacing:-.45px;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.job-card-info{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  margin-top:6px;
+  color:#6E6E73;
+  font-size:10px;
+}
+
+.job-info-dot{
+  color:#AEAEB2;
+}
+
+
+.job-card-period{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  margin-top:12px;
+  color:#8E8E93;
+  font-size:10px;
+}
+
+.job-period-icon{
+  color:#007AFF;
+  font-size:12px;
+}
+
+
+.job-card-keywords{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  min-height:26px;
+  margin-top:13px;
+}
+
+.job-keyword{
+  padding:5px 8px;
+  border-radius:999px;
+  background:#F2F2F7;
+  color:#636366;
+  font-size:9px;
+  font-weight:650;
+}
+
+
+.job-card-stats{
+  display:grid;
+  grid-template-columns:
+    1fr
+    1px
+    1fr
+    1px
+    1fr;
+  align-items:center;
+  gap:10px;
+  margin-top:18px;
+  padding:14px 0;
+  border-top:1px solid #F0F0F2;
+  border-bottom:1px solid #F0F0F2;
+}
+
+.job-stat{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.job-stat-label{
+  color:#8E8E93;
+  font-size:9px;
+  font-weight:650;
+}
+
+.job-stat strong{
+  color:#1C1C1E;
+  font-size:17px;
+  line-height:1;
+  font-weight:850;
+}
+
+.job-stat strong small{
+  margin-left:2px;
+  color:#8E8E93;
+  font-size:9px;
+  font-weight:650;
+}
+
+.job-stat strong.good{
+  color:#248A3D;
+}
+
+.job-stat strong.mid{
+  color:#C93400;
+}
+
+.job-stat strong.low{
+  color:#D70015;
+}
+
+.job-stat strong.neutral{
+  color:#636366;
+}
+
+.job-stat-divider{
+  width:1px;
+  height:28px;
+  background:#E5E5EA;
+}
+
+
+.job-card-footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:13px;
+}
+
+.job-card-footer > span{
+  overflow:hidden;
+  color:#8E8E93;
+  font-size:9px;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.job-detail-btn{
+  display:flex;
+  align-items:center;
+  gap:4px;
+  flex:none;
+  border:0;
+  background:transparent;
+  color:#007AFF;
+  padding:4px 0;
+  font-family:inherit;
+  font-size:10px;
+  font-weight:750;
+  cursor:pointer;
+}
+
+.job-detail-btn:hover{
+  color:#005FCC;
+}
+
+.job-detail-btn span{
+  font-size:13px;
+}
+
+
+.jobs-empty-section{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  min-height:330px;
+  padding:30px;
+  border-radius:22px;
+  background:#fff;
+  border:1px solid rgba(229,229,234,.9);
+  box-shadow:
+    0 4px 18px rgba(0,0,0,.035);
+  text-align:center;
+}
+
+.jobs-empty-icon{
+  width:52px;
+  height:52px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:14px;
+  border-radius:50%;
+  background:#F2F2F7;
+  color:#8E8E93;
+  font-size:24px;
+}
+
+.jobs-empty-title{
+  color:#1C1C1E;
+  font-size:15px;
+  font-weight:800;
+}
+
+.jobs-empty-description{
+  margin:7px 0 18px;
+  color:#8E8E93;
+  font-size:11px;
+}
+
+
+.jobs-save-info{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:13px 16px;
+}
+
+.jobs-save-info b{
+  display:block;
+  margin-bottom:1px;
+  color:#3A3A3C;
+  font-size:11px;
+}
+
+.jobs-save-icon{
+  width:30px;
+  height:30px;
+  min-width:30px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:#EAF9EE;
+  color:#248A3D;
+  font-size:12px;
+  font-weight:800;
+}
+
+
+/* =========================================================
+   STEP 6 Responsive
+   ========================================================= */
+
+@media(max-width:1100px){
+
+  .jobs-summary-grid{
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+  }
+
+  .jobs-grid{
+    grid-template-columns:
+      1fr;
+  }
+
+}
+
+
+@media(max-width:720px){
+
+  .jobs-hero{
+    min-height:175px;
+    padding:24px 21px;
+    border-radius:22px;
+  }
+
+  .jobs-hero h2{
+    font-size:25px;
+  }
+
+  .jobs-hero p{
+    max-width:260px;
+    font-size:10px;
+  }
+
+  .jobs-hero-button{
+    padding:10px 12px;
+    font-size:10px;
+  }
+
+  .jobs-summary-grid{
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+    gap:9px;
+  }
+
+  .jobs-summary-card{
+    padding:15px;
+    border-radius:18px;
+  }
+
+  .jobs-summary-icon{
+    width:32px;
+    height:32px;
+    margin-bottom:10px;
+  }
+
+  .jobs-summary-number{
+    font-size:25px;
+  }
+
+  .jobs-summary-description{
+    font-size:9px;
+  }
+
+  .jobs-list-section{
+    padding:17px;
+    border-radius:19px;
+  }
+
+  .job-card{
+    padding:16px;
+    border-radius:18px;
+  }
+
+}
+
+
+@media(max-width:420px){
+
+  .jobs-hero{
+    padding:21px 17px;
+  }
+
+  .jobs-hero h2{
+    font-size:22px;
+  }
+
+  .jobs-hero p{
+    max-width:190px;
+  }
+
+  .jobs-hero-button{
+    position:absolute;
+    right:16px;
+    bottom:16px;
+  }
+
+  .jobs-summary-grid{
+    gap:8px;
+  }
+
+  .jobs-summary-card{
+    padding:13px;
+  }
+
+  .jobs-summary-label{
+    font-size:10px;
+  }
+
+  .jobs-summary-number{
+    font-size:22px;
+  }
+
+  .jobs-list-header{
+    align-items:flex-start;
+  }
+
+  .jobs-list-count{
+    font-size:9px;
+    padding:6px 8px;
+  }
+
+  .job-card-title{
+    font-size:15px;
+  }
+
+  .job-card-stats{
+    gap:7px;
+  }
+
+  .job-stat strong{
+    font-size:15px;
+  }
+
+}
   
 </style>
   
@@ -4722,158 +5426,623 @@ function renderDashboard(){
 
 }
 
+docs/index.html
+
+열고 Ctrl + F
+
+다음을 검색하세요.
+
+function renderJobs(){
+
+현재 실제 위치는 3548라인입니다.
+
+② 삭제 범위
+
+다음부터 시작해서:
+
+function renderJobs(){
+
+아래의 renderJobs() 함수 전체를 삭제합니다.
+
+삭제 끝부분은 여기입니다.
+
+}
+ 
+ 
+/* ============================================================
+   지원자 관리
+   ============================================================ */
+   
+function renderCandidates(){
+
+즉,
+
+function renderJobs(){
+
+       ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+
+   기존 renderJobs 전체 삭제
+
+       ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+
+}
+
+
+/* ============================================================
+   지원자 관리
+   ============================================================ */
+function renderCandidates(){
+
+function renderCandidates(){부터는 절대로 삭제하지 마세요.
+
+현재 실제 코드도 renderJobs() 다음에 바로 renderCandidates()가 이어집니다.
+
+③ 아래 코드로 통째로 교체
 /* ============================================================
    채용공고
    ============================================================ */
 
 function renderJobs(){
 
+  const totalJobs =
+    state.jobs.length;
+
+  const activeJobs =
+    state.jobs.filter(
+      j=>j.status==='진행중'
+    ).length;
+
+  const closedJobs =
+    state.jobs.filter(
+      j=>j.status!=='진행중'
+    ).length;
+
+  const totalApplicants =
+    state.candidates.length;
+
+
   $('#page').innerHTML = `
 
-    <div class="title-row">
+    <!-- ======================================================
+         채용공고 Hero
+         ====================================================== -->
 
-      <div>
+    <section class="jobs-hero">
 
-        <h2>채용공고</h2>
+      <div class="jobs-hero-content">
 
-        <div class="muted mini">
-          JD를 등록하면 ATS 분석에 바로 사용할 수 있습니다.
+        <div class="jobs-eyebrow">
+          RECRUITMENT
+        </div>
+
+        <h2>
+          채용공고
+        </h2>
+
+        <p>
+          채용 포지션을 관리하고,
+          등록된 JD를 ATS 분석에 활용할 수 있습니다.
+        </p>
+
+      </div>
+
+
+      <button
+        class="jobs-hero-button"
+        onclick="openJob()"
+      >
+        <span>＋</span>
+        새 채용공고
+      </button>
+
+    </section>
+
+
+    <div style="height:18px"></div>
+
+
+    <!-- ======================================================
+         채용공고 KPI
+         ====================================================== -->
+
+    <section class="jobs-summary-grid">
+
+
+      <div class="jobs-summary-card">
+
+        <div class="jobs-summary-icon blue">
+          ≡
+        </div>
+
+        <div class="jobs-summary-label">
+          전체 공고
+        </div>
+
+        <div class="jobs-summary-number">
+          ${totalJobs}
+        </div>
+
+        <div class="jobs-summary-description">
+          등록된 전체 채용공고
         </div>
 
       </div>
 
-      <button
-        class="btn primary"
-        onclick="openJob()"
-      >
-        + 새 공고
-      </button>
 
-    </div>
+      <div class="jobs-summary-card">
 
+        <div class="jobs-summary-icon green">
+          ✓
+        </div>
+
+        <div class="jobs-summary-label">
+          진행중
+        </div>
+
+        <div class="jobs-summary-number">
+          ${activeJobs}
+        </div>
+
+        <div class="jobs-summary-description">
+          현재 모집 중인 공고
+        </div>
+
+      </div>
+
+
+      <div class="jobs-summary-card">
+
+        <div class="jobs-summary-icon gray">
+          ○
+        </div>
+
+        <div class="jobs-summary-label">
+          종료
+        </div>
+
+        <div class="jobs-summary-number">
+          ${closedJobs}
+        </div>
+
+        <div class="jobs-summary-description">
+          종료된 채용공고
+        </div>
+
+      </div>
+
+
+      <div class="jobs-summary-card">
+
+        <div class="jobs-summary-icon indigo">
+          사람
+        </div>
+
+        <div class="jobs-summary-label">
+          전체 지원자
+        </div>
+
+        <div class="jobs-summary-number">
+          ${totalApplicants}
+        </div>
+
+        <div class="jobs-summary-description">
+          모든 채용공고 기준
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <div style="height:18px"></div>
+
+
+    <!-- ======================================================
+         공고 목록
+         ====================================================== -->
 
     ${
       state.jobs.length
-      ? `
 
-        <div class="grid g3">
+      ?
 
-        ${
-          state.jobs.map(
-            j=>`
+      `
 
-            <div class="card">
+      <section class="jobs-list-section">
 
-              <div class="title-row">
+        <div class="jobs-list-header">
 
-                <span class="badge ${
-                  j.status==='진행중'
-                    ? 'b-green'
-                    : 'b-gray'
-                }">
-                  ${esc(j.status || '종료')}
-                </span>
+          <div>
 
-                <div style="display:flex;gap:8px">
-
-                  <button
-                    class="link-btn"
-                    onclick="openJob(${j.id})"
-                  >
-                    편집
-                  </button>
-
-                  <button
-                    class="link-btn"
-                    style="color:#dc2626"
-                    onclick="event.stopPropagation();deleteJob(${j.id})"
-                  >
-                    삭제
-                  </button>
-
-                </div>
-
-              </div>
-
-              <h3 style="margin:4px 0 6px">
-                ${esc(j.title)}
-              </h3>
-
-              <div class="muted mini">
-                ${esc(j.dept)}
-                ·
-                ${esc(j.location)}
-                ·
-                ${esc(j.open)}
-                ~
-                ${esc(j.close)}
-              </div>
-
-              <div class="chips">
-
-                ${(j.keywords || [])
-                  .slice(0,8)
-                  .map(
-                    k=>
-                      `<span class="chip">
-                        ${esc(k)}
-                      </span>`
-                  )
-                  .join('')
-                }
-
-              </div>
-
-              <div
-                style="margin-top:14px"
-                class="muted mini"
-              >
-
-                지원자
-                ${state.candidates.filter(
-                  c=>c.job===j.id
-                ).length}명
-
-                · 평균 ATS
-
-                ${
-                  Math.round(
-                    state.candidates
-                      .filter(c=>c.job===j.id)
-                      .reduce(
-                        (a,c)=>
-                          a+(Number(c.score)||0),
-                        0
-                      ) /
-                      Math.max(
-                        1,
-                        state.candidates.filter(
-                          c=>c.job===j.id
-                        ).length
-                      )
-                  )
-                }
-
-              </div>
-
+            <div class="jobs-list-title">
+              등록된 채용공고
             </div>
 
-            `
-          ).join('')
-        }
+            <div class="jobs-list-subtitle">
+              총 ${totalJobs}개의 채용공고
+            </div>
+
+          </div>
+
+          <div class="jobs-list-count">
+            ${activeJobs}개 진행중
+          </div>
 
         </div>
 
+
+        <div class="jobs-grid">
+
+          ${
+            state.jobs.map(
+              j=>{
+
+                const applicants =
+                  state.candidates.filter(
+                    c=>c.job===j.id
+                  );
+
+                const applicantCount =
+                  applicants.length;
+
+                const averageScore =
+                  Math.round(
+                    applicants.reduce(
+                      (a,c)=>
+                        a+(Number(c.score)||0),
+                      0
+                    ) /
+                    Math.max(
+                      1,
+                      applicantCount
+                    )
+                  );
+
+
+                const highScoreCount =
+                  applicants.filter(
+                    c=>
+                      (Number(c.score)||0)>=85
+                  ).length;
+
+
+                const isActive =
+                  j.status==='진행중';
+
+
+                return `
+
+                  <article class="job-card">
+
+
+                    <!-- ======================================
+                         카드 상단
+                         ====================================== -->
+
+                    <div class="job-card-top">
+
+                      <span
+                        class="
+                          job-status
+                          ${
+                            isActive
+                              ? 'active'
+                              : 'closed'
+                          }
+                        "
+                      >
+                        <span class="job-status-dot"></span>
+
+                        ${esc(
+                          j.status ||
+                          '종료'
+                        )}
+
+                      </span>
+
+
+                      <div class="job-card-actions">
+
+                        <button
+                          class="job-action-btn"
+                          onclick="openJob(${j.id})"
+                          title="채용공고 편집"
+                        >
+                          편집
+                        </button>
+
+                        <button
+                          class="job-action-btn danger"
+                          onclick="
+                            event.stopPropagation();
+                            deleteJob(${j.id})
+                          "
+                          title="채용공고 삭제"
+                        >
+                          삭제
+                        </button>
+
+                      </div>
+
+                    </div>
+
+
+                    <!-- ======================================
+                         공고 제목
+                         ====================================== -->
+
+                    <div class="job-card-title">
+
+                      ${esc(
+                        j.title ||
+                        '채용공고'
+                      )}
+
+                    </div>
+
+
+                    <!-- ======================================
+                         기본 정보
+                         ====================================== -->
+
+                    <div class="job-card-info">
+
+                      <span>
+                        ${esc(
+                          j.dept ||
+                          '부서 미지정'
+                        )}
+                      </span>
+
+                      <span class="job-info-dot">
+                        ·
+                      </span>
+
+                      <span>
+                        ${esc(
+                          j.location ||
+                          '근무지 미지정'
+                        )}
+                      </span>
+
+                    </div>
+
+
+                    <!-- ======================================
+                         채용 기간
+                         ====================================== -->
+
+                    <div class="job-card-period">
+
+                      <span class="job-period-icon">
+                        ◷
+                      </span>
+
+                      <span>
+                        ${esc(
+                          j.open ||
+                          '-'
+                        )}
+                      </span>
+
+                      <span>
+                        ~
+                      </span>
+
+                      <span>
+                        ${esc(
+                          j.close ||
+                          '-'
+                        )}
+                      </span>
+
+                    </div>
+
+
+                    <!-- ======================================
+                         핵심 키워드
+                         ====================================== -->
+
+                    <div class="job-card-keywords">
+
+                      ${
+                        (j.keywords || [])
+                          .slice(0,8)
+                          .map(
+                            k=>`
+
+                              <span class="job-keyword">
+                                ${esc(k)}
+                              </span>
+
+                            `
+                          )
+                          .join('')
+                      }
+
+                    </div>
+
+
+                    <!-- ======================================
+                         지원자 / ATS
+                         ====================================== -->
+
+                    <div class="job-card-stats">
+
+
+                      <div class="job-stat">
+
+                        <span class="job-stat-label">
+                          지원자
+                        </span>
+
+                        <strong>
+                          ${applicantCount}
+                          <small>명</small>
+                        </strong>
+
+                      </div>
+
+
+                      <div class="job-stat-divider"></div>
+
+
+                      <div class="job-stat">
+
+                        <span class="job-stat-label">
+                          평균 ATS
+                        </span>
+
+                        <strong
+                          class="
+                            ${
+                              averageScore>=85
+                                ? 'good'
+                                : averageScore>=70
+                                  ? 'mid'
+                                  : 'low'
+                            }
+                          "
+                        >
+                          ${averageScore}
+                          <small>점</small>
+                        </strong>
+
+                      </div>
+
+
+                      <div class="job-stat-divider"></div>
+
+
+                      <div class="job-stat">
+
+                        <span class="job-stat-label">
+                          추천
+                        </span>
+
+                        <strong
+                          class="
+                            ${
+                              highScoreCount>0
+                                ? 'good'
+                                : 'neutral'
+                            }
+                          "
+                        >
+                          ${highScoreCount}
+                          <small>명</small>
+                        </strong>
+
+                      </div>
+
+
+                    </div>
+
+
+                    <!-- ======================================
+                         하단 ATS 상태
+                         ====================================== -->
+
+                    <div class="job-card-footer">
+
+                      <span>
+                        ${
+                          applicantCount
+                            ? `지원자 ${applicantCount}명 등록`
+                            : '아직 지원자가 없습니다.'
+                        }
+                      </span>
+
+
+                      <button
+                        class="job-detail-btn"
+                        onclick="openJob(${j.id})"
+                      >
+                        공고 관리
+                        <span>→</span>
+                      </button>
+
+                    </div>
+
+
+                  </article>
+
+                `;
+
+              }
+            ).join('')
+          }
+
+        </div>
+
+      </section>
+
       `
+
       :
+
       `
 
-        <div class="card empty">
-          등록된 채용공고가 없습니다.
+      <!-- ====================================================
+           공고 없음
+           ==================================================== -->
+
+      <section class="jobs-empty-section">
+
+        <div class="jobs-empty-icon">
+          +
         </div>
 
+        <div class="jobs-empty-title">
+          아직 등록된 채용공고가 없습니다.
+        </div>
+
+        <div class="jobs-empty-description">
+          새로운 채용공고를 등록하고
+          ATS 분석을 시작해보세요.
+        </div>
+
+        <button
+          class="btn primary"
+          onclick="openJob()"
+        >
+          + 첫 채용공고 등록
+        </button>
+
+      </section>
+
       `
+
     }
+
+
+    <div style="height:18px"></div>
+
+
+    <!-- ======================================================
+         데이터 저장 안내
+         ====================================================== -->
+
+    <div class="data-info jobs-save-info">
+
+      <span class="jobs-save-icon">
+        ✓
+      </span>
+
+      <div>
+
+        <b>
+          채용공고 자동 저장
+        </b>
+
+        <div>
+          채용공고를 등록하거나 수정하면
+          브라우저/APK 저장공간에 자동 저장됩니다.
+        </div>
+
+      </div>
+
+    </div>
 
   `;
 
