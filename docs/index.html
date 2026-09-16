@@ -6434,7 +6434,887 @@ a:hover{
   }
 
 }
-  
+
+  /* ============================================================
+   STEP 9-3
+   SETTINGS · Apple / iOS List Style
+   ============================================================ */
+
+.settings-page{
+  width:100%;
+  max-width:1180px;
+  margin:0 auto;
+  padding-bottom:40px;
+}
+
+
+.settings-page-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  margin-bottom:28px;
+}
+
+
+.settings-page-head h2,
+.settings-detail-head h2{
+  margin:4px 0 0;
+  font-size:30px;
+  line-height:1.2;
+  letter-spacing:-.04em;
+}
+
+
+.settings-page-head p{
+  margin:8px 0 0;
+  color:#8a8f98;
+  font-size:14px;
+}
+
+
+.settings-eyebrow{
+  color:#8b5cf6;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.12em;
+}
+
+
+.settings-page-icon{
+  width:58px;
+  height:58px;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#f2f3f7;
+  color:#6366f1;
+  font-size:25px;
+  box-shadow:
+    0 10px 25px rgba(15,23,42,.07);
+}
+
+
+.settings-group{
+  margin-top:26px;
+}
+
+
+.settings-group-title{
+  padding:0 14px 9px;
+  color:#8a8f98;
+  font-size:12px;
+  font-weight:700;
+}
+
+
+.settings-menu-item{
+  width:100%;
+  min-height:78px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  padding:13px 18px;
+  border:1px solid #e8eaf0;
+  background:#fff;
+  color:#17181c;
+  text-align:left;
+  cursor:pointer;
+  transition:
+    background .18s ease,
+    transform .18s ease,
+    box-shadow .18s ease;
+}
+
+
+.settings-menu-item:first-of-type{
+  border-radius:18px 18px 0 0;
+}
+
+
+.settings-menu-item:last-of-type{
+  border-radius:0 0 18px 18px;
+}
+
+
+.settings-menu-item:only-of-type{
+  border-radius:18px;
+}
+
+
+.settings-menu-item + .settings-menu-item{
+  border-top:0;
+}
+
+
+.settings-menu-item:hover{
+  background:#fafbfc;
+  box-shadow:
+    0 8px 22px rgba(15,23,42,.05);
+}
+
+
+.settings-menu-item:active{
+  transform:scale(.995);
+}
+
+
+.settings-menu-icon{
+  width:44px;
+  height:44px;
+  flex:0 0 44px;
+  border-radius:13px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  font-weight:700;
+}
+
+
+.settings-icon-blue{
+  background:#eaf2ff;
+  color:#3478f6;
+}
+
+
+.settings-icon-green{
+  background:#e9f9ef;
+  color:#22a45a;
+}
+
+
+.settings-icon-purple{
+  background:#f1eaff;
+  color:#8057e8;
+}
+
+
+.settings-icon-indigo{
+  background:#eceeff;
+  color:#5b61e8;
+}
+
+
+.settings-icon-gray{
+  background:#f0f1f4;
+  color:#70757f;
+}
+
+
+.settings-menu-text{
+  min-width:0;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
+
+.settings-menu-text strong{
+  font-size:15px;
+  font-weight:700;
+}
+
+
+.settings-menu-text span{
+  color:#9297a1;
+  font-size:12px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+
+.settings-menu-arrow{
+  flex:0 0 auto;
+  color:#b4b8c1;
+  font-size:27px;
+  line-height:1;
+  font-weight:300;
+}
+
+
+.settings-menu-status{
+  color:#b8bcc4;
+  font-size:11px;
+}
+
+
+.settings-menu-status.is-active{
+  color:#28b463;
+}
+
+
+.settings-save-info{
+  margin-top:28px;
+}
+
+
+/* ============================================================
+   SETTINGS · DETAIL
+   ============================================================ */
+
+.settings-detail-head{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:28px;
+}
+
+
+.settings-back{
+  width:42px;
+  height:42px;
+  border:1px solid #e5e7eb;
+  border-radius:14px;
+  background:#fff;
+  color:#6366f1;
+  font-size:29px;
+  line-height:1;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:.18s ease;
+}
+
+
+.settings-back:hover{
+  background:#f7f7fb;
+}
+
+
+.settings-detail-card{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  padding:20px;
+  border:1px solid #e8eaf0;
+  border-radius:20px;
+  background:#fff;
+  box-shadow:0 8px 25px rgba(15,23,42,.04);
+}
+
+
+.settings-detail-icon{
+  width:52px;
+  height:52px;
+  flex:0 0 52px;
+  border-radius:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:23px;
+}
+
+
+.settings-detail-card > div:last-child{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
+
+.settings-detail-card strong{
+  font-size:17px;
+}
+
+
+.settings-detail-card span{
+  color:#8b909a;
+  font-size:13px;
+}
+
+
+.settings-detail-list{
+  margin-top:18px;
+  border:1px solid #e8eaf0;
+  border-radius:20px;
+  overflow:hidden;
+  background:#fff;
+}
+
+
+.settings-detail-row{
+  min-height:78px;
+  padding:15px 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+
+
+.settings-detail-row + .settings-detail-row{
+  border-top:1px solid #eef0f3;
+}
+
+
+.settings-detail-row > div{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
+
+.settings-detail-row strong{
+  font-size:14px;
+}
+
+
+.settings-detail-row span{
+  color:#9297a1;
+  font-size:12px;
+}
+
+
+.settings-detail-value{
+  color:#5f636d !important;
+  font-size:13px !important;
+  white-space:nowrap;
+}
+
+
+.settings-state-badge{
+  padding:6px 10px;
+  border-radius:999px;
+  background:#f1f2f4;
+  color:#8b9099;
+  font-size:11px;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+
+.settings-state-badge.active{
+  background:#e9f9ef;
+  color:#219653;
+}
+
+
+/* ============================================================
+   SETTINGS · ATS
+   ============================================================ */
+
+.settings-total-card{
+  min-height:130px;
+  padding:22px 24px;
+  border-radius:22px;
+  background:
+    linear-gradient(
+      135deg,
+      #f7f7ff,
+      #f1f2ff
+    );
+  border:1px solid #e4e5fb;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+
+.settings-total-card > div:first-child{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+
+
+.settings-total-card span{
+  color:#777c88;
+  font-size:13px;
+}
+
+
+.settings-total-card strong{
+  font-size:30px;
+  letter-spacing:-.04em;
+}
+
+
+.settings-total-ring{
+  width:74px;
+  height:74px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#fff;
+  border:8px solid #e1e3ff;
+  color:#5b61e8;
+  font-size:17px;
+  font-weight:800;
+}
+
+
+.settings-score-list{
+  margin-top:18px;
+  border:1px solid #e8eaf0;
+  border-radius:20px;
+  background:#fff;
+  overflow:hidden;
+}
+
+
+.settings-score-row{
+  min-height:76px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:13px 18px;
+}
+
+
+.settings-score-row + .settings-score-row{
+  border-top:1px solid #eef0f3;
+}
+
+
+.settings-score-icon{
+  width:40px;
+  height:40px;
+  flex:0 0 40px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:17px;
+  font-weight:700;
+}
+
+
+.settings-score-text{
+  min-width:0;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+
+.settings-score-text strong{
+  font-size:14px;
+}
+
+
+.settings-score-text span{
+  color:#9499a3;
+  font-size:12px;
+}
+
+
+.settings-score-number{
+  color:#5b61e8;
+  font-size:15px;
+  white-space:nowrap;
+}
+
+
+/* ============================================================
+   SETTINGS · DATA
+   ============================================================ */
+
+.settings-data-summary{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+
+.settings-data-summary > div{
+  min-height:120px;
+  padding:20px;
+  border:1px solid #e8eaf0;
+  border-radius:20px;
+  background:#fff;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:7px;
+}
+
+
+.settings-data-summary span{
+  color:#9297a1;
+  font-size:12px;
+}
+
+
+.settings-data-summary strong{
+  font-size:30px;
+  letter-spacing:-.04em;
+}
+
+
+.settings-action-section{
+  margin-top:28px;
+}
+
+
+.settings-action-row{
+  min-height:82px;
+  padding:16px 18px;
+  border:1px solid #e8eaf0;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+
+
+.settings-action-row:first-of-type{
+  border-radius:18px 18px 0 0;
+}
+
+
+.settings-action-row:last-child{
+  border-radius:0 0 18px 18px;
+  border-top:0;
+}
+
+
+.settings-action-row > div{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
+
+.settings-action-row strong{
+  font-size:14px;
+}
+
+
+.settings-action-row span{
+  color:#9297a1;
+  font-size:12px;
+}
+
+
+.settings-action-row.danger{
+  background:#fffafa;
+}
+
+
+.settings-action-row.danger strong{
+  color:#d94848;
+}
+
+
+.danger-btn{
+  color:#d94848 !important;
+  border-color:#f0caca !important;
+  background:#fff !important;
+}
+
+
+/* ============================================================
+   SETTINGS · ABOUT
+   ============================================================ */
+
+.settings-about-hero{
+  padding:34px 20px;
+  border:1px solid #e8eaf0;
+  border-radius:24px;
+  background:#fff;
+  text-align:center;
+  box-shadow:0 8px 25px rgba(15,23,42,.04);
+}
+
+
+.settings-about-logo{
+  width:72px;
+  height:72px;
+  margin:0 auto 16px;
+  border-radius:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    linear-gradient(
+      145deg,
+      #6d70ff,
+      #8d68e8
+    );
+  color:#fff;
+  font-size:32px;
+  font-weight:800;
+  box-shadow:
+    0 14px 30px rgba(91,97,232,.25);
+}
+
+
+.settings-about-hero h3{
+  margin:0;
+  font-size:20px;
+}
+
+
+.settings-about-hero p{
+  margin:8px 0;
+  color:#9297a1;
+  font-size:13px;
+}
+
+
+.settings-about-hero > span{
+  color:#a0a4ad;
+  font-size:11px;
+}
+
+
+/* ============================================================
+   SETTINGS · INFO
+   ============================================================ */
+
+.settings-info-box{
+  margin-top:20px;
+  padding:17px 18px;
+  border:1px solid #e8eaf0;
+  border-radius:18px;
+  background:#f9fafb;
+  display:flex;
+  gap:13px;
+}
+
+
+.settings-info-box > span{
+  width:30px;
+  height:30px;
+  flex:0 0 30px;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#eef0ff;
+  color:#6366f1;
+  font-weight:800;
+}
+
+
+.settings-info-box > div{
+  min-width:0;
+}
+
+
+.settings-info-box strong{
+  font-size:13px;
+}
+
+
+.settings-info-box p{
+  margin:6px 0 0;
+  color:#858a94;
+  font-size:12px;
+  line-height:1.65;
+}
+
+
+/* ============================================================
+   SETTINGS · MOBILE
+   ============================================================ */
+
+@media (max-width:720px){
+
+  .settings-page{
+    padding-bottom:24px;
+  }
+
+
+  .settings-page-head{
+    margin-bottom:22px;
+  }
+
+
+  .settings-page-head h2,
+  .settings-detail-head h2{
+    font-size:25px;
+  }
+
+
+  .settings-page-head p{
+    font-size:13px;
+  }
+
+
+  .settings-page-icon{
+    width:48px;
+    height:48px;
+    border-radius:15px;
+    font-size:21px;
+  }
+
+
+  .settings-group{
+    margin-top:21px;
+  }
+
+
+  .settings-menu-item{
+    min-height:72px;
+    padding:12px 14px;
+    gap:12px;
+  }
+
+
+  .settings-menu-icon{
+    width:40px;
+    height:40px;
+    flex-basis:40px;
+    border-radius:12px;
+    font-size:17px;
+  }
+
+
+  .settings-menu-text strong{
+    font-size:14px;
+  }
+
+
+  .settings-menu-text span{
+    font-size:11px;
+  }
+
+
+  .settings-menu-arrow{
+    font-size:24px;
+  }
+
+
+  .settings-detail-head{
+    margin-bottom:21px;
+  }
+
+
+  .settings-back{
+    width:38px;
+    height:38px;
+    border-radius:12px;
+    font-size:26px;
+  }
+
+
+  .settings-detail-card{
+    padding:16px;
+    border-radius:18px;
+  }
+
+
+  .settings-detail-icon{
+    width:46px;
+    height:46px;
+    flex-basis:46px;
+  }
+
+
+  .settings-detail-row{
+    min-height:72px;
+    padding:13px 14px;
+    gap:12px;
+  }
+
+
+  .settings-detail-row .btn{
+    padding:8px 11px;
+    font-size:11px;
+  }
+
+
+  .settings-total-card{
+    min-height:110px;
+    padding:18px;
+    border-radius:18px;
+  }
+
+
+  .settings-total-card strong{
+    font-size:26px;
+  }
+
+
+  .settings-total-ring{
+    width:62px;
+    height:62px;
+    border-width:7px;
+    font-size:15px;
+  }
+
+
+  .settings-score-row{
+    min-height:68px;
+    padding:11px 14px;
+    gap:11px;
+  }
+
+
+  .settings-score-icon{
+    width:36px;
+    height:36px;
+    flex-basis:36px;
+    border-radius:11px;
+  }
+
+
+  .settings-score-text span{
+    font-size:11px;
+  }
+
+
+  .settings-score-number{
+    font-size:13px;
+  }
+
+
+  .settings-data-summary{
+    gap:10px;
+  }
+
+
+  .settings-data-summary > div{
+    min-height:100px;
+    padding:16px;
+    border-radius:17px;
+  }
+
+
+  .settings-data-summary strong{
+    font-size:25px;
+  }
+
+
+  .settings-action-row{
+    min-height:80px;
+    padding:14px;
+    gap:12px;
+  }
+
+
+  .settings-action-row .btn{
+    flex:0 0 auto;
+    padding:8px 11px;
+    font-size:11px;
+  }
+
+
+  .settings-about-hero{
+    padding:28px 16px;
+    border-radius:20px;
+  }
+
+
+  .settings-about-logo{
+    width:64px;
+    height:64px;
+    border-radius:19px;
+    font-size:28px;
+  }
+
+}
 </style>
   
 </head>
@@ -7023,10 +7903,12 @@ function resetAllData(){
 
       candidates:[],
 
-      page:'settings',
+page:'settings',
 
-      aiKey:
-        currentAiKey
+settingsSection:'main',
+
+aiKey:
+  currentAiKey
 
     });
 
@@ -12492,6 +13374,363 @@ function renderSettings(){
     return;
 
 
+  const section =
+    state.settingsSection ||
+    'main';
+
+
+  if(section === 'ai'){
+    renderSettingsAI();
+    return;
+  }
+
+
+  if(section === 'ats'){
+    renderSettingsATS();
+    return;
+  }
+
+
+  if(section === 'data'){
+    renderSettingsData();
+    return;
+  }
+
+
+  if(section === 'about'){
+    renderSettingsAbout();
+    return;
+  }
+
+
+  renderSettingsMain();
+
+}
+
+
+/* ============================================================
+   SETTINGS · MAIN
+   ============================================================ */
+
+function renderSettingsMain(){
+
+  const page = $('#page');
+
+  const apiKey =
+    String(
+      state.aiKey ||
+      ''
+    ).trim();
+
+
+  const totalJobs =
+    Array.isArray(state.jobs)
+      ? state.jobs.length
+      : 0;
+
+
+  const totalCandidates =
+    Array.isArray(state.candidates)
+      ? state.candidates.length
+      : 0;
+
+
+  page.innerHTML = `
+
+    <section class="settings-page">
+
+      <div class="settings-page-head">
+
+        <div>
+
+          <div class="settings-eyebrow">
+            SETTINGS
+          </div>
+
+          <h2>
+            설정
+          </h2>
+
+          <p>
+            Jini-ATS의 주요 기능과 환경을 관리합니다.
+          </p>
+
+        </div>
+
+        <div class="settings-page-icon">
+          ⚙
+        </div>
+
+      </div>
+
+
+      <!-- 기본 -->
+
+      <div class="settings-group">
+
+        <div class="settings-group-title">
+          기본
+        </div>
+
+
+        <button
+          class="settings-menu-item"
+          type="button"
+          onclick="openSettingsSection('about')"
+        >
+
+          <div class="settings-menu-icon settings-icon-blue">
+            ⚙
+          </div>
+
+          <div class="settings-menu-text">
+
+            <strong>
+              기본 정보
+            </strong>
+
+            <span>
+              Jini-ATS Studio · v2.0.0
+            </span>
+
+          </div>
+
+          <span class="settings-menu-arrow">
+            ›
+          </span>
+
+        </button>
+
+
+        <button
+          class="settings-menu-item"
+          type="button"
+          onclick="openSettingsSection('data')"
+        >
+
+          <div class="settings-menu-icon settings-icon-green">
+            ▣
+          </div>
+
+          <div class="settings-menu-text">
+
+            <strong>
+              저장 및 데이터
+            </strong>
+
+            <span>
+              채용공고 ${totalJobs}개 · 지원자 ${totalCandidates}명
+            </span>
+
+          </div>
+
+          <span class="settings-menu-arrow">
+            ›
+          </span>
+
+        </button>
+
+      </div>
+
+
+      <!-- AI -->
+
+      <div class="settings-group">
+
+        <div class="settings-group-title">
+          AI 분석
+        </div>
+
+
+        <button
+          class="settings-menu-item"
+          type="button"
+          onclick="openSettingsSection('ai')"
+        >
+
+          <div class="settings-menu-icon settings-icon-purple">
+            ✦
+          </div>
+
+          <div class="settings-menu-text">
+
+            <strong>
+              Gemini AI
+            </strong>
+
+            <span>
+              ${
+                apiKey
+                  ? 'API Key 설정됨'
+                  : 'API Key가 설정되지 않았습니다'
+              }
+            </span>
+
+          </div>
+
+          <span
+            class="
+              settings-menu-status
+              ${apiKey ? 'is-active' : ''}
+            "
+          >
+            ${apiKey ? '●' : '○'}
+          </span>
+
+          <span class="settings-menu-arrow">
+            ›
+          </span>
+
+        </button>
+
+      </div>
+
+
+      <!-- 채용 분석 -->
+
+      <div class="settings-group">
+
+        <div class="settings-group-title">
+          채용 분석
+        </div>
+
+
+        <button
+          class="settings-menu-item"
+          type="button"
+          onclick="openSettingsSection('ats')"
+        >
+
+          <div class="settings-menu-icon settings-icon-indigo">
+            ◎
+          </div>
+
+          <div class="settings-menu-text">
+
+            <strong>
+              ATS 분석 기준
+            </strong>
+
+            <span>
+              총 100점 · 키워드 40 · 직무경력 30
+            </span>
+
+          </div>
+
+          <span class="settings-menu-arrow">
+            ›
+          </span>
+
+        </button>
+
+      </div>
+
+
+      <!-- 시스템 -->
+
+      <div class="settings-group">
+
+        <div class="settings-group-title">
+          시스템
+        </div>
+
+
+        <button
+          class="settings-menu-item"
+          type="button"
+          onclick="openSettingsSection('about')"
+        >
+
+          <div class="settings-menu-icon settings-icon-gray">
+            ⓘ
+          </div>
+
+          <div class="settings-menu-text">
+
+            <strong>
+              앱 정보
+            </strong>
+
+            <span>
+              Jini-ATS Studio · v2.0.0
+            </span>
+
+          </div>
+
+          <span class="settings-menu-arrow">
+            ›
+          </span>
+
+        </button>
+
+      </div>
+
+
+      <div class="data-info settings-save-info">
+
+        <span>
+          ✓
+        </span>
+
+        <div>
+
+          <b>
+            설정 및 채용 데이터는 자동 저장됩니다.
+          </b>
+
+          <div>
+            현재 브라우저의 LocalStorage를 사용합니다.
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  `;
+
+}
+
+
+/* ============================================================
+   SETTINGS · SECTION OPEN
+   ============================================================ */
+
+function openSettingsSection(section){
+
+  state.settingsSection =
+    section;
+
+
+  render();
+
+}
+
+
+/* ============================================================
+   SETTINGS · BACK
+   ============================================================ */
+
+function closeSettingsSection(){
+
+  state.settingsSection =
+    'main';
+
+
+  render();
+
+}
+
+
+/* ============================================================
+   SETTINGS · AI
+   ============================================================ */
+
+function renderSettingsAI(){
+
+  const page = $('#page');
+
   const apiKey =
     String(
       state.aiKey ||
@@ -12513,6 +13752,340 @@ function renderSettings(){
       : '설정되지 않음';
 
 
+  page.innerHTML = `
+
+    <section class="settings-page">
+
+      <div class="settings-detail-head">
+
+        <button
+          class="settings-back"
+          type="button"
+          onclick="closeSettingsSection()"
+        >
+          ‹
+        </button>
+
+        <div>
+
+          <div class="settings-eyebrow">
+            AI ANALYSIS
+          </div>
+
+          <h2>
+            Gemini AI
+          </h2>
+
+        </div>
+
+      </div>
+
+
+      <div class="settings-detail-card">
+
+        <div class="settings-detail-icon settings-icon-purple">
+          ✦
+        </div>
+
+        <div>
+
+          <strong>
+            Gemini API
+          </strong>
+
+          <span>
+            이력서 PDF 분석 및 지원자 정보 자동 구조화
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="settings-detail-list">
+
+        <div class="settings-detail-row">
+
+          <div>
+
+            <strong>
+              API 상태
+            </strong>
+
+            <span>
+              Gemini API 연결 설정 상태
+            </span>
+
+          </div>
+
+          <b
+            class="
+              settings-state-badge
+              ${apiKey ? 'active' : 'inactive'}
+            "
+          >
+            ${apiKey ? '설정됨' : '미설정'}
+          </b>
+
+        </div>
+
+
+        <div class="settings-detail-row">
+
+          <div>
+
+            <strong>
+              API Key
+            </strong>
+
+            <span>
+              ${esc(maskedKey)}
+            </span>
+
+          </div>
+
+          <button
+            class="btn"
+            type="button"
+            onclick="openAISettings()"
+          >
+            AI 설정
+          </button>
+
+        </div>
+
+
+        <div class="settings-detail-row">
+
+          <div>
+
+            <strong>
+              모델
+            </strong>
+
+            <span>
+              현재 Gemini 모델 설정
+            </span>
+
+          </div>
+
+          <span class="settings-detail-value">
+            Gemini 3.6 Flash
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="settings-info-box">
+
+        <span>
+          ✦
+        </span>
+
+        <div>
+
+          <strong>
+            AI 분석 안내
+          </strong>
+
+          <p>
+            Gemini AI는 이력서 PDF를 분석하고
+            지원자의 경력, 학력, 스킬 등의 정보를
+            ATS 데이터로 구조화하는 데 사용됩니다.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  `;
+
+}
+
+
+/* ============================================================
+   SETTINGS · ATS
+   ============================================================ */
+
+function renderSettingsATS(){
+
+  const page = $('#page');
+
+
+  const scores = [
+
+    {
+      icon:'⌕',
+      label:'키워드',
+      score:40,
+      desc:'JD 핵심 키워드 일치'
+    },
+
+    {
+      icon:'◎',
+      label:'직무경력',
+      score:30,
+      desc:'경력 및 직무 적합성'
+    },
+
+    {
+      icon:'◷',
+      label:'경력연차',
+      score:15,
+      desc:'총 경력연차'
+    },
+
+    {
+      icon:'◇',
+      label:'핵심스킬',
+      score:10,
+      desc:'보유 역량'
+    },
+
+    {
+      icon:'▤',
+      label:'학력',
+      score:5,
+      desc:'학력 정보'
+    }
+
+  ];
+
+
+  page.innerHTML = `
+
+    <section class="settings-page">
+
+      <div class="settings-detail-head">
+
+        <button
+          class="settings-back"
+          type="button"
+          onclick="closeSettingsSection()"
+        >
+          ‹
+        </button>
+
+        <div>
+
+          <div class="settings-eyebrow">
+            ATS ANALYSIS
+          </div>
+
+          <h2>
+            ATS 분석 기준
+          </h2>
+
+        </div>
+
+      </div>
+
+
+      <div class="settings-total-card">
+
+        <div>
+
+          <span>
+            ATS 종합점수
+          </span>
+
+          <strong>
+            100점
+          </strong>
+
+        </div>
+
+        <div class="settings-total-ring">
+          100
+        </div>
+
+      </div>
+
+
+      <div class="settings-score-list">
+
+        ${
+          scores.map(
+            item => `
+
+              <div class="settings-score-row">
+
+                <div
+                  class="
+                    settings-score-icon
+                    settings-icon-indigo
+                  "
+                >
+                  ${item.icon}
+                </div>
+
+                <div class="settings-score-text">
+
+                  <strong>
+                    ${item.label}
+                  </strong>
+
+                  <span>
+                    ${item.desc}
+                  </span>
+
+                </div>
+
+                <strong class="settings-score-number">
+                  ${item.score}점
+                </strong>
+
+              </div>
+
+            `
+          ).join('')
+        }
+
+      </div>
+
+
+      <div class="settings-info-box">
+
+        <span>
+          ◎
+        </span>
+
+        <div>
+
+          <strong>
+            분석 기준 안내
+          </strong>
+
+          <p>
+            ATS 점수는 채용공고의 JD와 지원자의
+            경력, 연차, 스킬, 학력 정보를 기준으로
+            최대 100점으로 계산됩니다.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  `;
+
+}
+
+
+/* ============================================================
+   SETTINGS · DATA
+   ============================================================ */
+
+function renderSettingsData(){
+
+  const page = $('#page');
+
+
   const totalJobs =
     Array.isArray(state.jobs)
       ? state.jobs.length
@@ -12527,360 +14100,36 @@ function renderSettings(){
 
   page.innerHTML = `
 
-    <section class="settings-hero">
+    <section class="settings-page">
 
-      <div>
+      <div class="settings-detail-head">
 
-        <div class="settings-eyebrow">
-          SETTINGS
-        </div>
-
-        <h2>
-          Jini-ATS를 원하는 방식으로 설정하세요
-        </h2>
-
-        <p>
-          AI 분석, ATS 기준, 데이터 관리 등
-          서비스의 주요 설정을 관리할 수 있습니다.
-        </p>
-
-      </div>
-
-      <div class="settings-hero-icon">
-        ⚙
-      </div>
-
-    </section>
-
-
-    <section class="settings-section">
-
-      <div class="settings-section-head">
+        <button
+          class="settings-back"
+          type="button"
+          onclick="closeSettingsSection()"
+        >
+          ‹
+        </button>
 
         <div>
 
-          <div class="settings-section-eyebrow">
-            GENERAL
-          </div>
-
-          <h3>
-            기본 설정
-          </h3>
-
-          <p>
-            현재 ATS의 기본 정보를 확인합니다.
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <div class="settings-list">
-
-
-        <div class="settings-row">
-
-          <div class="settings-row-icon blue">
-            ◉
-          </div>
-
-          <div class="settings-row-content">
-
-            <strong>
-              서비스 이름
-            </strong>
-
-            <span>
-              Jini-ATS Studio
-            </span>
-
-          </div>
-
-          <span class="settings-value">
-            v2.0.0
-          </span>
-
-        </div>
-
-
-        <div class="settings-row">
-
-          <div class="settings-row-icon purple">
-            ◇
-          </div>
-
-          <div class="settings-row-content">
-
-            <strong>
-              저장 방식
-            </strong>
-
-            <span>
-              현재 브라우저의 LocalStorage에 데이터를 저장합니다.
-            </span>
-
-          </div>
-
-          <span class="settings-status-badge">
-            정상
-          </span>
-
-        </div>
-
-
-      </div>
-
-    </section>
-
-
-    <section class="settings-section">
-
-      <div class="settings-section-head">
-
-        <div>
-
-          <div class="settings-section-eyebrow">
-            ATS
-          </div>
-
-          <h3>
-            ATS 분석 기준
-          </h3>
-
-          <p>
-            현재 지원자 적합도 계산에 사용되는 기준입니다.
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <div class="settings-score-grid">
-
-        <div class="settings-score-card">
-
-          <span>
-            키워드
-          </span>
-
-          <strong>
-            40점
-          </strong>
-
-          <small>
-            JD 핵심 키워드 일치
-          </small>
-
-        </div>
-
-
-        <div class="settings-score-card">
-
-          <span>
-            직무경력
-          </span>
-
-          <strong>
-            30점
-          </strong>
-
-          <small>
-            경력 및 직무 적합성
-          </small>
-
-        </div>
-
-
-        <div class="settings-score-card">
-
-          <span>
-            경력연차
-          </span>
-
-          <strong>
-            15점
-          </strong>
-
-          <small>
-            총 경력연차
-          </small>
-
-        </div>
-
-
-        <div class="settings-score-card">
-
-          <span>
-            핵심스킬
-          </span>
-
-          <strong>
-            10점
-          </strong>
-
-          <small>
-            보유 역량
-          </small>
-
-        </div>
-
-
-        <div class="settings-score-card">
-
-          <span>
-            학력
-          </span>
-
-          <strong>
-            5점
-          </strong>
-
-          <small>
-            학력 정보
-          </small>
-
-        </div>
-
-      </div>
-
-
-      <div class="settings-total">
-
-        <span>
-          총점
-        </span>
-
-        <strong>
-          100점
-        </strong>
-
-      </div>
-
-    </section>
-
-
-    <section class="settings-section">
-
-      <div class="settings-section-head">
-
-        <div>
-
-          <div class="settings-section-eyebrow">
-            AI
-          </div>
-
-          <h3>
-            Gemini AI
-          </h3>
-
-          <p>
-            이력서 PDF 분석과 지원자 정보 자동 구조화에 사용됩니다.
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <div class="settings-ai-card">
-
-        <div class="settings-ai-main">
-
-          <div class="settings-ai-icon">
-            ✦
-          </div>
-
-          <div>
-
-            <strong>
-              Gemini API
-            </strong>
-
-            <span>
-              ${
-                apiKey
-                  ? 'API Key가 설정되어 있습니다.'
-                  : 'API Key가 설정되지 않았습니다.'
-              }
-            </span>
-
-          </div>
-
-        </div>
-
-
-        <div class="settings-ai-key">
-
-          <span>
-            ${esc(maskedKey)}
-          </span>
-
-          <button
-            class="btn"
-            type="button"
-            onclick="openAISettings()"
-          >
-            AI 설정
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <div class="settings-notice">
-
-        <span>
-          !
-        </span>
-
-        <div>
-
-          <strong>
-            API Key 보안 안내
-          </strong>
-
-          <p>
-            API Key는 공개 GitHub 저장소에 직접 입력하지 않는 것을 권장합니다.
-            개인 테스트 환경에서만 사용하고, 실제 서비스에서는 서버 측에서 안전하게 관리해야 합니다.
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <section class="settings-section">
-
-      <div class="settings-section-head">
-
-        <div>
-
-          <div class="settings-section-eyebrow">
+          <div class="settings-eyebrow">
             DATA
           </div>
 
-          <h3>
-            데이터 관리
-          </h3>
-
-          <p>
-            현재 브라우저에 저장된 채용 데이터를 확인합니다.
-          </p>
+          <h2>
+            저장 및 데이터
+          </h2>
 
         </div>
 
       </div>
 
 
-      <div class="settings-data-grid">
+      <div class="settings-data-summary">
 
-
-        <div class="settings-data-card">
+        <div>
 
           <span>
             채용공고
@@ -12890,14 +14139,9 @@ function renderSettings(){
             ${totalJobs}
           </strong>
 
-          <small>
-            등록된 공고
-          </small>
-
         </div>
 
-
-        <div class="settings-data-card">
+        <div>
 
           <span>
             지원자
@@ -12907,110 +14151,297 @@ function renderSettings(){
             ${totalCandidates}
           </strong>
 
-          <small>
-            등록된 지원자
-          </small>
-
         </div>
 
+      </div>
 
-        <div class="settings-data-card">
 
-          <span>
-            저장 상태
-          </span>
+      <div class="settings-detail-list">
 
-          <strong>
+        <div class="settings-detail-row">
+
+          <div>
+
+            <strong>
+              저장 방식
+            </strong>
+
+            <span>
+              현재 브라우저의 LocalStorage
+            </span>
+
+          </div>
+
+          <b class="settings-state-badge active">
             정상
-          </strong>
-
-          <small>
-            자동 저장 활성화
-          </small>
+          </b>
 
         </div>
 
+
+        <div class="settings-detail-row">
+
+          <div>
+
+            <strong>
+              자동 저장
+            </strong>
+
+            <span>
+              채용 데이터 변경 시 자동 저장
+            </span>
+
+          </div>
+
+          <b class="settings-state-badge active">
+            활성
+          </b>
+
+        </div>
 
       </div>
 
 
-      <div class="settings-danger-zone">
+      <div class="settings-action-section">
 
-        <div>
+        <div class="settings-group-title">
+          데이터 작업
+        </div>
 
-          <strong>
-            데모 데이터 다시 불러오기
-          </strong>
 
-          <span>
-            현재 저장된 채용공고와 지원자 데이터를
-            데모 데이터로 교체합니다.
-          </span>
+        <div class="settings-action-row">
+
+          <div>
+
+            <strong>
+              데모 데이터
+            </strong>
+
+            <span>
+              샘플 채용공고와 지원자 데이터를 불러옵니다.
+            </span>
+
+          </div>
+
+          <button
+            class="btn"
+            type="button"
+            onclick="$('#seedBtn').click()"
+          >
+            불러오기
+          </button>
 
         </div>
 
-        <button
-          class="btn"
-          type="button"
-          onclick="$('#seedBtn').click()"
-        >
-          데모 데이터
-        </button>
+
+        <div class="settings-action-row danger">
+
+          <div>
+
+            <strong>
+              전체 데이터 초기화
+            </strong>
+
+            <span>
+              채용공고와 지원자 데이터를 모두 삭제합니다.
+            </span>
+
+          </div>
+
+          <button
+            class="btn danger-btn"
+            type="button"
+            onclick="resetAllData()"
+          >
+            초기화
+          </button>
+
+        </div>
 
       </div>
 
 
-      <div class="settings-danger-zone danger">
+      <div class="settings-info-box">
+
+        <span>
+          ✓
+        </span>
 
         <div>
 
           <strong>
-            전체 데이터 초기화
+            데이터 저장 안내
           </strong>
 
-          <span>
-            현재 브라우저에 저장된 모든 채용공고와 지원자 데이터를 삭제합니다.
-          </span>
+          <p>
+            데이터는 현재 사용 중인 브라우저에 저장됩니다.
+            다른 브라우저나 다른 기기에서는 별도의 데이터가 사용됩니다.
+          </p>
 
         </div>
-
-        <button
-          class="btn danger-btn"
-          type="button"
-          onclick="resetAllData()"
-        >
-          데이터 초기화
-        </button>
 
       </div>
 
     </section>
 
+  `;
 
-    <div class="data-info settings-save-info">
+}
 
-      <span>
-        ✓
-      </span>
 
-      <div>
+/* ============================================================
+   SETTINGS · ABOUT
+   ============================================================ */
 
-        <b>
-          설정 및 채용 데이터는 현재 브라우저에 자동 저장됩니다.
-        </b>
+function renderSettingsAbout(){
+
+  const page = $('#page');
+
+
+  page.innerHTML = `
+
+    <section class="settings-page">
+
+      <div class="settings-detail-head">
+
+        <button
+          class="settings-back"
+          type="button"
+          onclick="closeSettingsSection()"
+        >
+          ‹
+        </button>
 
         <div>
-          다른 브라우저나 다른 기기에서는 별도의 저장 데이터가 사용됩니다.
+
+          <div class="settings-eyebrow">
+            ABOUT
+          </div>
+
+          <h2>
+            기본 정보
+          </h2>
+
         </div>
 
       </div>
 
-    </div>
+
+      <div class="settings-about-hero">
+
+        <div class="settings-about-logo">
+          J
+        </div>
+
+        <h3>
+          Jini-ATS Studio
+        </h3>
+
+        <p>
+          채용공고 · 지원자 관리 · ATS 분석 · 리포트
+        </p>
+
+        <span>
+          Version 2.0.0
+        </span>
+
+      </div>
+
+
+      <div class="settings-detail-list">
+
+        <div class="settings-detail-row">
+
+          <div>
+
+            <strong>
+              서비스
+            </strong>
+
+            <span>
+              Jini-ATS Studio
+            </span>
+
+          </div>
+
+          <span class="settings-detail-value">
+            v2.0.0
+          </span>
+
+        </div>
+
+
+        <div class="settings-detail-row">
+
+          <div>
+
+            <strong>
+              ATS
+            </strong>
+
+            <span>
+              지원자 적합도 분석
+            </span>
+
+          </div>
+
+          <span class="settings-detail-value">
+            100점
+          </span>
+
+        </div>
+
+
+        <div class="settings-detail-row">
+
+          <div>
+
+            <strong>
+              저장
+            </strong>
+
+            <span>
+              Browser LocalStorage
+            </span>
+
+          </div>
+
+          <span class="settings-state-badge active">
+            정상
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="settings-info-box">
+
+        <span>
+          ⓘ
+        </span>
+
+        <div>
+
+          <strong>
+            Jini-ATS
+          </strong>
+
+          <p>
+            채용공고 등록부터 지원자 관리,
+            ATS 분석과 채용 리포트까지
+            하나의 화면에서 관리하기 위한 개인용 ATS입니다.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
 
   `;
 
 }
-  
 
 /* ============================================================
    페이지 이동
