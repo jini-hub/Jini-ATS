@@ -7809,12 +7809,17 @@ function normalizeState(saved){
         ? s.query
         : '',
 
-    aiKey:
-      typeof s.aiKey === 'string'
-        ? s.aiKey
-        : GEMINI_API_KEY,
+aiKey:
+  typeof s.aiKey === 'string'
+    ? s.aiKey
+    : GEMINI_API_KEY,
 
-    version:APP_VERSION
+settingsSection:
+  typeof s.settingsSection === 'string'
+    ? s.settingsSection
+    : 'main',
+
+version:APP_VERSION
 
   };
 
