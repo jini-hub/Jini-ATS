@@ -6329,6 +6329,105 @@ document.addEventListener(
 load();
 
 </script>
+<style>
+/* 모바일 3단 메뉴 */
+.mobile-menu-btn {
+  display: none;
+}
 
+.mobile-menu {
+  display: none;
+}
+
+@media (max-width: 720px) {
+
+  .mobile-menu-btn {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 0;
+    border-radius: 10px;
+    background: #111827;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    position: relative;
+    z-index: 10001;
+  }
+
+  .mobile-menu {
+    position: fixed;
+    top: 70px;
+    left: 10px;
+    right: 10px;
+    z-index: 10000;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.2);
+  }
+
+  .mobile-menu.open {
+    display: block !important;
+  }
+
+  .mobile-menu button {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    border: 0;
+    background: transparent;
+    text-align: left;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+
+  .mobile-menu button:active {
+    background: #f3f4f6;
+  }
+
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  const btn = document.getElementById('mobileMenuBtn');
+  const menu = document.getElementById('mobileMenu');
+
+  if (!btn || !menu) return;
+
+  btn.addEventListener('click', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    menu.classList.toggle('open');
+  });
+
+  menu.querySelectorAll('button').forEach(function (button) {
+
+    button.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const page = button.dataset.page;
+
+      if (typeof go === 'function') {
+        go(page);
+      }
+
+      menu.classList.remove('open');
+    });
+
+  });
+
+});
+</script>
+  
 </body>
 </html>
