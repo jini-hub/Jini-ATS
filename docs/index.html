@@ -6913,7 +6913,7 @@ function normalizeState(saved){
       'jobs',
       'candidates',
       'analysis',
-      'reports'.
+      'reports',
       'settings'
     ].includes(s.page)
       ? s.page
@@ -7686,7 +7686,7 @@ mobileMenuButtons.forEach(
     jobs:renderJobs,
     candidates:renderCandidates,
     analysis:renderAnalysis,
-    reports:renderReports.
+    reports:renderReports,
     settings:renderSettings
   }[state.page];
 
