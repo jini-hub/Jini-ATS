@@ -2849,61 +2849,114 @@ function dropStage(e,stage){
 
 function computeAnalysis(c,j){
 
-  if(!c)
+  if(!c || !j){
+
     return {
       score:0,
       hit:[],
       miss:[],
       base:0,
       exp:0,
-      edu:0
-    };
-
-  if(!j)
-    return {
-      score:0,
-      hit:[],
-      miss:[],
-      base:0,
-      exp:0,
-      edu:0
-    };
-
-  const keywords =
-    Array.isArray(j.keywords)
-      ? j.keywords
-      : [];
-
-  if(!keywords.length){
-
-    return {
-      score:0,
-      hit:[],
-      miss:[],
-      base:0,
-      exp:Math.min(
-        15,
-        Math.round(
-          (Number(c.years)||0)*1.8
-        )
-      ),
       edu:0
     };
 
   }
 
+
+  /*
+   * ----------------------------------------
+   * 1. JD 핵심 키워드
+   * ----------------------------------------
+   */
+
+  const keywords =
+    Array.isArray(j.keywords)
+      ? j.keywords
+          .map(
+            k=>String(k).trim()
+          )
+          .filter(Boolean)
+      : [];
+
+
+  /*
+   * ----------------------------------------
+   * 2. 지원자의 전체 경력/역량 텍스트 구성
+   *
+   * 기존에는 resume + skills만 사용했지만
+   * 이제 Gemini가 분석한 keyCareers까지 사용
+   * ----------------------------------------
+   */
+
+  let careerText = '';
+
+
+  if(Array.isArray(c.keyCareers)){
+
+    careerText +=
+      c.keyCareers
+        .map(x=>{
+
+          return [
+            x.company || '',
+            x.position || '',
+            x.period || '',
+            x.description || ''
+          ].join(' ');
+
+        })
+        .join(' ');
+
+  }
+
+
+  careerText +=
+    ' ' +
+    (c.careerSummary || '') +
+    ' ' +
+    (c.careerDetail || '');
+
+
+  const skillsText =
+    Array.isArray(c.skills)
+      ? c.skills.join(' ')
+      : String(c.skills || '');
+
+
+  const resumeText =
+    String(c.resume || '');
+
+
   const text =
     (
-      `${c.resume || ''} ${(c.skills || []).join(' ')}`
+      resumeText +
+      ' ' +
+      careerText +
+      ' ' +
+      skillsText
     ).toLowerCase();
 
 
+  /*
+   * ----------------------------------------
+   * 3. JD 키워드 매칭
+   * ----------------------------------------
+   */
+
   const hit =
     keywords.filter(
-      k=>
-        text.includes(
-          String(k).toLowerCase()
-        )
+      k=>{
+
+        const keyword =
+          String(k)
+            .toLowerCase()
+            .trim();
+
+        return text.includes(
+          keyword
+        );
+
+      }
     );
 
 
@@ -2913,53 +2966,250 @@ function computeAnalysis(c,j){
     );
 
 
-  const base =
+  /*
+   * 키워드 매칭률
+   *
+   * 전체 점수 중 최대 40점
+   */
+
+  const keywordRate =
+    keywords.length
+      ? hit.length / keywords.length
+      : 0;
+
+
+  const keywordScore =
     Math.round(
-      hit.length /
-      keywords.length *
-      100
+      keywordRate * 40
     );
+
+
+  /*
+   * ----------------------------------------
+   * 4. 직무 경력 적합도
+   *
+   * keyCareers + careerSummary + careerDetail
+   * 를 이용해서 실제 직무 관련 경력을 판단
+   * ----------------------------------------
+   */
+
+  let careerMatchCount = 0;
+
+
+  if(keywords.length){
+
+    careerMatchCount =
+      keywords.filter(
+        k=>{
+
+          const keyword =
+            String(k)
+              .toLowerCase()
+              .trim();
+
+          return careerText
+            .toLowerCase()
+            .includes(keyword);
+
+        }
+      ).length;
+
+  }
+
+
+  const careerRate =
+    keywords.length
+      ? careerMatchCount / keywords.length
+      : 0;
+
+
+  /*
+   * 직무경력 점수 최대 30점
+   */
+
+  let careerScore =
+    Math.round(
+      careerRate * 30
+    );
+
+
+  /*
+   * ----------------------------------------
+   * 5. 경력연차
+   *
+   * 9년이면 최대 15점
+   * ----------------------------------------
+   */
+
+  const years =
+    Number(c.years) || 0;
 
 
   const exp =
     Math.min(
       15,
       Math.round(
-        (Number(c.years)||0)*1.8
+        years * 1.8
       )
     );
 
 
-  const edu =
-    /석사|mba/i.test(
+  /*
+   * ----------------------------------------
+   * 6. 핵심 스킬
+   *
+   * skills와 JD 키워드를 비교
+   *
+   * 최대 10점
+   * ----------------------------------------
+   */
+
+  let skillMatchCount = 0;
+
+
+  if(
+    Array.isArray(c.skills) &&
+    keywords.length
+  ){
+
+    skillMatchCount =
+      c.skills.filter(
+        skill=>{
+
+          const s =
+            String(skill)
+              .toLowerCase()
+              .trim();
+
+          return keywords.some(
+            k=>{
+
+              const keyword =
+                String(k)
+                  .toLowerCase()
+                  .trim();
+
+              return (
+                s.includes(keyword) ||
+                keyword.includes(s)
+              );
+
+            }
+          );
+
+        }
+      ).length;
+
+  }
+
+
+  const skillRate =
+    keywords.length
+      ? Math.min(
+          1,
+          skillMatchCount /
+          Math.max(
+            1,
+            keywords.length
+          )
+        )
+      : 0;
+
+
+  const skillScore =
+    Math.min(
+      10,
+      Math.round(
+        skillRate * 10
+      )
+    );
+
+
+  /*
+   * ----------------------------------------
+   * 7. 학력
+   *
+   * 최대 5점
+   * ----------------------------------------
+   */
+
+  const education =
+    String(
       c.education || ''
+    );
+
+
+  const edu =
+    /박사/i.test(
+      education
     )
       ? 5
-      : 3;
+      : /석사|mba/i.test(
+          education
+        )
+        ? 5
+        : /학사|대학교|대학/i.test(
+            education
+          )
+          ? 4
+          : 2;
 
+
+  /*
+   * ----------------------------------------
+   * 8. 최종 점수
+   *
+   * 키워드       40
+   * 직무경력     30
+   * 경력연차     15
+   * 핵심스킬     10
+   * 학력          5
+   * ----------------
+   * 총점        100
+   * ----------------------------------------
+   */
 
   const score =
     Math.min(
       100,
       Math.round(
-        base*.78 +
+        keywordScore +
+        careerScore +
         exp +
+        skillScore +
         edu
       )
     );
 
 
+  /*
+   * 기존 화면에서 사용하는 base 값은
+   * 키워드 매칭률을 그대로 유지
+   */
+
+  const base =
+    Math.round(
+      keywordRate * 100
+    );
+
+
   return {
+
     score,
+
     hit,
+
     miss,
+
     base,
+
     exp,
+
     edu
+
   };
 
 }
-
 
 /* ============================================================
    ATS 분석
