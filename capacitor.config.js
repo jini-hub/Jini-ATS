@@ -2,7 +2,7 @@ const { CapacitorConfig } = require('@capacitor/cli');
 
 const config = {
   appId: 'com.kats.studio',
-  appName: 'K-ATS Studio',
+  appName: 'Jini-ATS',
   webDir: 'www',
   bundledWebRuntime: false,
   server: {
