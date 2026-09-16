@@ -11138,16 +11138,11 @@ function renderReports(){
     );
 
 
-  const hiredCount =
-    candidates.filter(
-      c =>
-        String(
-          c.stage ||
-          c.status ||
-          ''
-        ).toLowerCase() ===
-        'hired'
-    ).length;
+const hiredCount =
+  candidates.filter(
+    c =>
+      Number(c.stage) === 4
+  ).length;
 
 
   const totalScore =
@@ -11259,16 +11254,11 @@ function renderReports(){
             : 0;
 
 
-        const hired =
-          jobCandidates.filter(
-            c =>
-              String(
-                c.stage ||
-                c.status ||
-                ''
-              ).toLowerCase() ===
-              'hired'
-          ).length;
+const hired =
+  jobCandidates.filter(
+    c =>
+      Number(c.stage) === 4
+  ).length;
 
 
         const conversion =
