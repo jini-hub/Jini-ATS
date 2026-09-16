@@ -16550,11 +16550,29 @@ load();
 
 <style>
 
-  /* PC 상단 버튼 한 줄 정렬 */
+/* PC 상단 헤더 한 줄 정렬 */
 @media (min-width:721px){
+  .topbar{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    flex-direction:row !important;
+  }
+
+  .top-left{
+    display:flex !important;
+    align-items:center !important;
+    flex-direction:row !important;
+    flex-wrap:nowrap !important;
+  }
+
   .top-actions{
-    flex-wrap:nowrap;
-    align-items:center;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:flex-end !important;
+    flex-direction:row !important;
+    flex-wrap:nowrap !important;
+    margin-left:auto !important;
   }
 }
   
