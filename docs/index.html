@@ -3554,6 +3554,1320 @@ a:hover{
   }
 
 }
+
+/* =========================================================
+   Jini-ATS 2.0
+   STEP 7 - Candidate Management
+   ========================================================= */
+
+.candidates-hero{
+  position:relative;
+  overflow:hidden;
+
+  min-height:190px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:24px;
+
+  padding:30px 34px;
+
+  margin-bottom:16px;
+
+  border-radius:26px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #FFFFFF 0%,
+      #F8FAFF 55%,
+      #EEF5FF 100%
+    );
+
+  border:1px solid rgba(229,229,234,.9);
+
+  box-shadow:
+    0 8px 30px rgba(0,0,0,.045),
+    0 2px 8px rgba(0,0,0,.025);
+}
+
+
+.candidates-hero::after{
+  content:"";
+
+  position:absolute;
+
+  width:250px;
+  height:250px;
+
+  right:-65px;
+  top:-100px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(0,122,255,.16),
+      rgba(88,86,214,.07) 45%,
+      transparent 70%
+    );
+}
+
+
+.candidates-hero-content{
+  position:relative;
+  z-index:2;
+}
+
+
+.candidates-eyebrow{
+  margin-bottom:8px;
+
+  color:#007AFF;
+
+  font-size:11px;
+  font-weight:850;
+
+  letter-spacing:.8px;
+}
+
+
+.candidates-hero h2{
+  margin:0;
+
+  color:#1C1C1E;
+
+  font-size:26px;
+  font-weight:800;
+
+  letter-spacing:-.6px;
+}
+
+
+.candidates-hero p{
+  margin:9px 0 0;
+
+  color:#636366;
+
+  font-size:13px;
+  line-height:1.6;
+}
+
+
+.candidates-hero-actions{
+  position:relative;
+  z-index:2;
+
+  display:flex;
+
+  gap:8px;
+
+  flex-shrink:0;
+}
+
+
+.candidates-ai-btn{
+  background:rgba(255,255,255,.85);
+
+  border:1px solid rgba(229,229,234,.9);
+}
+
+
+/* =========================================================
+   KPI
+   ========================================================= */
+
+.candidate-summary-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,minmax(0,1fr));
+
+  gap:12px;
+
+  margin-bottom:16px;
+}
+
+
+.candidate-summary-card{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:13px;
+
+  min-height:105px;
+
+  padding:18px;
+
+  background:#FFFFFF;
+
+  border:1px solid #E5E5EA;
+
+  border-radius:20px;
+
+  box-shadow:
+    0 5px 18px rgba(0,0,0,.035);
+}
+
+
+.candidate-summary-icon{
+
+  width:42px;
+  height:42px;
+
+  min-width:42px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  border-radius:14px;
+
+  font-size:17px;
+  font-weight:800;
+}
+
+
+.candidate-summary-icon.blue{
+  background:#EAF3FF;
+  color:#007AFF;
+}
+
+
+.candidate-summary-icon.green{
+  background:#EAF9EE;
+  color:#248A3D;
+}
+
+
+.candidate-summary-icon.purple{
+  background:#F0ECFF;
+  color:#5856D6;
+}
+
+
+.candidate-summary-icon.red{
+  background:#FFF0F0;
+  color:#FF3B30;
+}
+
+
+.candidate-summary-label{
+  color:#8E8E93;
+
+  font-size:11px;
+  font-weight:700;
+}
+
+
+.candidate-summary-number{
+  margin-top:2px;
+
+  color:#1C1C1E;
+
+  font-size:25px;
+  font-weight:800;
+
+  line-height:1.1;
+}
+
+
+.candidate-summary-description{
+
+  margin-top:4px;
+
+  color:#8E8E93;
+
+  font-size:10px;
+}
+
+
+/* =========================================================
+   검색 / 필터
+   ========================================================= */
+
+.candidate-filter-card{
+
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:14px;
+
+  padding:13px;
+
+  margin-bottom:12px;
+
+  background:#FFFFFF;
+
+  border:1px solid #E5E5EA;
+
+  border-radius:18px;
+
+  box-shadow:
+    0 4px 15px rgba(0,0,0,.025);
+}
+
+
+.candidate-filter-left{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:9px;
+
+  min-width:0;
+
+  flex:1;
+}
+
+
+.candidate-search-box{
+
+  position:relative;
+
+  width:100%;
+  max-width:480px;
+}
+
+
+.candidate-search-icon{
+
+  position:absolute;
+
+  left:13px;
+  top:50%;
+
+  transform:translateY(-50%);
+
+  color:#8E8E93;
+
+  font-size:20px;
+
+  pointer-events:none;
+}
+
+
+.candidate-search-box input{
+
+  width:100%;
+
+  height:42px;
+
+  padding:
+    0 14px 0 40px;
+
+  box-sizing:border-box;
+
+  border:1px solid #E5E5EA;
+
+  border-radius:13px;
+
+  background:#F7F7F8;
+
+  color:#1C1C1E;
+
+  font-size:12px;
+
+  outline:none;
+
+  transition:.2s;
+}
+
+
+.candidate-search-box input:focus{
+
+  background:#FFFFFF;
+
+  border-color:#007AFF;
+
+  box-shadow:
+    0 0 0 3px rgba(0,122,255,.10);
+}
+
+
+.candidate-job-filter{
+
+  height:42px;
+
+  min-width:180px;
+
+  padding:0 35px 0 13px;
+
+  border:1px solid #E5E5EA;
+
+  border-radius:13px;
+
+  background:#F7F7F8;
+
+  color:#3A3A3C;
+
+  font-size:12px;
+
+  outline:none;
+}
+
+
+.candidate-filter-info{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:4px;
+
+  white-space:nowrap;
+
+  color:#8E8E93;
+
+  font-size:11px;
+}
+
+
+.candidate-filter-count{
+
+  color:#1C1C1E;
+
+  font-size:13px;
+  font-weight:800;
+}
+
+
+/* =========================================================
+   AI 안내
+   ========================================================= */
+
+.candidate-ai-notice{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:12px;
+
+  padding:14px 16px;
+
+  margin-bottom:18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #F7FAFF,
+      #F2F5FF
+    );
+
+  border:
+    1px solid #E0E8FF;
+
+  border-radius:16px;
+}
+
+
+.candidate-ai-notice-icon{
+
+  width:34px;
+  height:34px;
+
+  min-width:34px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  border-radius:11px;
+
+  background:#E8F1FF;
+
+  color:#007AFF;
+
+  font-size:15px;
+}
+
+
+.candidate-ai-notice strong{
+
+  display:block;
+
+  color:#1C1C1E;
+
+  font-size:12px;
+}
+
+
+.candidate-ai-notice p{
+
+  margin:3px 0 0;
+
+  color:#636366;
+
+  font-size:10px;
+
+  line-height:1.5;
+}
+
+
+/* =========================================================
+   Board
+   ========================================================= */
+
+.candidate-board-section{
+
+  padding:20px;
+
+  background:#FFFFFF;
+
+  border:
+    1px solid #E5E5EA;
+
+  border-radius:22px;
+
+  box-shadow:
+    0 6px 22px rgba(0,0,0,.035);
+
+  overflow:hidden;
+}
+
+
+.candidate-board-header{
+
+  display:flex;
+
+  align-items:flex-end;
+
+  justify-content:space-between;
+
+  gap:15px;
+
+  margin-bottom:16px;
+}
+
+
+.candidate-board-eyebrow{
+
+  margin-bottom:5px;
+
+  color:#007AFF;
+
+  font-size:10px;
+
+  font-weight:850;
+
+  letter-spacing:.7px;
+}
+
+
+.candidate-board-header h3{
+
+  margin:0;
+
+  color:#1C1C1E;
+
+  font-size:19px;
+
+  font-weight:800;
+
+  letter-spacing:-.4px;
+}
+
+
+.candidate-board-help{
+
+  color:#8E8E93;
+
+  font-size:10px;
+}
+
+
+.candidate-board{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(6,minmax(205px,1fr));
+
+  gap:10px;
+
+  overflow-x:auto;
+
+  padding-bottom:5px;
+}
+
+
+.candidate-column{
+
+  min-width:205px;
+
+  min-height:360px;
+
+  padding:10px;
+
+  background:#F7F7F8;
+
+  border:
+    1px solid #E5E5EA;
+
+  border-radius:17px;
+
+  transition:
+    background .18s,
+    border-color .18s,
+    transform .18s;
+}
+
+
+.candidate-column.drag-over{
+
+  background:#EEF5FF;
+
+  border-color:#007AFF;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(0,122,255,.12);
+}
+
+
+.candidate-reject-column{
+
+  background:#FBF8F8;
+}
+
+
+.candidate-column-head{
+
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:8px;
+
+  padding:5px 4px 10px;
+
+  border-bottom:
+    1px solid #E5E5EA;
+
+  margin-bottom:9px;
+}
+
+
+.candidate-column-title{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:7px;
+
+  color:#3A3A3C;
+
+  font-size:11px;
+
+  font-weight:750;
+
+  white-space:nowrap;
+}
+
+
+.candidate-stage-dot{
+
+  width:7px;
+  height:7px;
+
+  border-radius:50%;
+
+  background:#8E8E93;
+}
+
+
+.candidate-stage-dot.stage-0{
+  background:#8E8E93;
+}
+
+.candidate-stage-dot.stage-1{
+  background:#007AFF;
+}
+
+.candidate-stage-dot.stage-2{
+  background:#5856D6;
+}
+
+.candidate-stage-dot.stage-3{
+  background:#AF52DE;
+}
+
+.candidate-stage-dot.stage-4{
+  background:#34C759;
+}
+
+.candidate-stage-dot.stage-5{
+  background:#FF3B30;
+}
+
+
+.candidate-stage-count{
+
+  min-width:23px;
+  height:23px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  border-radius:8px;
+
+  background:#E5E5EA;
+
+  color:#636366;
+
+  font-size:10px;
+
+  font-weight:800;
+}
+
+
+.candidate-stage-count.reject{
+
+  background:#FFE5E3;
+
+  color:#FF3B30;
+}
+
+
+.candidate-column-body{
+
+  min-height:300px;
+}
+
+
+/* =========================================================
+   Empty
+   ========================================================= */
+
+.candidate-empty{
+
+  min-height:100px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+  justify-content:center;
+
+  text-align:center;
+
+  gap:7px;
+
+  color:#AEAEB2;
+
+  font-size:10px;
+
+  line-height:1.5;
+}
+
+
+.candidate-empty-icon{
+
+  width:28px;
+  height:28px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  border-radius:9px;
+
+  background:#EAEAEC;
+
+  color:#8E8E93;
+
+  font-size:15px;
+}
+
+
+/* =========================================================
+   Candidate Card
+   ========================================================= */
+
+.candidate-card-new{
+
+  padding:13px;
+
+  margin-bottom:9px;
+
+  background:#FFFFFF;
+
+  border:
+    1px solid #E5E5EA;
+
+  border-radius:15px;
+
+  box-shadow:
+    0 3px 10px rgba(0,0,0,.035);
+
+  cursor:grab;
+
+  transition:
+    transform .18s,
+    box-shadow .18s,
+    border-color .18s;
+}
+
+
+.candidate-card-new:hover{
+
+  transform:translateY(-2px);
+
+  border-color:#D1D1D6;
+
+  box-shadow:
+    0 7px 18px rgba(0,0,0,.07);
+}
+
+
+.candidate-card-new:active{
+
+  cursor:grabbing;
+}
+
+
+.candidate-card-new.dragging{
+
+  opacity:.55;
+
+  transform:rotate(1deg) scale(.98);
+}
+
+
+.candidate-card-top{
+
+  display:flex;
+
+  align-items:flex-start;
+
+  justify-content:space-between;
+
+  gap:8px;
+}
+
+
+.candidate-person{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:9px;
+
+  min-width:0;
+}
+
+
+.candidate-avatar{
+
+  width:32px;
+  height:32px;
+
+  min-width:32px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  border-radius:10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #EAF3FF,
+      #EEF0FF
+    );
+
+  color:#007AFF;
+
+  font-size:12px;
+
+  font-weight:800;
+}
+
+
+.candidate-name-new{
+
+  overflow:hidden;
+
+  color:#1C1C1E;
+
+  font-size:12px;
+
+  font-weight:800;
+
+  text-overflow:ellipsis;
+
+  white-space:nowrap;
+}
+
+
+.candidate-job-new{
+
+  max-width:120px;
+
+  margin-top:2px;
+
+  overflow:hidden;
+
+  color:#8E8E93;
+
+  font-size:9px;
+
+  text-overflow:ellipsis;
+
+  white-space:nowrap;
+}
+
+
+.candidate-score-new{
+
+  min-width:36px;
+  height:30px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  border-radius:10px;
+
+  font-size:12px;
+
+  font-weight:850;
+}
+
+
+.candidate-score-new.good{
+
+  background:#EAF9EE;
+
+  color:#248A3D;
+}
+
+
+.candidate-score-new.mid{
+
+  background:#FFF6DF;
+
+  color:#9A6700;
+}
+
+
+.candidate-score-new.low{
+
+  background:#FFF0F0;
+
+  color:#D92D20;
+}
+
+
+.candidate-meta-new{
+
+  display:flex;
+
+  gap:5px;
+
+  margin-top:10px;
+
+  color:#8E8E93;
+
+  font-size:9px;
+
+  line-height:1.4;
+}
+
+
+.candidate-career-preview{
+
+  margin-top:10px;
+
+  padding:8px 9px;
+
+  border-radius:10px;
+
+  background:#F7F7F8;
+}
+
+
+.candidate-career-label{
+
+  margin-bottom:3px;
+
+  color:#8E8E93;
+
+  font-size:8px;
+
+  font-weight:700;
+}
+
+
+.candidate-career-company{
+
+  overflow:hidden;
+
+  color:#3A3A3C;
+
+  font-size:9px;
+
+  font-weight:700;
+
+  text-overflow:ellipsis;
+
+  white-space:nowrap;
+}
+
+
+.candidate-summary-preview{
+
+  color:#636366;
+
+  font-size:9px;
+
+  line-height:1.4;
+}
+
+
+.candidate-chips-new{
+
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:4px;
+
+  margin-top:9px;
+}
+
+
+.candidate-chips-new span{
+
+  padding:
+    4px 7px;
+
+  border-radius:999px;
+
+  background:#F0F0F2;
+
+  color:#636366;
+
+  font-size:8px;
+
+  font-weight:650;
+}
+
+
+.candidate-chips-new span.more{
+
+  background:#EAF3FF;
+
+  color:#007AFF;
+}
+
+
+.candidate-card-bottom{
+
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:6px;
+
+  margin-top:11px;
+
+  padding-top:9px;
+
+  border-top:
+    1px solid #F0F0F2;
+}
+
+
+.candidate-updated{
+
+  overflow:hidden;
+
+  color:#8E8E93;
+
+  font-size:8px;
+
+  text-overflow:ellipsis;
+
+  white-space:nowrap;
+}
+
+
+.candidate-updated.rejected{
+
+  color:#FF3B30;
+
+  font-weight:700;
+}
+
+
+.candidate-analysis-btn{
+
+  padding:0;
+
+  border:0;
+
+  background:transparent;
+
+  color:#007AFF;
+
+  font-size:9px;
+
+  font-weight:750;
+
+  cursor:pointer;
+
+  white-space:nowrap;
+}
+
+
+.candidate-analysis-btn:hover{
+
+  text-decoration:underline;
+}
+
+
+/* =========================================================
+   저장 안내
+   ========================================================= */
+
+.candidate-save-info{
+
+  margin-top:14px;
+
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+}
+
+
+.candidate-save-icon{
+
+  width:30px;
+  height:30px;
+
+  min-width:30px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+
+  background:#EAF9EE;
+
+  color:#248A3D;
+
+  font-size:12px;
+
+  font-weight:800;
+}
+
+
+/* =========================================================
+   STEP 7 Responsive
+   ========================================================= */
+
+@media(max-width:1200px){
+
+  .candidate-summary-grid{
+
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+
+  }
+
+  .candidate-board{
+
+    grid-template-columns:
+      repeat(6,205px);
+
+  }
+
+}
+
+
+@media(max-width:720px){
+
+  .candidates-hero{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    padding:24px;
+
+  }
+
+
+  .candidates-hero-actions{
+
+    width:100%;
+  }
+
+
+  .candidates-hero-actions .btn{
+
+    flex:1;
+  }
+
+
+  .candidate-summary-grid{
+
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+
+  }
+
+
+  .candidate-filter-card{
+
+    flex-direction:column;
+
+    align-items:stretch;
+
+  }
+
+
+  .candidate-filter-left{
+
+    width:100%;
+
+    flex-direction:column;
+
+    align-items:stretch;
+
+  }
+
+
+  .candidate-search-box{
+
+    max-width:none;
+  }
+
+
+  .candidate-job-filter{
+
+    width:100%;
+  }
+
+
+  .candidate-filter-info{
+
+    justify-content:flex-end;
+  }
+
+
+  .candidate-board-section{
+
+    padding:14px;
+  }
+
+
+  .candidate-board-header{
+
+    align-items:flex-start;
+
+    flex-direction:column;
+
+  }
+
+
+  .candidate-board-help{
+
+    font-size:9px;
+  }
+
+}
+
+
+@media(max-width:420px){
+
+  .candidates-hero{
+
+    padding:20px;
+
+    border-radius:20px;
+  }
+
+
+  .candidates-hero h2{
+
+    font-size:21px;
+  }
+
+
+  .candidates-hero-actions{
+
+    flex-direction:column;
+  }
+
+
+  .candidate-summary-card{
+
+    min-height:92px;
+
+    padding:13px;
+
+    gap:9px;
+  }
+
+
+  .candidate-summary-icon{
+
+    width:35px;
+    height:35px;
+
+    min-width:35px;
+
+    border-radius:11px;
+  }
+
+
+  .candidate-summary-number{
+
+    font-size:21px;
+  }
+
+
+  .candidate-board{
+
+    grid-template-columns:
+      repeat(6,190px);
+  }
+
+
+  .candidate-column{
+
+    min-width:190px;
+  }
+
+}
   
 </style>
   
@@ -6018,36 +7332,66 @@ function renderCandidates(){
           !state.query ||
 
           (
-            `${c.name || ''} ${c.email || ''} ${(c.skills || []).join(' ')} ${c.resume || ''}`
+            `${c.name || ''} ${c.email || ''} ${(c.skills || []).join(' ')} ${c.resume || ''} ${c.careerSummary || ''}`
           )
           .toLowerCase()
           .includes(
             state.query.toLowerCase()
           )
-
         )
     );
 
 
+  const totalCount =
+    list.length;
+
+  const activeCount =
+    list.filter(
+      c => Number(c.stage) < 5
+    ).length;
+
+  const rejectCount =
+    list.filter(
+      c => Number(c.stage) === 5
+    ).length;
+
+
+  const hiredCount =
+    list.filter(
+      c => Number(c.stage) === 4
+    ).length;
+
+
   $('#page').innerHTML = `
 
-    <div class="title-row">
+    <!-- ======================================================
+         지원자 Hero
+         ====================================================== -->
 
-      <div>
+    <section class="candidates-hero">
 
-        <h2>지원자 관리</h2>
+      <div class="candidates-hero-content">
 
-        <div class="muted mini">
-          PDF 이력서를 업로드하면 내용을 읽어 후보자 정보를 자동 입력하고,
-          카드를 드래그하여 채용단계를 이동할 수 있습니다.
+        <div class="candidates-eyebrow">
+          CANDIDATE MANAGEMENT
         </div>
+
+        <h2>
+          지원자를 체계적으로 관리하세요
+        </h2>
+
+        <p>
+          채용 단계별 후보자를 한눈에 확인하고
+          ATS 분석까지 연결할 수 있습니다.
+        </p>
 
       </div>
 
-      <div style="display:flex;gap:8px">
+
+      <div class="candidates-hero-actions">
 
         <button
-          class="btn"
+          class="btn candidates-ai-btn"
           onclick="openAISettings()"
         >
           ⚙ AI 설정
@@ -6062,157 +7406,387 @@ function renderCandidates(){
 
       </div>
 
-    </div>
+    </section>
 
 
-    <div class="searchrow">
+    <!-- ======================================================
+         KPI
+         ====================================================== -->
 
-      <input
-        id="candSearch"
-        placeholder="이름 · 스킬 · 이력서 검색"
-        value="${esc(state.query)}"
-        oninput="state.query=this.value;renderCandidates()"
-      >
+    <section class="candidate-summary-grid">
 
-      <select
-        onchange="state.jobFilter=this.value;renderCandidates()"
-      >
+      <div class="candidate-summary-card">
 
-        <option value="all">
-          전체 공고
-        </option>
+        <div class="candidate-summary-icon blue">
+          👤
+        </div>
 
-        ${
-          state.jobs.map(
-            j=>`
+        <div>
 
-            <option
-              value="${j.id}"
-              ${
-                String(state.jobFilter)===String(j.id)
-                  ? 'selected'
-                  : ''
-              }
-            >
-              ${esc(j.title)}
-            </option>
-
-            `
-          ).join('')
-        }
-
-      </select>
-
-    </div>
-
-
-    <div class="notice" style="margin-bottom:14px">
-
-      📎
-      <b>PDF 이력서 → 자동 추출</b>
-
-      · 이메일 / 경력연차 / 학력 / 스킬 / 경력요약을 자동 입력합니다.
-
-    </div>
-
-
-    <div class="stage-summary">
-
-      <div>
-        전체
-        <b>${list.length}</b>
-      </div>
-
-      <div>
-        진행중
-        <b>
-          ${list.filter(
-            c=>c.stage<5
-          ).length}
-        </b>
-      </div>
-
-      <div class="reject-summary">
-        불합격
-        <b>
-          ${list.filter(
-            c=>c.stage===5
-          ).length}
-        </b>
-      </div>
-
-    </div>
-
-
-    <div class="board">
-
-      ${
-        stages.map(
-          (stage,si)=>`
-
-          <div
-            class="column ${
-              si===5
-                ? 'reject-column'
-                : ''
-            }"
-
-            data-stage="${si}"
-
-            ondragover="dragOverStage(event)"
-
-            ondragleave="dragLeaveStage(event)"
-
-            ondrop="dropStage(event,${si})"
-          >
-
-            <div class="column-head">
-
-              <span>
-                ${stage}
-              </span>
-
-              <span class="badge ${
-                si===5
-                  ? 'b-red'
-                  : 'b-gray'
-              }">
-
-                ${
-                  list.filter(
-                    c=>c.stage===si
-                  ).length
-                }
-
-              </span>
-
-            </div>
-
-
-            ${
-              list
-                .filter(c=>c.stage===si)
-                .map(c=>candidateCard(c))
-                .join('')
-
-              ||
-
-              '<div class="empty">여기로 후보자를 드래그하세요</div>'
-            }
-
+          <div class="candidate-summary-label">
+            전체 지원자
           </div>
 
-          `
-        ).join('')
-      }
+          <div class="candidate-summary-number">
+            ${totalCount}
+          </div>
+
+          <div class="candidate-summary-description">
+            현재 필터 기준
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="candidate-summary-card">
+
+        <div class="candidate-summary-icon green">
+          ●
+        </div>
+
+        <div>
+
+          <div class="candidate-summary-label">
+            진행중
+          </div>
+
+          <div class="candidate-summary-number">
+            ${activeCount}
+          </div>
+
+          <div class="candidate-summary-description">
+            채용 프로세스 진행
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="candidate-summary-card">
+
+        <div class="candidate-summary-icon purple">
+          ★
+        </div>
+
+        <div>
+
+          <div class="candidate-summary-label">
+            최종합격
+          </div>
+
+          <div class="candidate-summary-number">
+            ${hiredCount}
+          </div>
+
+          <div class="candidate-summary-description">
+            최종 합격 후보
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="candidate-summary-card">
+
+        <div class="candidate-summary-icon red">
+          !
+        </div>
+
+        <div>
+
+          <div class="candidate-summary-label">
+            불합격
+          </div>
+
+          <div class="candidate-summary-number">
+            ${rejectCount}
+          </div>
+
+          <div class="candidate-summary-description">
+            채용 종료
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ======================================================
+         검색 / 필터
+         ====================================================== -->
+
+    <section class="candidate-filter-card">
+
+      <div class="candidate-filter-left">
+
+        <div class="candidate-search-box">
+
+          <span class="candidate-search-icon">
+            ⌕
+          </span>
+
+          <input
+            id="candSearch"
+            type="text"
+            placeholder="이름 · 스킬 · 경력 · 이력서 검색"
+            value="${esc(state.query)}"
+            oninput="
+              state.query=this.value;
+              renderCandidates()
+            "
+          >
+
+        </div>
+
+
+        <select
+          class="candidate-job-filter"
+          onchange="
+            state.jobFilter=this.value;
+            renderCandidates()
+          "
+        >
+
+          <option value="all">
+            전체 채용공고
+          </option>
+
+          ${
+            state.jobs
+              .map(
+                j=>`
+
+                  <option
+                    value="${j.id}"
+                    ${
+                      String(state.jobFilter) ===
+                      String(j.id)
+                        ? 'selected'
+                        : ''
+                    }
+                  >
+                    ${esc(j.title)}
+                  </option>
+
+                `
+              )
+              .join('')
+          }
+
+        </select>
+
+      </div>
+
+
+      <div class="candidate-filter-info">
+
+        <span class="candidate-filter-count">
+          ${list.length}명
+        </span>
+
+        <span>
+          후보자
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <!-- ======================================================
+         PDF 자동 추출 안내
+         ====================================================== -->
+
+    <section class="candidate-ai-notice">
+
+      <div class="candidate-ai-notice-icon">
+        ✦
+      </div>
+
+      <div>
+
+        <strong>
+          PDF 이력서 자동 분석
+        </strong>
+
+        <p>
+          PDF 이력서를 업로드하면 이메일, 경력연차,
+          학력, 스킬, 경력요약 및 주요 경력을 자동으로 추출합니다.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- ======================================================
+         채용 단계
+         ====================================================== -->
+
+    <section class="candidate-board-section">
+
+      <div class="candidate-board-header">
+
+        <div>
+
+          <div class="candidate-board-eyebrow">
+            RECRUITMENT PIPELINE
+          </div>
+
+          <h3>
+            채용 진행 현황
+          </h3>
+
+        </div>
+
+        <div class="candidate-board-help">
+          카드를 드래그하여 단계를 이동할 수 있습니다.
+        </div>
+
+      </div>
+
+
+      <div class="candidate-board">
+
+        ${
+          stages
+            .map(
+              (stage,si)=>`
+
+                <div
+                  class="
+                    candidate-column
+                    ${
+                      si === 5
+                        ? 'candidate-reject-column'
+                        : ''
+                    }
+                  "
+                  data-stage="${si}"
+
+                  ondragover="dragOverStage(event)"
+
+                  ondragleave="dragLeaveStage(event)"
+
+                  ondrop="dropStage(event,${si})"
+                >
+
+
+                  <div class="candidate-column-head">
+
+                    <div class="candidate-column-title">
+
+                      <span class="candidate-stage-dot stage-${si}">
+                      </span>
+
+                      <span>
+                        ${stage}
+                      </span>
+
+                    </div>
+
+
+                    <span class="
+                      candidate-stage-count
+                      ${
+                        si === 5
+                          ? 'reject'
+                          : ''
+                      }
+                    ">
+                      ${
+                        list.filter(
+                          c =>
+                            Number(c.stage) === si
+                        ).length
+                      }
+                    </span>
+
+                  </div>
+
+
+                  <div class="candidate-column-body">
+
+                    ${
+                      list
+                        .filter(
+                          c =>
+                            Number(c.stage) === si
+                        )
+                        .map(
+                          c =>
+                            candidateCard(c)
+                        )
+                        .join('')
+
+                      ||
+
+                      `
+                        <div class="candidate-empty">
+
+                          <div class="candidate-empty-icon">
+                            +
+                          </div>
+
+                          <div>
+                            이 단계에
+                            <br>
+                            지원자가 없습니다.
+                          </div>
+
+                        </div>
+                      `
+                    }
+
+                  </div>
+
+                </div>
+
+              `
+            )
+            .join('')
+        }
+
+      </div>
+
+    </section>
+
+
+    <!-- ======================================================
+         저장 안내
+         ====================================================== -->
+
+    <div class="data-info candidate-save-info">
+
+      <span class="candidate-save-icon">
+        ✓
+      </span>
+
+      <div>
+
+        <b>
+          지원자 데이터 자동 저장
+        </b>
+
+        <div>
+          지원자 등록, 수정, 채용단계 이동 내용은
+          브라우저/APK 저장공간에 자동 저장됩니다.
+        </div>
+
+      </div>
 
     </div>
 
   `;
 
 }
-
-
+  
 /* ============================================================
    지원자 카드
    ============================================================ */
@@ -6221,156 +7795,316 @@ function candidateCard(c){
 
   const j =
     state.jobs.find(
-      j=>j.id===c.job
+      j => String(j.id) === String(c.job)
     );
 
+
   const summary =
+    c.careerSummary ||
     c.resumeSummary ||
     c.resume ||
-    '요약 없음';
+    '지원자 요약 정보가 없습니다.';
+
+
+  const score =
+    Number(c.score) || 0;
+
+
+  const scoreClass =
+    score >= 85
+      ? 'good'
+      : score >= 70
+        ? 'mid'
+        : 'low';
+
+
+  const careers =
+    Array.isArray(c.keyCareers)
+      ? c.keyCareers
+      : [];
+
 
   return `
 
-    <div
-      class="candidate"
+    <article
+      class="candidate-card-new"
+
       draggable="true"
+
       data-id="${c.id}"
 
-      ondragstart="dragStartCandidate(event,${c.id})"
+      ondragstart="
+        dragStartCandidate(event,${c.id})
+      "
 
-      ondragend="dragEndCandidate(event)"
+      ondragend="
+        dragEndCandidate(event)
+      "
 
-      onclick="openCandidate(${c.id})"
+      onclick="
+        openCandidate(${c.id})
+      "
     >
 
-      <div class="cand-top">
 
-        <div>
+      <!-- ==================================================
+           상단
+           ================================================== -->
 
-          <div class="cand-name">
-            ${esc(
-              c.name ||
-              '이름 미확인'
-            )}
+      <div class="candidate-card-top">
+
+
+        <div class="candidate-person">
+
+
+          <div class="candidate-avatar">
+
+            ${
+              esc(
+                (c.name || '?')
+                  .charAt(0)
+              )
+            }
+
           </div>
 
-          <div class="cand-meta">
 
-            ${esc(c.years || 0)}년
+          <div>
 
-            ·
+            <div class="candidate-name-new">
 
-            ${esc(
-              c.education ||
-              '학력 미확인'
-            )}
+              ${esc(
+                c.name ||
+                '이름 미확인'
+              )}
 
-            ·
+            </div>
 
-            ${esc(
-              j?.title ||
-              '공고 미지정'
-            )}
+
+            <div class="candidate-job-new">
+
+              ${
+                esc(
+                  j?.title ||
+                  '공고 미지정'
+                )
+              }
+
+            </div>
 
           </div>
 
         </div>
 
 
-        <b class="score ${
-          c.score>=85
-            ? 'good'
-            : c.score>=70
-              ? 'mid'
-              : 'low'
-        }">
+        <div class="
+          candidate-score-new
+          ${scoreClass}
+        ">
 
-          ${Number(c.score)||0}
+          ${score}
 
-        </b>
+        </div>
 
       </div>
 
 
-      <div class="chips">
+      <!-- ==================================================
+           기본 정보
+           ================================================== -->
 
-        ${(c.skills || [])
-          .slice(0,4)
-          .map(
-            k=>
-              `<span class="chip">
-                ${esc(k)}
-              </span>`
-          )
-          .join('')
-        }
+      <div class="candidate-meta-new">
 
-      </div>
+        <span>
+          경력 ${esc(c.years || 0)}년
+        </span>
 
+        <span>
+          ·
+        </span>
 
-      <div
-        class="mini muted"
-        style="margin-top:9px"
-      >
-
-        ${esc(
-          summary
-        ).slice(0,110)}
-
-        ${
-          summary.length>110
-            ? '…'
-            : ''
-        }
+        <span>
+          ${esc(
+            c.education ||
+            '학력 미확인'
+          )}
+        </span>
 
       </div>
 
 
-      <div class="cand-bottom">
+      <!-- ==================================================
+           핵심 경력
+           ================================================== -->
 
-        <span class="muted mini">
+      ${
+        careers.length
 
-          ${
-            c.stage===5
+          ?
 
-            ?
+          `
+            <div class="candidate-career-preview">
 
-            `<b style="color:#b91c1c">
-              불합격
+              <div class="candidate-career-label">
+                주요 경력
+              </div>
+
+              <div class="candidate-career-company">
+
+                ${esc(
+                  careers[0].company ||
+                  ''
+                )}
+
+                ${
+                  careers[0].position
+                    ? `
+                      ·
+                      ${esc(
+                        careers[0].position
+                      )}
+                    `
+                    : ''
+                }
+
+              </div>
+
+            </div>
+          `
+
+          :
+
+          `
+            <div class="candidate-career-preview">
+
+              <div class="candidate-career-label">
+                지원자 요약
+              </div>
+
+              <div class="candidate-summary-preview">
+
+                ${esc(
+                  summary
+                ).slice(0,90)}
+
+                ${
+                  summary.length > 90
+                    ? '…'
+                    : ''
+                }
+
+              </div>
+
+            </div>
+          `
+      }
+
+
+      <!-- ==================================================
+           스킬
+           ================================================== -->
+
+      ${
+        Array.isArray(c.skills) &&
+        c.skills.length
+
+          ?
+
+          `
+            <div class="candidate-chips-new">
+
               ${
-                c.rejectReason
-                  ? ' · ' + esc(c.rejectReason)
+                c.skills
+                  .slice(0,4)
+                  .map(
+                    skill => `
+                      <span>
+                        ${esc(skill)}
+                      </span>
+                    `
+                  )
+                  .join('')
+              }
+
+              ${
+                c.skills.length > 4
+                  ? `
+                    <span class="more">
+                      +${c.skills.length - 4}
+                    </span>
+                  `
                   : ''
               }
-            </b>`
 
-            :
+            </div>
+          `
 
-            esc(
-              c.updated ||
-              ''
-            )
+          :
+
+          ''
+      }
+
+
+      <!-- ==================================================
+           하단
+           ================================================== -->
+
+      <div class="candidate-card-bottom">
+
+
+        <span class="
+          candidate-updated
+          ${
+            Number(c.stage) === 5
+              ? 'rejected'
+              : ''
+          }
+        ">
+
+          ${
+            Number(c.stage) === 5
+
+              ?
+
+              `
+                불합격
+                ${
+                  c.rejectReason
+                    ? ` · ${esc(c.rejectReason)}`
+                    : ''
+                }
+              `
+
+              :
+
+              esc(
+                c.updated ||
+                '최근 등록'
+              )
           }
 
         </span>
 
 
         <button
-          class="link-btn"
-          onclick="event.stopPropagation();openAnalysis(${c.id})"
+          class="candidate-analysis-btn"
+
+          onclick="
+            event.stopPropagation();
+            openAnalysis(${c.id})
+          "
         >
-          분석 보기
+          ATS 분석 →
         </button>
+
 
       </div>
 
-    </div>
+    </article>
 
   `;
 
 }
-
-
 /* ============================================================
    Drag & Drop
    ============================================================ */
