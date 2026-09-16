@@ -888,7 +888,7 @@ const $$ = s => [...document.querySelectorAll(s)];
    Gemini
    ============================================================ */
 
-const GEMINI_API_KEY = "";
+const GEMINI_API_KEY = "AQ.Ab8RN6InTtnbnzhL_h8sOSaGrjYbG2ocbdSJdE6AmVBh-OcEBQ";
 const GEMINI_MODEL = "gemini-3.6-flash";
 const APK_BUILD = true;
 
@@ -1698,44 +1698,95 @@ async function analyzeResumeWithGemini(
     return null;
 
   const prompt = `
-당신은 한국 기업의 전문 HR 채용담당자다.
+당신은 대한민국 기업의 전문 HR 채용담당자다.
 
-제공된 이력서/경력기술서 PDF를 실제 채용 검토에 사용한다고 생각하고 분석하라.
+아래 이력서/경력기술서를 실제 채용 검토용 데이터로 구조화하라.
 
-문서에 명시된 사실만 사용하고 추측하지 마라.
+중요 규칙:
+1. 이력서에 명시된 사실만 사용한다.
+2. 없는 정보는 추측하지 않는다.
+3. 이름, 이메일, 전화번호는 문서에 있는 값을 그대로 사용한다.
+4. 총 경력은 문서에 기재된 근무기간을 기준으로 계산한다.
+5. 지원공고는 사용자가 직접 선택하므로 반환하지 않는다.
+6. 모든 결과는 반드시 JSON 객체 하나로 반환한다.
+7. JSON 이외의 설명은 절대 작성하지 않는다.
 
-반드시 JSON 객체 하나만 반환한다.
+반드시 아래 JSON 구조를 사용한다.
 
-필드:
-name,
-email,
-phone,
-years,
-education,
-skills,
-resumeSummary,
-careerSummary,
-highlights,
-concerns.
+{
+  "name": "",
+  "email": "",
+  "phone": "",
+  "years": 0,
+  "education": "",
+  "skills": [],
+  "careerSummary": "",
+  "keyCareers": [
+    {
+      "company": "",
+      "position": "",
+      "period": "",
+      "description": ""
+    }
+  ],
+  "concerns": []
+}
 
-skills/highlights/concerns는 배열.
+각 필드 설명:
 
-years는 총 경력연수 숫자.
+name:
+지원자 이름
 
-resumeSummary는 2~3문장.
+email:
+이메일 주소
 
-careerSummary는 회사/직무/기간/핵심업무 중심의 4~6문장.
+phone:
+휴대전화 번호
+
+years:
+총 경력연수.
+숫자만 반환한다.
+예: 7년 3개월이면 7
+
+education:
+최종학력 중심으로 작성한다.
+예:
+"중앙대학교 MBA"
+"서울대학교 경영학과"
+
+skills:
+이력서에 실제로 등장하는 핵심 업무/기술/전문분야를 배열로 작성한다.
+최대 10개.
+
+careerSummary:
+지원자 전체를 한눈에 이해할 수 있도록 2~4문장으로 작성한다.
+
+keyCareers:
+주요 경력을 회사별로 정리한다.
+
+각 경력:
+company = 회사명
+position = 직무/직책
+period = 근무기간
+description = 핵심 업무와 성과를 1~3문장으로 정리
+
+최대 6개까지만 작성한다.
+
+concerns:
+이력서에서 실제로 확인되는 주의사항만 작성한다.
+없으면 [].
 
 지원 JD:
 ${jd || '별도 JD 없음'}
 
-PDF 텍스트 추출본:
-${text || '(추출되지 않음)'}
+PDF 텍스트:
+${text || '(PDF 텍스트 추출 실패)'}
+
 `;
 
   const parts = [
     {
-      text:prompt
+      text: prompt
     }
   ];
 
@@ -1745,12 +1796,10 @@ ${text || '(추출되지 않음)'}
       await fileToBase64(file);
 
     parts.push({
-
       inlineData:{
         mimeType:'application/pdf',
-        data
+        data:data
       }
-
     });
 
   }
@@ -1772,17 +1821,15 @@ ${text || '(추출되지 않음)'}
 
           contents:[
             {
-              parts
+              parts:parts
             }
           ],
 
           generationConfig:{
-            responseMimeType:
-              'application/json'
+            responseMimeType:'application/json'
           }
 
         })
-
       }
     );
 
@@ -1832,12 +1879,14 @@ ${text || '(추출되지 않음)'}
 
   }
 
-  return JSON.parse(
-    cleanAiText(out)
-  );
+  const result =
+    JSON.parse(
+      cleanAiText(out)
+    );
+
+  return result;
 
 }
-
 
 /* ============================================================
    렌더링
@@ -3330,21 +3379,26 @@ function showAnalysis(cid,jid){
           </div>
 
 
+          <!-- 지원자 핵심 요약 -->
+
           <h3
             style="font-size:14px;margin:20px 0 10px"
           >
-            이력서 요약
+            지원자 핵심 요약
           </h3>
 
           <div class="notice">
 
             ${esc(
               c.resumeSummary ||
-              '자동 요약 없음'
+              c.careerSummary ||
+              'AI 요약 없음'
             )}
 
           </div>
 
+
+          <!-- 주요 경력 -->
 
           <h3
             style="font-size:14px;margin:20px 0 10px"
@@ -3362,14 +3416,122 @@ function showAnalysis(cid,jid){
             "
           >
 
-            ${esc(
-              c.careerSummary ||
-              c.resume ||
-              '경력 정보 없음'
-            )}
+            ${
+              Array.isArray(c.keyCareers) &&
+              c.keyCareers.length
+
+                ?
+
+                c.keyCareers
+                  .map(
+                    x=>`
+
+                      <div
+                        style="
+                          padding:10px 0;
+                          border-bottom:1px solid #e5e7eb
+                        "
+                      >
+
+                        <div
+                          style="
+                            font-weight:700;
+                            margin-bottom:4px
+                          "
+                        >
+                          ${esc(
+                            [
+                              x.company,
+                              x.position
+                            ]
+                            .filter(Boolean)
+                            .join(' · ')
+                          )}
+                        </div>
+
+                        ${
+                          x.period
+                            ? `
+                              <div
+                                class="mini muted"
+                                style="margin-bottom:4px"
+                              >
+                                ${esc(x.period)}
+                              </div>
+                            `
+                            : ''
+                        }
+
+                        <div>
+                          ${esc(
+                            x.description ||
+                            ''
+                          )}
+                        </div>
+
+                      </div>
+
+                    `
+                  )
+                  .join('')
+
+                :
+
+                esc(
+                  c.careerDetail ||
+                  c.careerSummary ||
+                  c.resume ||
+                  '경력 정보 없음'
+                )
+            }
 
           </div>
 
+
+          <!-- 핵심 역량 -->
+
+          <h3
+            style="font-size:14px;margin:20px 0 10px"
+          >
+            핵심 역량
+          </h3>
+
+          <div class="keyword-wrap">
+
+            ${
+              Array.isArray(c.skills)
+
+                ?
+
+                c.skills
+                  .filter(Boolean)
+                  .map(
+                    k=>
+                      `<span class="keyword kw-hit">
+                        ${esc(k)}
+                      </span>`
+                  )
+                  .join('')
+
+                :
+
+                c.skills
+                  ? `
+                    <span class="keyword kw-hit">
+                      ${esc(c.skills)}
+                    </span>
+                  `
+                  : `
+                    <span class="muted">
+                      등록된 핵심 역량 없음
+                    </span>
+                  `
+            }
+
+          </div>
+
+
+          <!-- JD 핵심 키워드 -->
 
           <h3
             style="font-size:14px;margin:20px 0 10px"
@@ -3402,6 +3564,8 @@ function showAnalysis(cid,jid){
           </div>
 
 
+          <!-- 분석 결과 -->
+
           <h3
             style="font-size:14px;margin:20px 0 10px"
           >
@@ -3429,7 +3593,6 @@ function showAnalysis(cid,jid){
   `;
 
 }
-
 
 /* ============================================================
    분석 보기
@@ -3984,6 +4147,10 @@ function openCandidate(id){
         )
       : null;
 
+  const keyCareers =
+    Array.isArray(c?.keyCareers)
+      ? c.keyCareers
+      : [];
 
   $('#modalBox').innerHTML = `
 
@@ -3992,23 +4159,19 @@ function openCandidate(id){
       <div>
 
         <h2 style="margin:0">
-
           ${
             c
               ? '지원자 상세'
               : '지원자 추가'
           }
-
         </h2>
 
         <div class="muted mini">
-
-          PDF 업로드 후 자동 추출하거나 직접 수정할 수 있습니다.
-
+          PDF를 업로드하면 Gemini가 지원자 정보를 자동으로 분석합니다.
+          분석 후 모든 내용은 직접 수정할 수 있습니다.
         </div>
 
       </div>
-
 
       <button
         class="close"
@@ -4020,44 +4183,129 @@ function openCandidate(id){
     </div>
 
 
+    <!-- =====================================================
+         PDF 업로드
+         ===================================================== -->
+
     <div
-      class="dropzone"
-      onclick="$('#resumeFile').click()"
+      class="card"
+      style="
+        margin-top:16px;
+        padding:18px;
+        background:#fafbfc;
+        border:1px solid #e5e7eb
+      "
     >
 
-      <b>
-        PDF 이력서 업로드
-      </b>
-
       <div
-        class="mini"
-        style="margin-top:5px"
+        style="
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          margin-bottom:10px
+        "
       >
 
-        PDF를 선택하면 Gemini가 자동으로
-        이력서와 경력기술서를 분석합니다.
+        <div>
+
+          <div
+            style="
+              font-weight:700;
+              font-size:15px
+            "
+          >
+            📄 이력서 / 경력기술서
+          </div>
+
+          <div class="mini muted">
+            PDF를 업로드하면 Gemini가 자동으로 지원자 정보를 분석합니다.
+          </div>
+
+        </div>
 
       </div>
 
 
-      <input
-        id="resumeFile"
-        type="file"
-        accept="application/pdf,.pdf"
-        style="display:none"
-        onchange="handleResumePdf(this.files[0])"
+      <div
+        class="dropzone"
+        onclick="$('#resumeFile').click()"
+        style="cursor:pointer"
       >
+
+        <div
+          style="
+            font-size:26px;
+            margin-bottom:7px
+          "
+        >
+          📄
+        </div>
+
+        <b>
+          PDF 파일을 업로드하세요
+        </b>
+
+        <div
+          class="mini"
+          style="margin-top:5px"
+        >
+          클릭하여 이력서 또는 경력기술서 PDF를 선택합니다.
+        </div>
+
+        <input
+          id="resumeFile"
+          type="file"
+          accept="application/pdf,.pdf"
+          style="display:none"
+          onchange="handleResumePdf(this.files[0])"
+        >
+
+      </div>
+
+
+      <div id="fileStatus">
+
+        ${
+          c?.resume
+            ? `
+              <div class="file-pill">
+                <span>
+                  📄 기존 이력서 데이터
+                </span>
+
+                <span
+                  class="ai-status"
+                  style="color:#15803d"
+                >
+                  ✓ 등록됨
+                </span>
+              </div>
+            `
+            : ''
+        }
+
+      </div>
 
     </div>
 
 
-    <div id="fileStatus"></div>
-
+    <!-- =====================================================
+         기본 정보
+         ===================================================== -->
 
     <div
-      class="grid g2"
-      style="margin-top:14px"
+      style="
+        margin-top:22px;
+        margin-bottom:10px;
+        font-weight:700;
+        font-size:15px
+      "
     >
+      ① 기본 정보
+    </div>
+
+
+    <div class="grid g2">
 
       <div class="field">
 
@@ -4071,23 +4319,7 @@ function openCandidate(id){
             c?.name ||
             ''
           )}"
-        >
-
-      </div>
-
-
-      <div class="field">
-
-        <label>
-          이메일
-        </label>
-
-        <input
-          id="cemail"
-          value="${esc(
-            c?.email ||
-            ''
-          )}"
+          placeholder="지원자 이름"
         >
 
       </div>
@@ -4109,16 +4341,16 @@ function openCandidate(id){
             state.jobs.map(
               j=>`
 
-              <option
-                value="${j.id}"
-                ${
-                  c?.job===j.id
-                    ? 'selected'
-                    : ''
-                }
-              >
-                ${esc(j.title)}
-              </option>
+                <option
+                  value="${j.id}"
+                  ${
+                    c?.job===j.id
+                      ? 'selected'
+                      : ''
+                  }
+                >
+                  ${esc(j.title)}
+                </option>
 
               `
             ).join('')
@@ -4136,18 +4368,76 @@ function openCandidate(id){
       <div class="field">
 
         <label>
-          경력 연차
+          이메일
         </label>
 
         <input
-          id="cyears"
-          type="number"
-          min="0"
-          value="${c?.years || 0}"
+          id="cemail"
+          value="${esc(
+            c?.email ||
+            ''
+          )}"
+          placeholder="example@email.com"
         >
 
       </div>
 
+
+      <div class="field">
+
+        <label>
+          휴대전화
+        </label>
+
+        <input
+          id="cphone"
+          value="${esc(
+            c?.phone ||
+            ''
+          )}"
+          placeholder="010-0000-0000"
+        >
+
+      </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         경력 및 역량
+         ===================================================== -->
+
+    <div
+      style="
+        margin-top:22px;
+        margin-bottom:10px;
+        font-weight:700;
+        font-size:15px
+      "
+    >
+      ② 경력 및 역량
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        경력요약
+      </label>
+
+      <textarea
+        id="ccareerSummary"
+        style="min-height:90px"
+        placeholder="지원자의 전체 경력을 한눈에 볼 수 있도록 요약"
+      >${esc(
+        c?.careerSummary ||
+        ''
+      )}</textarea>
+
+    </div>
+
+
+    <div class="grid g2">
 
       <div class="field">
 
@@ -4161,6 +4451,7 @@ function openCandidate(id){
             c?.education ||
             ''
           )}"
+          placeholder="최종학력"
         >
 
       </div>
@@ -4169,17 +4460,108 @@ function openCandidate(id){
       <div class="field">
 
         <label>
-          스킬
+          총 경력
         </label>
 
         <input
-          id="cskills"
-          value="${esc(
-            c?.skills?.join(', ') ||
-            ''
-          )}"
+          id="cyears"
+          type="number"
+          min="0"
+          value="${c?.years || 0}"
+          placeholder="0"
         >
 
+      </div>
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        스킬
+        <span class="muted">
+          쉼표로 구분
+        </span>
+      </label>
+
+      <input
+        id="cskills"
+        value="${esc(
+          c?.skills?.join(', ') ||
+          ''
+        )}"
+        placeholder="채용, 급여, 노무, 평가, HRIS"
+      >
+
+    </div>
+
+
+    <!-- =====================================================
+         AI 분석
+         ===================================================== -->
+
+    <div
+      style="
+        margin-top:22px;
+        margin-bottom:10px;
+        font-weight:700;
+        font-size:15px
+      "
+    >
+      ③ AI 분석 결과
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        지원자 핵심 요약
+      </label>
+
+      <textarea
+        id="csummary"
+        style="min-height:110px"
+        placeholder="PDF 업로드 후 Gemini가 자동으로 작성합니다."
+      >${esc(
+        c?.resumeSummary ||
+        ''
+      )}</textarea>
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        주요 경력
+      </label>
+
+      <textarea
+        id="ccareer"
+        style="min-height:180px"
+        placeholder="PDF 업로드 후 Gemini가 회사 / 직무 / 기간 / 주요업무를 자동으로 정리합니다."
+      >${
+        keyCareers.length
+
+          ?
+
+          keyCareers.map(
+            x =>
+              `${x.company || ''} | ${x.position || ''} | ${x.period || ''}
+${x.description || ''}`
+          ).join('\n\n')
+
+          :
+
+          ''
+      }</textarea>
+
+      <div
+        class="mini muted"
+        style="margin-top:5px"
+      >
+        AI가 작성한 내용은 등록 전에 직접 수정할 수 있습니다.
       </div>
 
     </div>
@@ -4193,7 +4575,8 @@ function openCandidate(id){
 
       <textarea
         id="cres"
-        placeholder="PDF 업로드 후 자동 입력됩니다."
+        style="min-height:180px"
+        placeholder="PDF 업로드 후 원문이 자동 입력됩니다."
       >${esc(
         c?.resume ||
         ''
@@ -4202,49 +4585,20 @@ function openCandidate(id){
     </div>
 
 
-    <div class="field">
-
-      <label>
-        이력서 요약
-      </label>
-
-      <textarea
-        id="csummary"
-        style="min-height:90px"
-        placeholder="Gemini 분석 또는 자동 요약 결과"
-      >${esc(
-        c?.resumeSummary ||
-        ''
-      )}</textarea>
-
-    </div>
-
+    <!-- =====================================================
+         불합격 사유
+         ===================================================== -->
 
     <div class="field">
 
       <label>
-        주요 경력 요약
-      </label>
 
-      <textarea
-        id="ccareer"
-        style="min-height:120px"
-        placeholder="회사/직무/기간/핵심업무 중심"
-      >${esc(
-        c?.careerSummary ||
-        ''
-      )}</textarea>
-
-    </div>
-
-
-    <div class="field">
-
-      <label>
         불합격 사유
+
         <span class="muted">
           불합격 후보자에게만 사용
         </span>
+
       </label>
 
 
@@ -4329,24 +4683,28 @@ function openCandidate(id){
     </div>
 
 
+    <!-- =====================================================
+         버튼
+         ===================================================== -->
+
     <div class="form-actions">
 
       ${
         id
 
-        ?
+          ?
 
-        `<button
-          class="btn"
-          style="color:#dc2626"
-          onclick="deleteCandidate(${id})"
-        >
-          지원자 삭제
-        </button>`
+          `<button
+            class="btn"
+            style="color:#dc2626"
+            onclick="deleteCandidate(${id})"
+          >
+            지원자 삭제
+          </button>`
 
-        :
+          :
 
-        ''
+          ''
       }
 
 
@@ -4359,10 +4717,22 @@ function openCandidate(id){
 
 
       <button
+        class="btn"
+        onclick="analyzeCurrentResume(false)"
+        style="
+          border-color:#7c3aed;
+          color:#7c3aed
+        "
+      >
+        ✨ AI 재분석
+      </button>
+
+
+      <button
         class="btn primary"
         onclick="saveCandidate(${id || 0})"
       >
-        저장 및 ATS 계산
+        지원자 등록
       </button>
 
     </div>
@@ -4583,7 +4953,7 @@ async function analyzeCurrentResume(
           <br>
 
           index.html 상단의
-          GEMINI_API_KEY에 키를 입력한 뒤
+          GEMINI_API_KEY에 API Key를 입력한 뒤
           다시 업로드하세요.
 
         </div>
@@ -4603,11 +4973,33 @@ async function analyzeCurrentResume(
 
   try{
 
-    if(!silent){
+    const status =
+      $('#fileStatus');
 
-      toast(
-        'Gemini가 이력서를 분석하고 있습니다…'
-      );
+
+    if(status){
+
+      status.innerHTML = `
+
+        <div class="file-pill">
+
+          <span>
+            📄 ${esc(
+              fileName ||
+              '이력서.pdf'
+            )}
+          </span>
+
+          <span
+            class="ai-status"
+            style="color:#7c3aed"
+          >
+            ✨ Gemini 분석 중…
+          </span>
+
+        </div>
+
+      `;
 
     }
 
@@ -4615,7 +5007,7 @@ async function analyzeCurrentResume(
     const job =
       state.jobs.find(
         x=>x.id===+
-          $('#cjob').value
+          ($('#cjob')?.value || 0)
       );
 
 
@@ -4627,75 +5019,154 @@ async function analyzeCurrentResume(
       );
 
 
-    if(r){
-
-      if(r.name)
-        $('#cname').value =
-          r.name;
-
-      if(r.email)
-        $('#cemail').value =
-          r.email;
-
-      if(r.years)
-        $('#cyears').value =
-          r.years;
-
-      if(r.education)
-        $('#cedu').value =
-          r.education;
-
-      if(
-        r.skills?.length
-      )
-        $('#cskills').value =
-          r.skills.join(', ');
-
-      if(r.resumeSummary)
-        $('#csummary').value =
-          r.resumeSummary;
-
-      if(r.careerSummary)
-        $('#ccareer').value =
-          r.careerSummary;
+    if(!r)
+      return;
 
 
-      const status =
-        $('#fileStatus');
+    /*
+      기본 정보
+    */
+
+    if(r.name)
+      $('#cname').value =
+        r.name;
 
 
-      if(status){
-
-        status.innerHTML = `
-
-          <div class="file-pill">
-
-            <span>
-              📄 ${esc(
-                fileName ||
-                '이력서.pdf'
-              )}
-            </span>
-
-            <span
-              class="ai-status"
-              style="color:#15803d"
-            >
-              ✓ Gemini 분석 완료
-            </span>
-
-          </div>
-
-        `;
-
-      }
+    if(r.email)
+      $('#cemail').value =
+        r.email;
 
 
-      toast(
-        'PDF 업로드 및 Gemini 자동 분석 완료'
-      );
+    if(r.phone)
+      $('#cphone').value =
+        r.phone;
+
+
+    if(
+      r.years !== undefined &&
+      r.years !== null
+    ){
+
+      $('#cyears').value =
+        Number(r.years) || 0;
 
     }
+
+
+    if(r.education)
+      $('#cedu').value =
+        r.education;
+
+
+    /*
+      스킬
+    */
+
+    if(
+      Array.isArray(r.skills) &&
+      r.skills.length
+    ){
+
+      $('#cskills').value =
+        r.skills.join(', ');
+
+    }
+
+
+    /*
+      지원자 핵심 요약
+    */
+
+    if(r.careerSummary)
+      $('#ccareerSummary').value =
+        r.careerSummary;
+
+
+    /*
+      기존 resumeSummary가 있으면
+      AI 핵심 요약으로 사용
+    */
+
+    if(r.resumeSummary)
+      $('#csummary').value =
+        r.resumeSummary;
+
+
+    /*
+      주요 경력
+      저장할 때 다시 구조화할 수 있도록
+      화면에는 사람이 읽기 좋은 형태로 표시
+    */
+
+    if(
+      Array.isArray(r.keyCareers) &&
+      r.keyCareers.length
+    ){
+
+      $('#ccareer').value =
+        r.keyCareers
+          .map(
+            x =>
+              [
+                x.company || '',
+                x.position || '',
+                x.period || ''
+              ]
+              .filter(Boolean)
+              .join(' | ')
+              +
+              (
+                x.description
+                  ? '\n' + x.description
+                  : ''
+              )
+          )
+          .join('\n\n');
+
+    }
+
+
+    if(status){
+
+      status.innerHTML = `
+
+        <div class="file-pill">
+
+          <span>
+            📄 ${esc(
+              fileName ||
+              '이력서.pdf'
+            )}
+          </span>
+
+          <span
+            class="ai-status"
+            style="color:#15803d"
+          >
+            ✓ Gemini 분석 완료
+          </span>
+
+        </div>
+
+        <div
+          class="mini"
+          style="
+            margin-top:8px;
+            color:#15803d
+          "
+        >
+          이력서 내용을 기반으로 지원자 정보를 자동 입력했습니다.
+          내용을 확인하고 필요한 경우 수정해주세요.
+        </div>
+
+      `;
+
+    }
+
+
+    toast(
+      'Gemini 분석이 완료되었습니다.'
+    );
 
 
   }catch(e){
@@ -4782,31 +5253,114 @@ function saveCandidate(id){
       : null;
 
 
+  /*
+    주요 경력 텍스트를
+    저장 가능한 배열 형태로 변환
+  */
+
+  const careerText =
+    $('#ccareer')?.value?.trim() ||
+    '';
+
+
+  const keyCareers =
+    careerText
+
+      ? careerText
+          .split(/\n\s*\n/)
+          .map(
+            block=>{
+
+              const lines =
+                block
+                  .split('\n')
+                  .map(
+                    x=>x.trim()
+                  )
+                  .filter(Boolean);
+
+
+              const header =
+                lines[0] || '';
+
+
+              const parts =
+                header
+                  .split('|')
+                  .map(
+                    x=>x.trim()
+                  );
+
+
+              return {
+
+                company:
+                  parts[0] || '',
+
+                position:
+                  parts[1] || '',
+
+                period:
+                  parts[2] || '',
+
+                description:
+                  lines
+                    .slice(1)
+                    .join(' ')
+                    .trim()
+
+              };
+
+            }
+          )
+          .filter(
+            x =>
+              x.company ||
+              x.position ||
+              x.period ||
+              x.description
+          )
+
+      : [];
+
+
   const c = {
 
     id:
       id ||
       Date.now(),
 
+
     job:
       jobId,
+
 
     name:
       $('#cname').value.trim(),
 
+
     email:
       $('#cemail').value.trim(),
+
+
+    phone:
+      $('#cphone')?.value.trim() ||
+      '',
+
 
     stage:
       existing
         ? Number(existing.stage)||0
         : 0,
 
+
     years:
       +$('#cyears').value || 0,
 
+
     education:
       $('#cedu').value.trim(),
+
 
     skills:
       $('#cskills')
@@ -4817,24 +5371,63 @@ function saveCandidate(id){
         )
         .filter(Boolean),
 
+
+    /*
+      이력서 원문
+    */
+
     resume:
       $('#cres').value.trim(),
+
+
+    /*
+      지원자 핵심 요약
+    */
 
     resumeSummary:
       $('#csummary').value.trim(),
 
+
+    /*
+      전체 경력 요약
+    */
+
     careerSummary:
-      $('#ccareer').value.trim(),
+      $('#ccareerSummary')?.value.trim() ||
+      '',
+
+
+    /*
+      주요 경력 구조화 데이터
+    */
+
+    keyCareers:
+      keyCareers,
+
+
+    /*
+      주요 경력 표시용 텍스트
+      기존 데이터 호환을 위해 유지
+    */
+
+    careerDetail:
+      careerText,
+
 
     rejectReason:
       $('#creason')?.value ||
       '',
+
 
     updated:
       '방금 전'
 
   };
 
+
+  /*
+    기존 ATS 계산 기능 유지
+  */
 
   const a =
     computeAnalysis(
@@ -4846,6 +5439,10 @@ function saveCandidate(id){
   c.score =
     a.score;
 
+
+  /*
+    수정
+  */
 
   if(id){
 
@@ -4860,8 +5457,7 @@ function saveCandidate(id){
   }else{
 
     /*
-      신규 지원자는 기존 지원자를
-      삭제하지 않고 누적
+      신규 지원자는 누적
     */
 
     state.candidates.push(c);
@@ -4878,12 +5474,12 @@ function saveCandidate(id){
 
   render();
 
+
   toast(
-    `저장 완료 · ATS ${c.score}점`
+    `지원자 저장 완료 · ATS ${c.score}점`
   );
 
 }
-
 
 /* ============================================================
    채용공고 삭제
