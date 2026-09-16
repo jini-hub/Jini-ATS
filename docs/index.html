@@ -125,7 +125,7 @@ button{cursor:pointer}
   display:flex;
   align-items:center;
   gap:10px;
-  flex-wrap:wrap;
+  flex-wrap:nowrap;
   justify-content:flex-end
 }
 
@@ -16550,6 +16550,14 @@ load();
 
 <style>
 
+  /* PC 상단 버튼 한 줄 정렬 */
+@media (min-width:721px){
+  .top-actions{
+    flex-wrap:nowrap;
+    align-items:center;
+  }
+}
+  
 /* =========================================================
    STEP 9-4
    Mobile Bottom Navigation 하단 네비게이
