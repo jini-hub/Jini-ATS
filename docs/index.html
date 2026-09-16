@@ -3,8 +3,10 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>K-ATS Studio v1.1 · 한국형 채용관리 시스템</title>
-
+<title>Jini-ATS 2.0 · 스마트 인사채용 관리 시스템</title>
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    
 <style>
 :root{
   --bg:#f4f6fa;
@@ -915,6 +917,1023 @@ button{cursor:pointer}
   }
 }
 </style>
+  <!-- =========================================================
+     Jini-ATS 2.0 Design Override
+     ========================================================= -->
+<style>
+/* =========================================================
+   Jini-ATS 2.0
+   iOS / Apple Style Design Override
+   기능 및 기존 JavaScript는 변경하지 않음
+   ========================================================= */
+
+:root{
+  --bg:#F2F2F7;
+  --panel:#FFFFFF;
+  --text:#1C1C1E;
+  --muted:#6E6E73;
+  --line:#E5E5EA;
+
+  --primary:#007AFF;
+  --primary-dark:#005FCC;
+  --indigo:#5856D6;
+
+  --green:#34C759;
+  --amber:#FF9500;
+  --red:#FF3B30;
+
+  --radius:20px;
+
+  --shadow:
+    0 4px 20px rgba(0,0,0,.045),
+    0 2px 6px rgba(0,0,0,.025);
+}
+
+
+/* =========================================================
+   기본
+   ========================================================= */
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  background:var(--bg);
+}
+
+body{
+  margin:0;
+
+  font-family:
+    "Pretendard Variable",
+    Pretendard,
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "SF Pro Text",
+    system-ui,
+    sans-serif;
+
+  background:var(--bg);
+  color:var(--text);
+
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:transparent;
+}
+
+
+/* =========================================================
+   스크롤바
+   ========================================================= */
+
+::-webkit-scrollbar{
+  width:5px;
+  height:5px;
+}
+
+::-webkit-scrollbar-track{
+  background:transparent;
+}
+
+::-webkit-scrollbar-thumb{
+  background:#D1D1D6;
+  border-radius:999px;
+}
+
+
+/* =========================================================
+   전체 앱
+   ========================================================= */
+
+.app{
+  min-height:100vh;
+  background:var(--bg);
+}
+
+
+/* =========================================================
+   PC Sidebar
+   ========================================================= */
+
+.sidebar{
+  width:240px;
+
+  background:rgba(255,255,255,.88);
+
+  color:var(--text);
+
+  border-right:1px solid rgba(229,229,234,.9);
+
+  padding:22px 14px;
+
+  box-shadow:
+    4px 0 20px rgba(0,0,0,.025);
+
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+
+  z-index:20;
+}
+
+
+/* 로고 */
+
+.brand{
+  padding:8px 12px 24px;
+
+  font-size:20px;
+  font-weight:800;
+
+  letter-spacing:-.5px;
+
+  color:var(--text);
+}
+
+.brand span{
+  color:var(--primary);
+}
+
+.brand .version{
+  margin-top:6px;
+
+  font-size:11px;
+  font-weight:600;
+
+  color:var(--muted);
+}
+
+
+/* 메뉴 */
+
+.nav{
+  display:grid;
+  gap:6px;
+}
+
+.nav button{
+  position:relative;
+
+  border:0;
+
+  background:transparent;
+
+  color:#636366;
+
+  text-align:left;
+
+  padding:12px 14px;
+
+  border-radius:14px;
+
+  font-size:14px;
+  font-weight:650;
+
+  transition:
+    background .18s ease,
+    color .18s ease,
+    transform .18s ease;
+}
+
+.nav button:hover{
+  background:#F2F2F7;
+  color:var(--text);
+}
+
+.nav button.active{
+  background:#EAF3FF;
+  color:var(--primary);
+}
+
+.nav button.active::before{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  top:50%;
+
+  width:3px;
+  height:22px;
+
+  transform:translateY(-50%);
+
+  border-radius:999px;
+
+  background:var(--primary);
+}
+
+
+/* 사이드 하단 */
+
+.side-foot{
+  color:#8E8E93;
+
+  font-size:11px;
+
+  line-height:1.6;
+}
+
+
+/* =========================================================
+   Main
+   ========================================================= */
+
+.main{
+  background:var(--bg);
+}
+
+
+/* =========================================================
+   Header
+   ========================================================= */
+
+.topbar{
+  min-height:74px;
+
+  background:rgba(255,255,255,.86);
+
+  border-bottom:1px solid rgba(229,229,234,.8);
+
+  padding:12px 28px;
+
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+
+  box-shadow:
+    0 1px 10px rgba(0,0,0,.025);
+
+  z-index:50;
+}
+
+.top-left{
+  display:flex;
+  align-items:center;
+
+  gap:12px;
+}
+
+.topbar h1{
+  margin:0;
+
+  font-size:20px;
+  font-weight:750;
+
+  letter-spacing:-.5px;
+
+  color:var(--text);
+}
+
+
+/* =========================================================
+   버튼
+   ========================================================= */
+
+.btn{
+  border:1px solid var(--line);
+
+  background:#fff;
+
+  color:var(--text);
+
+  padding:10px 15px;
+
+  border-radius:13px;
+
+  font-size:13px;
+  font-weight:700;
+
+  transition:
+    transform .15s ease,
+    background .15s ease,
+    box-shadow .15s ease;
+}
+
+.btn:hover{
+  background:#F8F8FA;
+}
+
+.btn:active{
+  transform:scale(.98);
+}
+
+.btn.primary{
+  background:var(--primary);
+
+  border-color:var(--primary);
+
+  color:#fff;
+
+  box-shadow:
+    0 4px 12px rgba(0,122,255,.18);
+}
+
+.btn.primary:hover{
+  background:var(--primary-dark);
+}
+
+.btn.ghost,
+.home-btn{
+  background:#F2F7FF;
+
+  color:var(--primary);
+
+  border-color:#DCEBFF;
+}
+
+
+/* =========================================================
+   Page
+   ========================================================= */
+
+.page{
+  max-width:1400px;
+
+  margin:0 auto;
+
+  padding:28px 30px 50px;
+}
+
+
+/* =========================================================
+   Card
+   ========================================================= */
+
+.card{
+  background:var(--panel);
+
+  border:1px solid rgba(229,229,234,.85);
+
+  border-radius:20px;
+
+  box-shadow:var(--shadow);
+
+  padding:20px;
+
+  transition:
+    box-shadow .18s ease,
+    transform .18s ease;
+}
+
+
+/* 클릭 가능한 카드 */
+
+.card-interactive{
+  cursor:pointer;
+}
+
+.card-interactive:active{
+  transform:scale(.985);
+}
+
+
+/* =========================================================
+   제목
+   ========================================================= */
+
+.title-row{
+  margin-bottom:18px;
+}
+
+.title-row h2{
+  font-size:19px;
+
+  font-weight:750;
+
+  letter-spacing:-.4px;
+
+  color:var(--text);
+}
+
+
+/* =========================================================
+   작은 설명
+   ========================================================= */
+
+.muted{
+  color:var(--muted);
+}
+
+.eyebrow{
+  color:#8E8E93;
+
+  font-size:11px;
+
+  font-weight:700;
+}
+
+
+/* =========================================================
+   숫자 / KPI
+   ========================================================= */
+
+.stat .num{
+  font-size:30px;
+
+  font-weight:800;
+
+  letter-spacing:-1px;
+
+  color:var(--text);
+}
+
+
+/* =========================================================
+   Badge
+   ========================================================= */
+
+.badge{
+  display:inline-flex;
+
+  align-items:center;
+
+  padding:6px 10px;
+
+  border-radius:999px;
+
+  font-size:11px;
+
+  font-weight:750;
+
+  border:0;
+}
+
+.b-blue{
+  background:#EAF3FF;
+  color:#007AFF;
+}
+
+.b-green{
+  background:#EAF9EE;
+  color:#248A3D;
+}
+
+.b-amber{
+  background:#FFF4E5;
+  color:#C93400;
+}
+
+.b-red{
+  background:#FFF0F0;
+  color:#D70015;
+}
+
+.b-gray{
+  background:#F2F2F7;
+  color:#636366;
+}
+
+
+/* =========================================================
+   Progress
+   ========================================================= */
+
+.bar{
+  height:8px;
+
+  background:#E5E5EA;
+
+  border-radius:999px;
+
+  overflow:hidden;
+}
+
+.bar i{
+  background:
+    linear-gradient(
+      90deg,
+      #007AFF,
+      #5856D6
+    );
+
+  border-radius:999px;
+}
+
+
+/* =========================================================
+   Avatar
+   ========================================================= */
+
+.avatar{
+  width:40px;
+  height:40px;
+
+  border-radius:50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #EAF3FF,
+      #EDEBFF
+    );
+
+  color:var(--primary);
+
+  font-weight:800;
+}
+
+
+/* =========================================================
+   사람 정보
+   ========================================================= */
+
+.person{
+  display:flex;
+
+  align-items:center;
+
+  gap:11px;
+}
+
+
+/* =========================================================
+   테이블
+   ========================================================= */
+
+.table{
+  border-collapse:separate;
+
+  border-spacing:0;
+
+  overflow:hidden;
+
+  border:1px solid var(--line);
+
+  border-radius:16px;
+}
+
+.table th{
+  background:#F8F8FA;
+
+  color:#6E6E73;
+
+  font-size:11px;
+
+  font-weight:700;
+
+  border-bottom:1px solid var(--line);
+}
+
+.table td{
+  background:#fff;
+
+  border-bottom:1px solid #F0F0F2;
+}
+
+.table tr:last-child td{
+  border-bottom:0;
+}
+
+
+/* =========================================================
+   입력창
+   ========================================================= */
+
+.field{
+  gap:7px;
+}
+
+.field label{
+  color:#3A3A3C;
+
+  font-size:12px;
+
+  font-weight:700;
+}
+
+.field input,
+.field textarea,
+.field select{
+  width:100%;
+
+  border:1px solid #D1D1D6;
+
+  border-radius:13px;
+
+  padding:12px 13px;
+
+  background:#F8F8FA;
+
+  color:var(--text);
+
+  outline:none;
+
+  transition:
+    border-color .15s ease,
+    box-shadow .15s ease,
+    background .15s ease;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+  background:#fff;
+
+  border-color:#80BFFF;
+
+  box-shadow:
+    0 0 0 4px rgba(0,122,255,.10);
+}
+
+
+/* =========================================================
+   검색
+   ========================================================= */
+
+.searchrow input,
+.searchrow select{
+  border:1px solid #D1D1D6;
+
+  border-radius:13px;
+
+  background:#fff;
+
+  padding:11px 13px;
+}
+
+
+/* =========================================================
+   지원자 카드
+   ========================================================= */
+
+.candidate{
+  background:#fff;
+
+  border:1px solid #E5E5EA;
+
+  border-radius:18px;
+
+  padding:15px;
+
+  box-shadow:
+    0 3px 12px rgba(0,0,0,.035);
+
+  transition:
+    transform .18s ease,
+    box-shadow .18s ease;
+}
+
+.candidate:hover{
+  transform:translateY(-1px);
+
+  box-shadow:
+    0 7px 20px rgba(0,0,0,.06);
+}
+
+.cand-name{
+  font-weight:750;
+
+  color:var(--text);
+}
+
+
+/* =========================================================
+   Chip
+   ========================================================= */
+
+.chip{
+  border:0;
+
+  background:#F2F2F7;
+
+  color:#636366;
+
+  padding:5px 8px;
+
+  border-radius:999px;
+
+  font-size:10px;
+
+  font-weight:650;
+}
+
+
+/* =========================================================
+   Dropzone
+   ========================================================= */
+
+.dropzone{
+  border:2px dashed #D1D1D6;
+
+  border-radius:18px;
+
+  padding:24px;
+
+  background:#FAFAFC;
+
+  color:#8E8E93;
+
+  transition:
+    border-color .18s ease,
+    background .18s ease;
+}
+
+.dropzone:hover{
+  border-color:#80BFFF;
+
+  background:#F5F9FF;
+}
+
+
+/* =========================================================
+   Modal
+   ========================================================= */
+
+.modal{
+  background:rgba(0,0,0,.35);
+
+  backdrop-filter:blur(5px);
+  -webkit-backdrop-filter:blur(5px);
+}
+
+.modal-box{
+  background:#fff;
+
+  border-radius:24px;
+
+  padding:24px;
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.18);
+
+  border:1px solid rgba(255,255,255,.8);
+}
+
+.close{
+  width:36px;
+  height:36px;
+
+  border:0;
+
+  background:#F2F2F7;
+
+  color:#636366;
+
+  border-radius:50%;
+}
+
+
+/* =========================================================
+   ATS Score
+   ========================================================= */
+
+.score{
+  font-weight:850;
+}
+
+.score.good{
+  color:#248A3D;
+}
+
+.score.mid{
+  color:#C93400;
+}
+
+.score.low{
+  color:#D70015;
+}
+
+
+/* =========================================================
+   ATS 분석
+   ========================================================= */
+
+.score-ring{
+  box-shadow:
+    0 8px 24px rgba(0,122,255,.12);
+}
+
+.notice{
+  border-radius:15px;
+
+  background:#F2F7FF;
+
+  color:#0066CC;
+
+  border:1px solid #DCEBFF;
+}
+
+
+/* =========================================================
+   Keyword
+   ========================================================= */
+
+.keyword{
+  border-radius:999px;
+
+  padding:7px 10px;
+}
+
+.kw-hit{
+  background:#EAF9EE;
+
+  color:#248A3D;
+}
+
+.kw-miss{
+  background:#FFF0F0;
+
+  color:#D70015;
+}
+
+
+/* =========================================================
+   탭
+   ========================================================= */
+
+.tabs button{
+  border:0;
+
+  background:#E5E5EA;
+
+  color:#636366;
+
+  border-radius:999px;
+
+  padding:9px 13px;
+
+  font-weight:700;
+}
+
+.tabs button.active{
+  background:#007AFF;
+
+  color:#fff;
+}
+
+
+/* =========================================================
+   Mobile Menu
+   ========================================================= */
+
+.mobile-menu-btn{
+  width:40px;
+  height:40px;
+
+  border:0;
+
+  border-radius:12px;
+
+  background:#007AFF;
+
+  color:#fff;
+
+  font-size:20px;
+
+  box-shadow:
+    0 4px 12px rgba(0,122,255,.18);
+}
+
+.mobile-menu{
+  background:rgba(255,255,255,.94);
+
+  border:1px solid rgba(229,229,234,.9);
+
+  border-radius:20px;
+
+  box-shadow:
+    0 15px 40px rgba(0,0,0,.12);
+
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+
+  padding:10px;
+}
+
+.mobile-menu button{
+  color:#3A3A3C;
+
+  border-radius:14px;
+
+  padding:13px;
+
+  font-weight:700;
+}
+
+.mobile-menu button.active,
+.mobile-menu button:active{
+  background:#EAF3FF;
+
+  color:#007AFF;
+}
+
+
+/* =========================================================
+   Toast
+   ========================================================= */
+
+.toast{
+  background:#1C1C1E;
+
+  border-radius:14px;
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,.18);
+}
+
+
+/* =========================================================
+   Data Info
+   ========================================================= */
+
+.data-info{
+  background:#F8F8FA;
+
+  border:1px solid var(--line);
+
+  border-radius:14px;
+}
+
+
+/* =========================================================
+   Mobile
+   ========================================================= */
+
+@media(max-width:720px){
+
+  body{
+    background:#F2F2F7;
+  }
+
+  .topbar{
+    min-height:64px;
+
+    padding:9px 13px;
+
+    border-radius:0 0 18px 18px;
+  }
+
+  .topbar h1{
+    font-size:17px;
+  }
+
+  .page{
+    padding:16px 14px 80px;
+  }
+
+  .card{
+    border-radius:20px;
+
+    padding:17px;
+  }
+
+  .title-row h2{
+    font-size:18px;
+  }
+
+  .btn{
+    border-radius:13px;
+
+    padding:10px 13px;
+  }
+
+  .modal{
+    padding:10px;
+  }
+
+  .modal-box{
+    border-radius:24px;
+
+    padding:18px;
+
+    max-height:92vh;
+  }
+
+  .table{
+    font-size:12px;
+  }
+
+  .table th,
+  .table td{
+    padding:10px 8px;
+  }
+
+}
+
+
+/* =========================================================
+   아주 작은 모바일
+   ========================================================= */
+
+@media(max-width:420px){
+
+  .page{
+    padding-left:11px;
+    padding-right:11px;
+  }
+
+  .top-actions .seed-btn{
+    display:none;
+  }
+
+  .home-btn{
+    padding:9px 10px;
+  }
+
+}
+  
+</style>
+  
 </head>
 
 <body>
@@ -925,7 +1944,7 @@ button{cursor:pointer}
 
     <div class="brand">
       K-ATS <span>STUDIO</span>
-      <div class="version">v1.1.0</div>
+      <div class="version">v2.0.0</div>
     </div>
 
     <div class="nav">
@@ -1029,7 +2048,7 @@ button{cursor:pointer}
    K-ATS STUDIO v1.1
    ============================================================ */
 
-const APP_VERSION = "1.1.0";
+const APP_VERSION = "2.0.0";
 const STORAGE_KEY = "kats";
 
 const $ = s => document.querySelector(s);
