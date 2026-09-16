@@ -6913,7 +6913,7 @@ function normalizeState(saved){
       'jobs',
       'candidates',
       'analysis',
-      'reports'
+      'reports'.
       'settings'
     ].includes(s.page)
       ? s.page
@@ -7629,7 +7629,7 @@ function render(){
     jobs:'채용공고',
     candidates:'지원자 관리',
     analysis:'ATS 분석',
-    reports:'리포트'
+    reports:'리포트',
     settings:'설정'
   };
 
@@ -7686,7 +7686,7 @@ mobileMenuButtons.forEach(
     jobs:renderJobs,
     candidates:renderCandidates,
     analysis:renderAnalysis,
-    reports:renderReports
+    reports:renderReports.
     settings:renderSettings
   }[state.page];
 
