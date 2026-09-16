@@ -3,123 +3,5303 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>K-ATS Studio · 한국형 채용관리 시스템</title>
+<title>K-ATS Studio v1.1 · 한국형 채용관리 시스템</title>
+
 <style>
-:root{--bg:#f4f6fa;--panel:#fff;--text:#172033;--muted:#6d7587;--line:#e6e9ef;--primary:#4f46e5;--primary2:#6366f1;--green:#16a34a;--amber:#d97706;--red:#dc2626;--shadow:0 10px 30px rgba(24,32,56,.07);--radius:18px}
-*{box-sizing:border-box}body{margin:0;font-family:Inter,Apple SD Gothic Neo,Noto Sans KR,Malgun Gothic,sans-serif;background:var(--bg);color:var(--text)}
-button,input,textarea,select{font:inherit}button{cursor:pointer}.app{display:flex;min-height:100vh}.sidebar{width:250px;background:#111827;color:#fff;padding:22px 16px;position:sticky;top:0;height:100vh}.brand{font-size:20px;font-weight:800;letter-spacing:-.5px;padding:10px 12px 22px}.brand span{color:#a5b4fc}.nav{display:grid;gap:7px}.nav button{border:0;background:transparent;color:#cbd5e1;text-align:left;padding:12px 14px;border-radius:11px}.nav button.active,.nav button:hover{background:#1f2937;color:#fff}.side-foot{position:absolute;bottom:18px;left:18px;right:18px;color:#9ca3af;font-size:12px;line-height:1.6}
-.main{flex:1;min-width:0}.topbar{height:70px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:10}.topbar h1{font-size:20px;margin:0}.top-actions{display:flex;gap:10px}.btn{border:1px solid var(--line);background:#fff;padding:10px 14px;border-radius:10px;font-weight:700}.btn.primary{background:var(--primary);border-color:var(--primary);color:#fff}.btn.ghost{background:#f7f8ff;color:var(--primary);border-color:#dde0ff}.page{padding:26px 28px 48px;max-width:1500px;margin:auto}.grid{display:grid;gap:18px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px}.stat{display:flex;justify-content:space-between;align-items:flex-start}.stat .num{font-size:30px;font-weight:800;margin-top:6px}.muted{color:var(--muted)}.eyebrow{font-size:12px;color:var(--muted);font-weight:700}.title-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}.title-row h2{font-size:18px;margin:0}.badge{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;font-size:11px;font-weight:800}.b-blue{background:#eef2ff;color:#4338ca}.b-green{background:#ecfdf3;color:#15803d}.b-amber{background:#fff7ed;color:#c2410c}.b-red{background:#fef2f2;color:#b91c1c}.b-gray{background:#f3f4f6;color:#4b5563}.bar{height:8px;background:#eef0f4;border-radius:10px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--primary),#8b5cf6);border-radius:10px}.kpi-list{display:grid;gap:13px}.kpi-line{display:grid;grid-template-columns:130px 1fr 60px;gap:12px;align-items:center;font-size:13px}.table{width:100%;border-collapse:separate;border-spacing:0}.table th,.table td{padding:12px 10px;border-bottom:1px solid var(--line);font-size:13px;text-align:left}.table th{color:var(--muted);font-size:12px;background:#fafbfc}.table tr:last-child td{border-bottom:0}.avatar{width:34px;height:34px;border-radius:50%;background:#eef2ff;color:#4338ca;display:flex;align-items:center;justify-content:center;font-weight:800}.person{display:flex;align-items:center;gap:10px}.score{font-size:22px;font-weight:900}.score.good{color:var(--green)}.score.mid{color:var(--amber)}.score.low{color:var(--red)}
-.stage-summary{display:flex;gap:10px;margin:0 0 14px;flex-wrap:wrap}.stage-summary>div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:12px}.stage-summary b{margin-left:4px}.stage-summary .reject-summary{color:#b91c1c;border-color:#fecaca;background:#fff7f7}.board{display:grid;grid-template-columns:repeat(6,minmax(220px,1fr));gap:12px;align-items:start;overflow-x:auto;padding-bottom:4px}.column{background:#eef1f6;border-radius:15px;padding:10px;min-height:420px}.reject-column{background:#fff1f1;border:1px solid #fecaca}.column-head{display:flex;justify-content:space-between;font-weight:800;font-size:13px;padding:5px 4px 10px}.candidate{background:#fff;border:1px solid var(--line);border-radius:13px;padding:13px;margin-bottom:9px;box-shadow:0 5px 14px rgba(0,0,0,.04)}.candidate:hover{transform:translateY(-1px)} .candidate.dragging{opacity:.45;transform:rotate(1deg)} .column.drag-over{outline:2px dashed var(--primary);background:#eef2ff} .dropzone{border:2px dashed #cfd4e1;border-radius:14px;padding:18px;text-align:center;background:#fafbff;color:var(--muted);cursor:pointer}.dropzone:hover{border-color:#a5b4fc;background:#f7f8ff}.file-pill{display:flex;justify-content:space-between;align-items:center;padding:9px 11px;background:#f7f8ff;border-radius:10px;font-size:12px;margin-top:8px}.ai-status{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}.cand-top{display:flex;justify-content:space-between;gap:8px}.cand-name{font-weight:800}.cand-meta{font-size:11px;color:var(--muted);margin-top:3px}.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}.chip{font-size:10px;border:1px solid #e5e7eb;padding:4px 6px;border-radius:6px;background:#fafafa}.cand-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:12px}.link-btn{border:0;background:transparent;color:var(--primary);font-weight:800;font-size:12px;padding:0}
-.field{display:grid;gap:7px;margin-bottom:13px}.field label{font-size:12px;font-weight:800;color:#475569}.field input,.field textarea,.field select{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px;background:#fff;outline:0}.field textarea{min-height:150px;resize:vertical}.field input:focus,.field textarea:focus{border-color:#a5b4fc;box-shadow:0 0 0 3px #eef2ff}.form-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}.empty{padding:55px 15px;text-align:center;color:var(--muted)}
-.modal{position:fixed;inset:0;background:rgba(15,23,42,.5);display:none;align-items:center;justify-content:center;padding:20px;z-index:30}.modal.open{display:flex}.modal-box{background:#fff;max-width:920px;width:100%;max-height:90vh;overflow:auto;border-radius:20px;padding:24px}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.close{border:0;background:#f3f4f6;border-radius:50%;width:34px;height:34px;font-size:18px}.analysis-grid{display:grid;grid-template-columns:250px 1fr;gap:18px}.score-ring{border-radius:50%;width:170px;height:170px;background:conic-gradient(var(--primary) calc(var(--score)*1%),#eceff3 0);display:grid;place-items:center;margin:5px auto 15px}.score-ring:after{content:'';width:128px;height:128px;border-radius:50%;background:#fff;position:absolute}.ring-inner{position:relative;z-index:2;font-size:34px;font-weight:900}.keyword-wrap{display:flex;flex-wrap:wrap;gap:7px}.keyword{padding:7px 9px;border-radius:8px;font-size:12px;font-weight:700}.kw-hit{background:#ecfdf3;color:#15803d}.kw-miss{background:#fef2f2;color:#b91c1c}.notice{padding:12px;border-radius:11px;background:#f7f8ff;color:#4f46e5;font-size:12px;line-height:1.6}.tabs{display:flex;gap:7px;margin-bottom:18px}.tabs button{border:0;background:#eef0f6;padding:9px 12px;border-radius:9px;font-size:12px;font-weight:800}.tabs button.active{background:#1f2937;color:#fff}.searchrow{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.searchrow input,.searchrow select{border:1px solid var(--line);border-radius:10px;padding:10px;background:#fff}.right{margin-left:auto}.mini{font-size:11px}.toast{position:fixed;right:22px;bottom:22px;background:#111827;color:#fff;padding:12px 15px;border-radius:10px;opacity:0;transform:translateY(10px);transition:.2s;z-index:40;font-size:13px}.toast.show{opacity:1;transform:translateY(0)}
-@media(max-width:1100px){.g4{grid-template-columns:repeat(2,1fr)}.board{grid-template-columns:repeat(2,minmax(220px,1fr))}.analysis-grid{grid-template-columns:1fr}.sidebar{width:210px}}@media(max-width:720px){.sidebar{display:none}.page{padding:18px}.topbar{padding:0 18px}.g4,.g3,.g2{grid-template-columns:1fr}.board{grid-template-columns:1fr}.kpi-line{grid-template-columns:105px 1fr 50px}}
+:root{
+  --bg:#f4f6fa;
+  --panel:#fff;
+  --text:#172033;
+  --muted:#6d7587;
+  --line:#e6e9ef;
+  --primary:#4f46e5;
+  --primary2:#6366f1;
+  --green:#16a34a;
+  --amber:#d97706;
+  --red:#dc2626;
+  --shadow:0 10px 30px rgba(24,32,56,.07);
+  --radius:18px
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Inter,Apple SD Gothic Neo,Noto Sans KR,Malgun Gothic,sans-serif;
+  background:var(--bg);
+  color:var(--text)
+}
+
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+
+.app{
+  display:flex;
+  min-height:100vh
+}
+
+.sidebar{
+  width:250px;
+  background:#111827;
+  color:#fff;
+  padding:22px 16px;
+  position:sticky;
+  top:0;
+  height:100vh
+}
+
+.brand{
+  font-size:20px;
+  font-weight:800;
+  letter-spacing:-.5px;
+  padding:10px 12px 22px
+}
+
+.brand span{color:#a5b4fc}
+
+.nav{
+  display:grid;
+  gap:7px
+}
+
+.nav button{
+  border:0;
+  background:transparent;
+  color:#cbd5e1;
+  text-align:left;
+  padding:12px 14px;
+  border-radius:11px
+}
+
+.nav button.active,
+.nav button:hover{
+  background:#1f2937;
+  color:#fff
+}
+
+.side-foot{
+  position:absolute;
+  bottom:18px;
+  left:18px;
+  right:18px;
+  color:#9ca3af;
+  font-size:12px;
+  line-height:1.6
+}
+
+.main{
+  flex:1;
+  min-width:0
+}
+
+.topbar{
+  min-height:70px;
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  padding:10px 28px;
+  position:sticky;
+  top:0;
+  z-index:10
+}
+
+.top-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0
+}
+
+.topbar h1{
+  font-size:20px;
+  margin:0;
+  white-space:nowrap
+}
+
+.top-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end
+}
+
+.btn{
+  border:1px solid var(--line);
+  background:#fff;
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:700
+}
+
+.btn:hover{
+  background:#f8fafc
+}
+
+.btn.primary{
+  background:var(--primary);
+  border-color:var(--primary);
+  color:#fff
+}
+
+.btn.primary:hover{
+  background:#4338ca
+}
+
+.btn.ghost{
+  background:#f7f8ff;
+  color:var(--primary);
+  border-color:#dde0ff
+}
+
+.home-btn{
+  background:#f7f8ff;
+  color:var(--primary);
+  border-color:#dde0ff
+}
+
+.save-status{
+  color:#15803d;
+  font-size:11px;
+  font-weight:700;
+  white-space:nowrap
+}
+
+.page{
+  padding:26px 28px 48px;
+  max-width:1500px;
+  margin:auto
+}
+
+.grid{
+  display:grid;
+  gap:18px
+}
+
+.g4{grid-template-columns:repeat(4,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+
+.card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:20px
+}
+
+.stat{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start
+}
+
+.stat .num{
+  font-size:30px;
+  font-weight:800;
+  margin-top:6px
+}
+
+.muted{color:var(--muted)}
+
+.eyebrow{
+  font-size:12px;
+  color:var(--muted);
+  font-weight:700
+}
+
+.title-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:16px
+}
+
+.title-row h2{
+  font-size:18px;
+  margin:0
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  padding:5px 9px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800
+}
+
+.b-blue{background:#eef2ff;color:#4338ca}
+.b-green{background:#ecfdf3;color:#15803d}
+.b-amber{background:#fff7ed;color:#c2410c}
+.b-red{background:#fef2f2;color:#b91c1c}
+.b-gray{background:#f3f4f6;color:#4b5563}
+
+.bar{
+  height:8px;
+  background:#eef0f4;
+  border-radius:10px;
+  overflow:hidden
+}
+
+.bar i{
+  display:block;
+  height:100%;
+  background:linear-gradient(90deg,var(--primary),#8b5cf6);
+  border-radius:10px
+}
+
+.kpi-list{
+  display:grid;
+  gap:13px
+}
+
+.kpi-line{
+  display:grid;
+  grid-template-columns:130px 1fr 60px;
+  gap:12px;
+  align-items:center;
+  font-size:13px
+}
+
+.table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0
+}
+
+.table th,
+.table td{
+  padding:12px 10px;
+  border-bottom:1px solid var(--line);
+  font-size:13px;
+  text-align:left
+}
+
+.table th{
+  color:var(--muted);
+  font-size:12px;
+  background:#fafbfc
+}
+
+.table tr:last-child td{
+  border-bottom:0
+}
+
+.avatar{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:#eef2ff;
+  color:#4338ca;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:800
+}
+
+.person{
+  display:flex;
+  align-items:center;
+  gap:10px
+}
+
+.score{
+  font-size:22px;
+  font-weight:900
+}
+
+.score.good{color:var(--green)}
+.score.mid{color:var(--amber)}
+.score.low{color:var(--red)}
+
+.stage-summary{
+  display:flex;
+  gap:10px;
+  margin:0 0 14px;
+  flex-wrap:wrap
+}
+
+.stage-summary>div{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:8px 12px;
+  font-size:12px
+}
+
+.stage-summary b{
+  margin-left:4px
+}
+
+.stage-summary .reject-summary{
+  color:#b91c1c;
+  border-color:#fecaca;
+  background:#fff7f7
+}
+
+.board{
+  display:grid;
+  grid-template-columns:repeat(6,minmax(220px,1fr));
+  gap:12px;
+  align-items:start;
+  overflow-x:auto;
+  padding-bottom:4px
+}
+
+.column{
+  background:#eef1f6;
+  border-radius:15px;
+  padding:10px;
+  min-height:420px
+}
+
+.reject-column{
+  background:#fff1f1;
+  border:1px solid #fecaca
+}
+
+.column-head{
+  display:flex;
+  justify-content:space-between;
+  font-weight:800;
+  font-size:13px;
+  padding:5px 4px 10px
+}
+
+.candidate{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:13px;
+  padding:13px;
+  margin-bottom:9px;
+  box-shadow:0 5px 14px rgba(0,0,0,.04);
+  transition:.15s
+}
+
+.candidate:hover{
+  transform:translateY(-1px)
+}
+
+.candidate.dragging{
+  opacity:.45;
+  transform:rotate(1deg)
+}
+
+.column.drag-over{
+  outline:2px dashed var(--primary);
+  background:#eef2ff
+}
+
+.dropzone{
+  border:2px dashed #cfd4e1;
+  border-radius:14px;
+  padding:18px;
+  text-align:center;
+  background:#fafbff;
+  color:var(--muted);
+  cursor:pointer
+}
+
+.dropzone:hover{
+  border-color:#a5b4fc;
+  background:#f7f8ff
+}
+
+.file-pill{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  padding:9px 11px;
+  background:#f7f8ff;
+  border-radius:10px;
+  font-size:12px;
+  margin-top:8px
+}
+
+.ai-status{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:11px;
+  color:var(--muted)
+}
+
+.cand-top{
+  display:flex;
+  justify-content:space-between;
+  gap:8px
+}
+
+.cand-name{
+  font-weight:800
+}
+
+.cand-meta{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:3px
+}
+
+.chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin-top:9px
+}
+
+.chip{
+  font-size:10px;
+  border:1px solid #e5e7eb;
+  padding:4px 6px;
+  border-radius:6px;
+  background:#fafafa
+}
+
+.cand-bottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  margin-top:12px
+}
+
+.link-btn{
+  border:0;
+  background:transparent;
+  color:var(--primary);
+  font-weight:800;
+  font-size:12px;
+  padding:0
+}
+
+.field{
+  display:grid;
+  gap:7px;
+  margin-bottom:13px
+}
+
+.field label{
+  font-size:12px;
+  font-weight:800;
+  color:#475569
+}
+
+.field input,
+.field textarea,
+.field select{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:11px;
+  background:#fff;
+  outline:0
+}
+
+.field textarea{
+  min-height:150px;
+  resize:vertical
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+  border-color:#a5b4fc;
+  box-shadow:0 0 0 3px #eef2ff
+}
+
+.form-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  margin-top:10px;
+  flex-wrap:wrap
+}
+
+.empty{
+  padding:55px 15px;
+  text-align:center;
+  color:var(--muted)
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(15,23,42,.5);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:30
+}
+
+.modal.open{
+  display:flex
+}
+
+.modal-box{
+  background:#fff;
+  max-width:920px;
+  width:100%;
+  max-height:90vh;
+  overflow:auto;
+  border-radius:20px;
+  padding:24px
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:18px
+}
+
+.close{
+  border:0;
+  background:#f3f4f6;
+  border-radius:50%;
+  width:34px;
+  height:34px;
+  font-size:18px;
+  flex:none
+}
+
+.analysis-grid{
+  display:grid;
+  grid-template-columns:250px 1fr;
+  gap:18px
+}
+
+.score-ring{
+  border-radius:50%;
+  width:170px;
+  height:170px;
+  background:conic-gradient(
+    var(--primary) calc(var(--score)*1%),
+    #eceff3 0
+  );
+  display:grid;
+  place-items:center;
+  margin:5px auto 15px;
+  position:relative
+}
+
+.score-ring:after{
+  content:'';
+  width:128px;
+  height:128px;
+  border-radius:50%;
+  background:#fff;
+  position:absolute
+}
+
+.ring-inner{
+  position:relative;
+  z-index:2;
+  font-size:34px;
+  font-weight:900
+}
+
+.keyword-wrap{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px
+}
+
+.keyword{
+  padding:7px 9px;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:700
+}
+
+.kw-hit{
+  background:#ecfdf3;
+  color:#15803d
+}
+
+.kw-miss{
+  background:#fef2f2;
+  color:#b91c1c
+}
+
+.notice{
+  padding:12px;
+  border-radius:11px;
+  background:#f7f8ff;
+  color:#4f46e5;
+  font-size:12px;
+  line-height:1.6
+}
+
+.tabs{
+  display:flex;
+  gap:7px;
+  margin-bottom:18px
+}
+
+.tabs button{
+  border:0;
+  background:#eef0f6;
+  padding:9px 12px;
+  border-radius:9px;
+  font-size:12px;
+  font-weight:800
+}
+
+.tabs button.active{
+  background:#1f2937;
+  color:#fff
+}
+
+.searchrow{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:14px
+}
+
+.searchrow input,
+.searchrow select{
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:10px;
+  background:#fff
+}
+
+.right{
+  margin-left:auto
+}
+
+.mini{
+  font-size:11px
+}
+
+.toast{
+  position:fixed;
+  right:22px;
+  bottom:22px;
+  background:#111827;
+  color:#fff;
+  padding:12px 15px;
+  border-radius:10px;
+  opacity:0;
+  transform:translateY(10px);
+  transition:.2s;
+  z-index:40;
+  font-size:13px
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateY(0)
+}
+
+.version{
+  font-size:10px;
+  color:#64748b;
+  margin-top:8px
+}
+
+.data-info{
+  margin-top:10px;
+  padding:10px 12px;
+  border-radius:10px;
+  background:#f8fafc;
+  border:1px solid var(--line);
+  font-size:11px;
+  color:var(--muted)
+}
+
+@media(max-width:1100px){
+  .g4{grid-template-columns:repeat(2,1fr)}
+  .board{grid-template-columns:repeat(2,minmax(220px,1fr))}
+  .analysis-grid{grid-template-columns:1fr}
+  .sidebar{width:210px}
+}
+
+@media(max-width:720px){
+  .sidebar{
+    display:none
+  }
+
+  .topbar{
+    padding:10px 14px;
+    align-items:flex-start
+  }
+
+  .top-left{
+    align-items:center
+  }
+
+  .topbar h1{
+    font-size:17px
+  }
+
+  .top-actions{
+    gap:6px
+  }
+
+  .top-actions .seed-btn{
+    display:none
+  }
+
+  .save-status{
+    display:none
+  }
+
+  .home-btn{
+    padding:9px 10px
+  }
+
+  .page{
+    padding:18px
+  }
+
+  .g4,
+  .g3,
+  .g2{
+    grid-template-columns:1fr
+  }
+
+  .board{
+    grid-template-columns:1fr
+  }
+
+  .kpi-line{
+    grid-template-columns:105px 1fr 50px
+  }
+
+  .modal{
+    padding:10px
+  }
+
+  .modal-box{
+    padding:18px;
+    max-height:94vh
+  }
+
+  .title-row{
+    align-items:flex-start;
+    flex-direction:column
+  }
+
+  .title-row>button,
+  .title-row>div+button{
+    align-self:flex-end
+  }
+}
 </style>
 </head>
-<body>
-<div class="app">
-<aside class="sidebar">
-  <div class="brand">K-ATS <span>STUDIO</span></div>
-  <div class="nav">
-    <button class="active" data-page="dashboard">대시보드</button>
-    <button data-page="jobs">채용공고</button>
-    <button data-page="candidates">지원자 관리</button>
-    <button data-page="analysis">ATS 분석</button>
-    <button data-page="reports">리포트</button>
-  </div>
-  <div class="side-foot">한국형 ATS 프로토타입<br>키워드 · 경력 · 역량 · 적합도 기반</div>
-</aside>
-<main class="main">
-<header class="topbar"><h1 id="pageTitle">대시보드</h1><div class="top-actions"><button class="btn" id="seedBtn">데모 데이터</button><button class="btn primary" id="newJobBtn">+ 채용공고 등록</button></div></header>
-<div class="page" id="page"></div>
-</main></div>
-<div class="modal" id="modal"><div class="modal-box" id="modalBox"></div></div><div class="toast" id="toast"></div>
-<script>
-const $=s=>document.querySelector(s); const $$=s=>[...document.querySelectorAll(s)];
 
-// ============================================================
-// [딱 한 번만 수정] Gemini API Key를 아래 따옴표 안에 붙여넣으세요.
-// 예: const GEMINI_API_KEY = "";
-// Google AI Studio에서 발급한 Gemini API Key를 입력하면 됩니다.
-// ============================================================
+<body>
+
+<div class="app">
+
+  <aside class="sidebar">
+
+    <div class="brand">
+      K-ATS <span>STUDIO</span>
+      <div class="version">v1.1.0</div>
+    </div>
+
+    <div class="nav">
+      <button class="active" data-page="dashboard">대시보드</button>
+      <button data-page="jobs">채용공고</button>
+      <button data-page="candidates">지원자 관리</button>
+      <button data-page="analysis">ATS 분석</button>
+      <button data-page="reports">리포트</button>
+    </div>
+
+    <div class="side-foot">
+      한국형 ATS 프로토타입<br>
+      키워드 · 경력 · 역량 · 적합도 기반
+    </div>
+
+  </aside>
+
+  <main class="main">
+
+    <header class="topbar">
+
+      <div class="top-left">
+
+        <!-- v1.1 신규 홈 버튼 -->
+        <button class="btn home-btn" id="homeBtn" title="대시보드로 이동">
+          ⌂ 홈
+        </button>
+
+        <h1 id="pageTitle">대시보드</h1>
+
+      </div>
+
+      <div class="top-actions">
+
+        <span class="save-status" id="saveStatus">
+          ● 자동 저장
+        </span>
+
+        <!-- 실제 데이터와 별개로 동작 -->
+        <button class="btn seed-btn" id="seedBtn">
+          데모 데이터 불러오기
+        </button>
+
+        <button class="btn primary" id="newJobBtn">
+          + 채용공고 등록
+        </button>
+
+      </div>
+
+    </header>
+
+    <div class="page" id="page"></div>
+
+  </main>
+
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box" id="modalBox"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+/* ============================================================
+   K-ATS STUDIO v1.1
+   ============================================================ */
+
+const APP_VERSION = "1.1.0";
+const STORAGE_KEY = "kats";
+
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+
+
+/* ============================================================
+   Gemini
+   ============================================================ */
+
 const GEMINI_API_KEY = "";
 const GEMINI_MODEL = "gemini-3.6-flash";
 const APK_BUILD = true;
 
-const stages=['서류접수','서류검토','1차면접','2차면접','최종합격','불합격'];
-const demoJobs=[{id:1,title:'HR Manager',dept:'인사팀',location:'서울 강남',status:'진행중',open:'2026-09-01',close:'2026-09-30',jd:'인사제도 기획 및 운영\n채용, 평가, 보상, 급여, 노무관리\nKPI/MBO 성과관리\nHR 시스템 구축 및 프로세스 개선\n노동관계법령 및 취업규칙 이해\n조직문화 및 인력계획',keywords:['HR','인사기획','채용','평가','보상','급여','노무','KPI','MBO','HRIS','노동법','조직문화']},{id:2,title:'경영지원 HRBP',dept:'경영관리',location:'판교',status:'진행중',open:'2026-09-05',close:'2026-10-05',jd:'HRBP 역할로 사업부 리더와 협업\n인력계획과 인건비 관리\n조직진단 및 제도개선\n데이터 기반 HR 지표 관리\n채용 및 온보딩',keywords:['HRBP','인력계획','인건비','조직진단','HR Analytics','채용','온보딩']}];
-const demoCandidates=[
-{id:101,job:1,name:'김도현',email:'dohyun.kim@example.com',stage:2,years:8,score:92,skills:['인사기획','평가','보상','노무','KPI','HRIS'],education:'경영학 석사',updated:'오늘',resume:'인사제도 기획과 운영 8년. KPI/MBO 평가체계 구축, 연봉 및 성과보상 운영, 급여와 4대보험, 취업규칙 개정, 채용 전 과정과 HRIS 개선 경험. 조직문화 프로그램과 인력계획 수립 경험 보유.'},
-{id:102,job:1,name:'이서연',email:'seoyeon.lee@example.com',stage:1,years:5,score:81,skills:['채용','급여','MBO','조직문화'],education:'심리학 학사',updated:'어제',resume:'채용, 온보딩, 급여, 평가 운영 경험. MBO 관리와 조직문화 프로젝트를 담당했으며 인사 데이터 리포팅과 HR 시스템 사용 경험 보유.'},
-{id:103,job:1,name:'박준혁',email:'junhyuk.park@example.com',stage:0,years:3,score:68,skills:['채용','총무','급여'],education:'경영학 학사',updated:'2일 전',resume:'채용과 급여, 총무를 폭넓게 경험. HRIS와 평가제도 경험은 제한적이나 스타트업에서 빠른 업무 적응력을 보유.'},
-{id:104,job:2,name:'최유진',email:'yujin.choi@example.com',stage:2,years:7,score:89,skills:['HRBP','인력계획','인건비','조직진단','채용'],education:'MBA',updated:'오늘',resume:'사업부 HRBP 7년. 인력계획, 인건비 예산, 조직진단, 리더 코칭, 채용 및 온보딩 운영. Excel 기반 HR Analytics 리포트 구축 경험.'},
-{id:105,job:2,name:'정민수',email:'minsu.jung@example.com',stage:3,years:10,score:94,skills:['HRBP','조직진단','HR Analytics','인력계획'],education:'경영학 석사',updated:'3시간 전',resume:'대기업과 중견기업 HRBP 경력 10년. 사업부 인력계획, 조직진단, 인건비 시뮬레이션, HR Analytics 대시보드 구축 및 채용전략 수립.'},
-{id:106,job:2,name:'한지민',email:'jimin.han@example.com',stage:0,years:2,score:61,skills:['채용','온보딩'],education:'사회학 학사',updated:'3일 전',resume:'채용 코디네이션과 입사자 온보딩 경험. 인력계획과 인건비 관리 경험은 없음.'},
-{id:107,job:1,name:'오지훈',email:'jihoon.oh@example.com',stage:5,years:4,score:59,skills:['총무','급여'],education:'경영학 학사',updated:'어제',resume:'총무와 급여 운영 경험. 채용 경험은 있으나 인사제도 기획과 노무 경험이 제한적.',rejectReason:'직무 적합성 부족'}
-];
-let state={jobs:[],candidates:[],page:'dashboard',jobFilter:'all',query:'',aiKey:GEMINI_API_KEY};
-let pdfModulePromise=null;
-function initPdf(){return pdfModulePromise||(pdfModulePromise=import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs').then(m=>{m.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs';return m;}));}
-async function extractPdfText(file){const pdfjs=await initPdf();const ab=await file.arrayBuffer();const pdf=await pdfjs.getDocument({data:ab}).promise;let out=[];for(let i=1;i<=pdf.numPages;i++){const page=await pdf.getPage(i);const c=await page.getTextContent();out.push(c.items.map(x=>x.str).join(' '));}return out.join('\n');}
-function estimateResumeFields(text){const t=text.replace(/\s+/g,' ');const email=(t.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i)||[])[0]||'';const phone=(t.match(/(?:01[016789]|02|0[3-9][0-9])[- .]?\d{3,4}[- .]?\d{4}/)||[])[0]||'';const yearsMatch=t.match(/(?:경력|경력사항)[^0-9]{0,15}(\d{1,2})\s*년/);const years=yearsMatch?+yearsMatch[1]:0;return {email,phone,years};}
-function cleanAiText(x){return String(x||'').trim().replace(/^```(?:json)?/,'').replace(/```$/,'').trim();}
-async function fileToBase64(file){const ab=await file.arrayBuffer();let binary='';const bytes=new Uint8Array(ab);const chunk=0x8000;for(let i=0;i<bytes.length;i+=chunk)binary+=String.fromCharCode(...bytes.subarray(i,Math.min(i+chunk,bytes.length)));return btoa(binary)}
-function getGeminiApiKey(){const direct=String(GEMINI_API_KEY||'').trim();const saved=String(state.aiKey||'').trim();const placeholder='여기에_GEMINI_API_KEY_붙여넣기';return direct&&direct!==placeholder?direct:saved&&saved!==placeholder?saved:'';}
-async function analyzeResumeWithGemini(text,jd,file){const apiKey=getGeminiApiKey();if(!apiKey) return null;const prompt=`당신은 한국 기업의 전문 HR 채용담당자다. 제공된 이력서/경력기술서 PDF를 실제 채용 검토에 사용한다고 생각하고 분석하라. 문서에 명시된 사실만 사용하고 추측하지 마라. 반드시 JSON 객체 하나만 반환한다.\n필드: name,email,phone,years,education,skills,resumeSummary,careerSummary,highlights,concerns. skills/highlights/concerns는 배열. years는 총 경력연수 숫자. resumeSummary는 2~3문장. careerSummary는 회사/직무/기간/핵심업무 중심의 4~6문장.\n지원 JD: ${jd||'별도 JD 없음'}\nPDF 텍스트 추출본(보조자료): ${text||'(추출되지 않음)'}`;const parts=[{text:prompt}];if(file){const data=await fileToBase64(file);parts.push({inlineData:{mimeType:'application/pdf',data}})}const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+GEMINI_MODEL+':generateContent',{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':apiKey},body:JSON.stringify({contents:[{parts}],generationConfig:{responseMimeType:'application/json'}})});const raw=await r.text();let data;try{data=JSON.parse(raw)}catch{throw new Error('Gemini 응답을 읽을 수 없습니다.')}if(!r.ok){const msg=data?.error?.message||('AI API 오류 '+r.status);throw new Error(msg)}const out=(data.candidates||[]).flatMap(c=>c.content?.parts||[]).map(p=>p.text||'').join('');if(!out)throw new Error('Gemini가 분석 결과를 반환하지 않았습니다.');return JSON.parse(cleanAiText(out));}
 
-function load(){try{let s=JSON.parse(localStorage.kats);if(s&&s.jobs)state=s;else throw 0}catch{state={jobs:structuredClone(demoJobs),candidates:structuredClone(demoCandidates),page:'dashboard',jobFilter:'all',query:'',aiKey:GEMINI_API_KEY}}; render()}
-function save(){localStorage.kats=JSON.stringify(state)}
-function toast(t){let e=$('#toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1800)}
-function esc(s){return String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
-function render(){let title={dashboard:'대시보드',jobs:'채용공고',candidates:'지원자 관리',analysis:'ATS 분석',reports:'리포트'}[state.page]||'대시보드';$('#pageTitle').textContent=title; $$('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===state.page)); ({dashboard:renderDashboard,jobs:renderJobs,candidates:renderCandidates,analysis:renderAnalysis,reports:renderReports}[state.page])();}
-function renderDashboard(){let avg=Math.round(state.candidates.reduce((a,c)=>a+c.score,0)/Math.max(1,state.candidates.length));let open=state.jobs.filter(j=>j.status==='진행중').length;let high=state.candidates.filter(c=>c.score>=85).length; $('#page').innerHTML=`
-<div class="grid g4"><div class="card"><div class="stat"><div><div class="eyebrow">진행중 공고</div><div class="num">${open}</div></div><span class="badge b-blue">LIVE</span></div></div>
-<div class="card"><div class="stat"><div><div class="eyebrow">전체 지원자</div><div class="num">${state.candidates.length}</div></div><span class="badge b-gray">전체</span></div></div>
-<div class="card"><div class="stat"><div><div class="eyebrow">평균 ATS 점수</div><div class="num">${avg}</div></div><span class="badge b-green">+8.2%</span></div></div>
-<div class="card"><div class="stat"><div><div class="eyebrow">추천 후보</div><div class="num">${high}</div></div><span class="badge b-amber">85점+</span></div></div></div>
-<div style="height:18px"></div><div class="grid g2"><div class="card"><div class="title-row"><h2>채용 Funnel</h2><span class="muted mini">전체 공고 기준</span></div>${stages.map((s,i)=>{let n=state.candidates.filter(c=>c.stage>=i).length;let pct=Math.round(n/Math.max(1,state.candidates.length)*100);return `<div class="kpi-line"><span>${s}</span><div class="bar"><i style="width:${pct}%"></i></div><b>${n}명</b></div>`}).join('')}</div>
-<div class="card"><div class="title-row"><h2>최근 지원자</h2><button class="link-btn" onclick="go('candidates')">전체 보기 →</button></div><table class="table"><thead><tr><th>지원자</th><th>공고</th><th>ATS</th><th>상태</th></tr></thead><tbody>${state.candidates.slice().sort((a,b)=>b.score-a.score).slice(0,6).map(c=>{let j=state.jobs.find(j=>j.id===c.job);return `<tr><td><div class="person"><div class="avatar">${esc(c.name[0])}</div><div><b>${esc(c.name)}</b><div class="muted mini">${esc(c.years)}년 · ${esc(c.education)}</div></div></div></td><td>${esc(j?.title||'-')}</td><td><b class="score ${c.score>=85?'good':c.score>=70?'mid':'low'}">${c.score}</b></td><td><span class="badge ${c.stage>=3?'b-green':c.stage>=2?'b-blue':'b-gray'}">${stages[c.stage]}</span></td></tr>`}).join('')}</tbody></table></div></div>`}
-function renderJobs(){ $('#page').innerHTML=`<div class="title-row"><div><h2>채용공고</h2><div class="muted mini">JD를 등록하면 ATS 분석에 바로 사용할 수 있습니다.</div></div><button class="btn primary" onclick="openJob()">+ 새 공고</button></div><div class="grid g3">${state.jobs.map(j=>`<div class="card"><div class="title-row"><span class="badge ${j.status==='진행중'?'b-green':'b-gray'}">${j.status}</span><div style="display:flex;gap:8px"><button class="link-btn" onclick="openJob(${j.id})">편집</button><button class="link-btn" style="color:#dc2626" onclick="event.stopPropagation();deleteJob(${j.id})">삭제</button></div></div><h3 style="margin:4px 0 6px">${esc(j.title)}</h3><div class="muted mini">${esc(j.dept)} · ${esc(j.location)} · ${esc(j.open)} ~ ${esc(j.close)}</div><div class="chips">${j.keywords.slice(0,8).map(k=>`<span class="chip">${esc(k)}</span>`).join('')}</div><div style="margin-top:14px" class="muted mini">지원자 ${state.candidates.filter(c=>c.job===j.id).length}명 · 평균 ATS ${Math.round(state.candidates.filter(c=>c.job===j.id).reduce((a,c)=>a+c.score,0)/Math.max(1,state.candidates.filter(c=>c.job===j.id).length))}</div></div>`).join('')}</div>` }
-function renderCandidates(){let list=state.candidates.filter(c=>(state.jobFilter==='all'||String(c.job)===String(state.jobFilter))&&(!state.query||(`${c.name} ${c.email} ${c.skills.join(' ')} ${c.resume}`).toLowerCase().includes(state.query.toLowerCase())));$('#page').innerHTML=`<div class="title-row"><div><h2>지원자 관리</h2><div class="muted mini">PDF 이력서를 업로드하면 내용을 읽어 후보자 정보를 자동 입력하고, 카드를 드래그하여 채용단계를 이동할 수 있습니다.</div></div><div style="display:flex;gap:8px"><button class="btn" onclick="openAISettings()">⚙ AI 설정</button><button class="btn primary" onclick="openCandidate()">+ 지원자 추가</button></div></div><div class="searchrow"><input id="candSearch" placeholder="이름 · 스킬 · 이력서 검색" value="${esc(state.query)}" oninput="state.query=this.value;renderCandidates()"><select onchange="state.jobFilter=this.value;renderCandidates()"><option value="all">전체 공고</option>${state.jobs.map(j=>`<option value="${j.id}" ${String(state.jobFilter)===String(j.id)?'selected':''}>${esc(j.title)}</option>`).join('')}</select></div><div class="notice" style="margin-bottom:14px">📎 <b>PDF 이력서 → 자동 추출</b> · 이메일/경력연차/학력/스킬/경력요약을 자동 입력합니다. </div><div class="stage-summary"><div>전체 <b>${list.length}</b></div><div>진행중 <b>${list.filter(c=>c.stage<5).length}</b></div><div class="reject-summary">불합격 <b>${list.filter(c=>c.stage===5).length}</b></div></div><div class="board">${stages.map((stage,si)=>`<div class="column ${si===5?'reject-column':''}" data-stage="${si}" ondragover="dragOverStage(event)" ondragleave="dragLeaveStage(event)" ondrop="dropStage(event,${si})"><div class="column-head"><span>${stage}</span><span class="badge ${si===5?'b-red':'b-gray'}">${list.filter(c=>c.stage===si).length}</span></div>${list.filter(c=>c.stage===si).map(c=>candidateCard(c)).join('')||'<div class="empty">여기로 후보자를 드래그하세요</div>'}</div>`).join('')}</div>`}
-function candidateCard(c){let j=state.jobs.find(j=>j.id===c.job);return `<div class="candidate" draggable="true" data-id="${c.id}" ondragstart="dragStartCandidate(event,${c.id})" ondragend="dragEndCandidate(event)" onclick="openCandidate(${c.id})"><div class="cand-top"><div><div class="cand-name">${esc(c.name||'이름 미확인')}</div><div class="cand-meta">${esc(c.years||0)}년 · ${esc(c.education||'학력 미확인')} · ${esc(j?.title||'공고 미지정')}</div></div><b class="score ${c.score>=85?'good':c.score>=70?'mid':'low'}">${c.score}</b></div><div class="chips">${(c.skills||[]).slice(0,4).map(k=>`<span class="chip">${esc(k)}</span>`).join('')}</div><div class="mini muted" style="margin-top:9px">${esc(c.resumeSummary||c.resume||'요약 없음').slice(0,110)}${(c.resumeSummary||c.resume||'').length>110?'…':''}</div><div class="cand-bottom"><span class="muted mini">${c.stage===5?`<b style="color:#b91c1c">불합격${c.rejectReason?' · '+esc(c.rejectReason):''}</b>`:esc(c.updated||'')}</span><button class="link-btn" onclick="event.stopPropagation();openAnalysis(${c.id})">분석 보기</button></div></div>`}
-function dragStartCandidate(e,id){e.stopPropagation();e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',String(id));e.currentTarget.classList.add('dragging')}
-function dragEndCandidate(e){e.currentTarget.classList.remove('dragging');$$('.column').forEach(x=>x.classList.remove('drag-over'))}
-function dragOverStage(e){e.preventDefault();e.dataTransfer.dropEffect='move';e.currentTarget.classList.add('drag-over')}
-function dragLeaveStage(e){e.currentTarget.classList.remove('drag-over')}
-function dropStage(e,stage){e.preventDefault();let id=+e.dataTransfer.getData('text/plain');let c=state.candidates.find(x=>x.id===id);if(c){c.stage=stage;c.updated='방금 이동';save();renderCandidates();toast(`${c.name} → ${stages[stage]}`)}}
-function computeAnalysis(c,j){let text=(c.resume+' '+c.skills.join(' ')).toLowerCase();let hit=j.keywords.filter(k=>text.includes(k.toLowerCase()));let miss=j.keywords.filter(k=>!hit.includes(k));let base=Math.round(hit.length/j.keywords.length*100);let exp=Math.min(15,Math.round(c.years*1.8));let edu=/석사|mba/i.test(c.education)?5:3;let score=Math.min(100,Math.round(base*.78+exp+edu));return {score,hit,miss,base,exp,edu}}
-function renderAnalysis(){let c=state.candidates.slice().sort((a,b)=>b.score-a.score)[0];let j=c&&state.jobs.find(j=>j.id===c.job);$('#page').innerHTML=`<div class="title-row"><div><h2>ATS 분석 센터</h2><div class="muted mini">지원자별 점수와 이력서/경력기술서 요약을 함께 확인합니다.</div></div><button class="btn" onclick="openAISettings()">⚙ AI 설정</button></div><div class="card"><div class="searchrow"><select id="analysisJob">${state.jobs.map(x=>`<option value="${x.id}">${esc(x.title)}</option>`).join('')}</select><select id="analysisCand">${state.candidates.map(x=>`<option value="${x.id}">${esc(x.name)} · ${x.score}점</option>`).join('')}</select><button class="btn primary" onclick="runAnalysis()">ATS 점수 다시 계산</button></div><div class="table-wrap"><table class="table"><thead><tr><th>지원자</th><th>ATS</th><th>경력</th><th>핵심경력 요약</th><th>추천</th></tr></thead><tbody>${state.candidates.slice().sort((a,b)=>b.score-a.score).map(x=>{let rec=x.score>=85?'강력 추천':x.score>=70?'검토 추천':'보완 검토';return `<tr onclick="showAnalysis(${x.id},${x.job})" style="cursor:pointer"><td><b>${esc(x.name)}</b><div class="muted mini">${esc(x.email)}</div></td><td><b class="score ${x.score>=85?'good':x.score>=70?'mid':'low'}">${x.score}</b></td><td>${esc(x.years)}년<br><span class="muted mini">${esc(x.education)}</span></td><td style="min-width:350px">${esc(x.careerSummary||x.resumeSummary||x.resume||'요약 없음')}</td><td><span class="badge ${x.score>=85?'b-green':x.score>=70?'b-blue':'b-red'}">${rec}</span></td></tr>`}).join('')}</tbody></table></div></div><div style="height:18px"></div><div id="analysisResult"></div>`; if(c&&j) showAnalysis(c.id,j.id)}
-function showAnalysis(cid,jid){let c=state.candidates.find(x=>x.id==cid),j=state.jobs.find(x=>x.id==jid);if(!c||!j)return;let a=computeAnalysis(c,j);$('#analysisResult').innerHTML=`<div class="card"><div class="title-row"><h2>${esc(c.name)} · ${esc(j.title)} 적합도</h2><button class="btn" onclick="openCandidate(${c.id})">지원자 보기</button></div><div class="analysis-grid"><div><div class="score-ring" style="--score:${a.score}"><div class="ring-inner">${a.score}</div></div><div style="text-align:center" class="muted">ATS 종합 적합도</div></div><div><div class="grid g3"><div class="card" style="box-shadow:none"><div class="eyebrow">키워드</div><div class="num" style="font-size:24px">${a.base}%</div></div><div class="card" style="box-shadow:none"><div class="eyebrow">경력 가점</div><div class="num" style="font-size:24px">+${a.exp}</div></div><div class="card" style="box-shadow:none"><div class="eyebrow">학력 보정</div><div class="num" style="font-size:24px">+${a.edu}</div></div></div><h3 style="font-size:14px;margin:20px 0 10px">이력서 요약</h3><div class="notice">${esc(c.resumeSummary||'자동 요약 없음')}</div><h3 style="font-size:14px;margin:20px 0 10px">주요 경력</h3><div class="card" style="box-shadow:none;background:#fafbfc;line-height:1.7;font-size:13px">${esc(c.careerSummary||c.resume||'경력 정보 없음')}</div><h3 style="font-size:14px;margin:20px 0 10px">JD 핵심 키워드</h3><div class="keyword-wrap">${a.hit.map(k=>`<span class="keyword kw-hit">✓ ${esc(k)}</span>`).join('')}${a.miss.map(k=>`<span class="keyword kw-miss">× ${esc(k)}</span>`).join('')}</div><h3 style="font-size:14px;margin:20px 0 10px">추천 의견</h3><div class="notice">${a.score>=85?'강력 추천 후보입니다.':a.score>=70?'검토 추천 후보입니다.':'보완 검토 후보입니다.'} ${esc(c.resumeSummary||'')}</div></div></div></div>`}
-function runAnalysis(){showAnalysis($('#analysisCand').value,$('#analysisJob').value)}
-function renderReports(){let avg=state.jobs.map(j=>{let cs=state.candidates.filter(c=>c.job===j.id);return {...j,n:cs.length,avg:Math.round(cs.reduce((a,c)=>a+c.score,0)/Math.max(1,cs.length)),high:cs.filter(c=>c.score>=85).length}});$('#page').innerHTML=`<div class="title-row"><div><h2>리포트</h2><div class="muted mini">채용공고별 ATS 지표를 비교합니다.</div></div><button class="btn" onclick="toast('CSV 리포트 기능은 다음 확장 모듈에 연결할 수 있습니다.')">CSV 내보내기</button></div><div class="card"><table class="table"><thead><tr><th>공고</th><th>지원자</th><th>평균 ATS</th><th>85점+ 후보</th><th>진행</th></tr></thead><tbody>${avg.map(j=>`<tr><td><b>${esc(j.title)}</b><div class="muted mini">${esc(j.dept)}</div></td><td>${j.n}</td><td><b class="score ${j.avg>=85?'good':j.avg>=70?'mid':'low'}">${j.avg}</b></td><td>${j.high}</td><td><span class="badge ${j.status==='진행중'?'b-green':'b-gray'}">${j.status}</span></td></tr>`).join('')}</tbody></table></div>`}
-function go(p){state.page=p;render()}
-function openJob(id){let j=id?state.jobs.find(x=>x.id===id):null;$('#modalBox').innerHTML=`<div class="modal-head"><div><h2 style="margin:0">${j?'채용공고 수정':'새 채용공고'}</h2><div class="muted mini">ATS가 분석할 JD와 핵심 키워드를 입력하세요.</div></div><button class="close" onclick="closeModal()">×</button></div><div class="field"><label>공고명</label><input id="jtitle" value="${esc(j?.title||'HR Manager')}" placeholder="예: HR Manager"></div><div class="grid g2"><div class="field"><label>부서</label><input id="jdept" value="${esc(j?.dept||'인사팀')}"></div><div class="field"><label>근무지</label><input id="jloc" value="${esc(j?.location||'서울')}"></div></div><div class="grid g2"><div class="field"><label>공고 시작일</label><input id="jopen" type="date" value="${esc(j?.open||'2026-09-09')}"></div><div class="field"><label>마감일</label><input id="jclose" type="date" value="${esc(j?.close||'2026-09-30')}"></div></div><div class="field"><label>Job Description</label><textarea id="jjd">${esc(j?.jd||'인사제도 기획 및 운영\n채용, 평가, 보상, 급여\n노무관리 및 취업규칙\nKPI/MBO 성과관리\nHR 시스템 구축 및 프로세스 개선')}</textarea></div><div class="field"><label>핵심 키워드 <span class="muted">쉼표 또는 줄바꿈으로 구분</span></label><input id="jkeys" value="${esc(j?.keywords?.join(', ')||'HR, 인사기획, 채용, 평가, 보상, 급여, 노무, KPI, MBO, HRIS')}"></div><div class="form-actions"><button class="btn" onclick="closeModal()">취소</button><button class="btn primary" onclick="saveJob(${id||0})">저장</button></div>`;openModal()}
-function saveJob(id){let o={id:id||Date.now(),title:$('#jtitle').value.trim(),dept:$('#jdept').value.trim(),location:$('#jloc').value.trim(),status:'진행중',open:$('#jopen').value,close:$('#jclose').value,jd:$('#jjd').value,keywords:$('#jkeys').value.split(/[,\n]+/).map(x=>x.trim()).filter(Boolean)};if(id)state.jobs=state.jobs.map(j=>j.id===id?o:j);else state.jobs.push(o);save();closeModal();render();toast('채용공고가 저장되었습니다.');}
-function openCandidate(id){let c=id?state.candidates.find(x=>x.id===id):null;$('#modalBox').innerHTML=`<div class="modal-head"><div><h2 style="margin:0">${c?'지원자 상세':'지원자 추가'}</h2><div class="muted mini">PDF 업로드 후 자동 추출하거나 직접 수정할 수 있습니다.</div></div><button class="close" onclick="closeModal()">×</button></div><div class="dropzone" onclick="$('#resumeFile').click()"><b>PDF 이력서 업로드</b><div class="mini" style="margin-top:5px">PDF를 선택하면 Gemini가 자동으로 이력서와 경력기술서를 분석합니다.</div><input id="resumeFile" type="file" accept="application/pdf,.pdf" style="display:none" onchange="handleResumePdf(this.files[0])"></div><div id="fileStatus"></div><div class="grid g2" style="margin-top:14px"><div class="field"><label>이름</label><input id="cname" value="${esc(c?.name||'')}"></div><div class="field"><label>이메일</label><input id="cemail" value="${esc(c?.email||'')}"></div><div class="field"><label>지원 공고</label><select id="cjob">${state.jobs.map(j=>`<option value="${j.id}" ${c?.job===j.id?'selected':''}>${esc(j.title)}</option>`).join('')}</select></div><div class="field"><label>경력 연차</label><input id="cyears" type="number" min="0" value="${c?.years||0}"></div><div class="field"><label>학력</label><input id="cedu" value="${esc(c?.education||'')}"></div><div class="field"><label>스킬</label><input id="cskills" value="${esc(c?.skills?.join(', ')||'')}"></div></div><div class="field"><label>이력서 / 경력기술서 원문</label><textarea id="cres" placeholder="PDF 업로드 후 자동 입력됩니다.">${esc(c?.resume||'')}</textarea></div><div class="field"><label>이력서 요약</label><textarea id="csummary" style="min-height:90px" placeholder="Gemini 분석 또는 자동 요약 결과">${esc(c?.resumeSummary||'')}</textarea></div><div class="field"><label>주요 경력 요약</label><textarea id="ccareer" style="min-height:120px" placeholder="회사/직무/기간/핵심업무 중심">${esc(c?.careerSummary||'')}</textarea></div><div class="field"><label>불합격 사유 <span class="muted">불합격 후보자에게만 사용</span></label><select id="creason"><option value="">선택 안 함</option><option ${c?.rejectReason==='경력 부족'?'selected':''}>경력 부족</option><option ${c?.rejectReason==='직무 적합성 부족'?'selected':''}>직무 적합성 부족</option><option ${c?.rejectReason==='연봉 조건 불일치'?'selected':''}>연봉 조건 불일치</option><option ${c?.rejectReason==='면접 결과 미흡'?'selected':''}>면접 결과 미흡</option><option ${c?.rejectReason==='다른 후보자 우선'?'selected':''}>다른 후보자 우선</option><option ${c?.rejectReason==='지원자 철회'?'selected':''}>지원자 철회</option><option ${c?.rejectReason==='기타'?'selected':''}>기타</option></select></div><div class="form-actions">${id?`<button class="btn" style="color:#dc2626" onclick="deleteCandidate(${id})">지원자 삭제</button>`:''}<button class="btn" onclick="closeModal()">취소</button><button class="btn primary" onclick="saveCandidate(${id||0})">저장 및 ATS 계산</button></div>`;openModal()}
-async function handleResumePdf(file){if(!file)return;if(file.type!=='application/pdf' && !/\.pdf$/i.test(file.name)){toast('PDF 파일만 업로드할 수 있습니다.');return;}if(file.size>20*1024*1024){toast('PDF는 20MB 이하로 업로드하세요.');return;}const status=$('#fileStatus');status.innerHTML='<div class="file-pill"><span>📄 '+esc(file.name)+'</span><span class="ai-status">PDF 읽는 중…</span></div>';try{let text='';try{text=await extractPdfText(file)}catch(pdfErr){console.warn('PDF.js text extraction skipped:',pdfErr)}$('#cres').value=text;let f=estimateResumeFields(text);if(f.email)$('#cemail').value=f.email;if(f.years)$('#cyears').value=f.years;status.innerHTML='<div class="file-pill"><span>📄 '+esc(file.name)+'</span><span class="ai-status">PDF 확인 완료 · Gemini 자동 분석 중…</span></div>';await analyzeCurrentResume(true,file.name,file)}catch(e){console.error(e);status.innerHTML='<div class="notice" style="background:#fef2f2;color:#b91c1c"><b>분석 실패</b><br>'+esc(e.message||'PDF 처리 중 오류가 발생했습니다.')+'</div>'}}
-async function analyzeCurrentResume(silent=false,fileName='',file=null){const text=$('#cres')?.value?.trim();if(!text&&!file)return toast('먼저 PDF를 업로드하거나 이력서 원문을 입력하세요.');const apiKey=getGeminiApiKey();if(!apiKey){if(fileName)$('#fileStatus').innerHTML='<div class="notice" style="background:#fff7ed;color:#9a3412"><b>Gemini API Key가 없습니다.</b><br>index.html 상단의 GEMINI_API_KEY에 키를 입력한 뒤 다시 업로드하세요.</div>';else openAISettings();return}try{if(!silent)toast('Gemini가 이력서를 분석하고 있습니다…');const j=state.jobs.find(x=>x.id===+$('#cjob').value);const r=await analyzeResumeWithGemini(text,j?.jd||'',file);if(r){if(r.name)$('#cname').value=r.name;if(r.email)$('#cemail').value=r.email;if(r.years)$('#cyears').value=r.years;if(r.education)$('#cedu').value=r.education;if(r.skills?.length)$('#cskills').value=r.skills.join(', ');if(r.resumeSummary)$('#csummary').value=r.resumeSummary;if(r.careerSummary)$('#ccareer').value=r.careerSummary;const status=$('#fileStatus');if(status)status.innerHTML='<div class="file-pill"><span>📄 '+esc(fileName||'이력서.pdf')+'</span><span class="ai-status" style="color:#15803d">✓ Gemini 분석 완료</span></div>';toast('PDF 업로드 및 Gemini 자동 분석 완료')}}catch(e){console.error(e);const status=$('#fileStatus');if(status)status.innerHTML='<div class="notice" style="background:#fef2f2;color:#b91c1c"><b>Gemini 분석 실패</b><br>'+esc(e.message||'API 호출 중 오류가 발생했습니다.')+'</div>';toast('Gemini 분석 실패: '+e.message)}}
-function saveCandidate(id){let j=+$('#cjob').value;let c={id:id||Date.now(),job:j,name:$('#cname').value.trim(),email:$('#cemail').value.trim(),stage:id?(state.candidates.find(x=>x.id===id)?.stage||0):0,years:+$('#cyears').value||0,education:$('#cedu').value.trim(),skills:$('#cskills').value.split(/[，,\n]+/).map(x=>x.trim()).filter(Boolean),resume:$('#cres').value.trim(),resumeSummary:$('#csummary').value.trim(),careerSummary:$('#ccareer').value.trim(),rejectReason:$('#creason')?.value||'',updated:'방금 전'};let a=computeAnalysis(c,state.jobs.find(x=>x.id===j));c.score=a.score;if(id)state.candidates=state.candidates.map(x=>x.id===id?c:x);else state.candidates.push(c);save();closeModal();state.page='candidates';render();toast(`저장 완료 · ATS ${c.score}점`)}
+/* ============================================================
+   채용 단계
+   ============================================================ */
+
+const stages = [
+  '서류접수',
+  '서류검토',
+  '1차면접',
+  '2차면접',
+  '최종합격',
+  '불합격'
+];
+
+
+/* ============================================================
+   데모 데이터
+   ============================================================ */
+
+const demoJobs = [
+
+{
+  id:1,
+  title:'HR Manager',
+  dept:'인사팀',
+  location:'서울 강남',
+  status:'진행중',
+  open:'2026-09-01',
+  close:'2026-09-30',
+
+  jd:
+`인사제도 기획 및 운영
+채용, 평가, 보상, 급여, 노무관리
+KPI/MBO 성과관리
+HR 시스템 구축 및 프로세스 개선
+노동관계법령 및 취업규칙 이해
+조직문화 및 인력계획`,
+
+  keywords:[
+    'HR',
+    '인사기획',
+    '채용',
+    '평가',
+    '보상',
+    '급여',
+    '노무',
+    'KPI',
+    'MBO',
+    'HRIS',
+    '노동법',
+    '조직문화'
+  ]
+},
+
+{
+  id:2,
+  title:'경영지원 HRBP',
+  dept:'경영관리',
+  location:'판교',
+  status:'진행중',
+  open:'2026-09-05',
+  close:'2026-10-05',
+
+  jd:
+`HRBP 역할로 사업부 리더와 협업
+인력계획과 인건비 관리
+조직진단 및 제도개선
+데이터 기반 HR 지표 관리
+채용 및 온보딩`,
+
+  keywords:[
+    'HRBP',
+    '인력계획',
+    '인건비',
+    '조직진단',
+    'HR Analytics',
+    '채용',
+    '온보딩'
+  ]
+}
+
+];
+
+
+const demoCandidates = [
+
+{
+  id:101,
+  job:1,
+  name:'김도현',
+  email:'dohyun.kim@example.com',
+  stage:2,
+  years:8,
+  score:92,
+  skills:[
+    '인사기획',
+    '평가',
+    '보상',
+    '노무',
+    'KPI',
+    'HRIS'
+  ],
+  education:'경영학 석사',
+  updated:'오늘',
+
+  resume:
+`인사제도 기획과 운영 8년.
+KPI/MBO 평가체계 구축,
+연봉 및 성과보상 운영,
+급여와 4대보험,
+취업규칙 개정,
+채용 전 과정과 HRIS 개선 경험.
+조직문화 프로그램과 인력계획 수립 경험 보유.`
+},
+
+{
+  id:102,
+  job:1,
+  name:'이서연',
+  email:'seoyeon.lee@example.com',
+  stage:1,
+  years:5,
+  score:81,
+  skills:[
+    '채용',
+    '급여',
+    'MBO',
+    '조직문화'
+  ],
+  education:'심리학 학사',
+  updated:'어제',
+
+  resume:
+`채용, 온보딩, 급여, 평가 운영 경험.
+MBO 관리와 조직문화 프로젝트를 담당했으며
+인사 데이터 리포팅과 HR 시스템 사용 경험 보유.`
+},
+
+{
+  id:103,
+  job:1,
+  name:'박준혁',
+  email:'junhyuk.park@example.com',
+  stage:0,
+  years:3,
+  score:68,
+  skills:[
+    '채용',
+    '총무',
+    '급여'
+  ],
+  education:'경영학 학사',
+  updated:'2일 전',
+
+  resume:
+`채용과 급여, 총무를 폭넓게 경험.
+HRIS와 평가제도 경험은 제한적이나
+스타트업에서 빠른 업무 적응력을 보유.`
+},
+
+{
+  id:104,
+  job:2,
+  name:'최유진',
+  email:'yujin.choi@example.com',
+  stage:2,
+  years:7,
+  score:89,
+  skills:[
+    'HRBP',
+    '인력계획',
+    '인건비',
+    '조직진단',
+    '채용'
+  ],
+  education:'MBA',
+  updated:'오늘',
+
+  resume:
+`사업부 HRBP 7년.
+인력계획, 인건비 예산, 조직진단,
+리더 코칭, 채용 및 온보딩 운영.
+Excel 기반 HR Analytics 리포트 구축 경험.`
+},
+
+{
+  id:105,
+  job:2,
+  name:'정민수',
+  email:'minsu.jung@example.com',
+  stage:3,
+  years:10,
+  score:94,
+  skills:[
+    'HRBP',
+    '조직진단',
+    'HR Analytics',
+    '인력계획'
+  ],
+  education:'경영학 석사',
+  updated:'3시간 전',
+
+  resume:
+`대기업과 중견기업 HRBP 경력 10년.
+사업부 인력계획, 조직진단,
+인건비 시뮬레이션,
+HR Analytics 대시보드 구축 및 채용전략 수립.`
+},
+
+{
+  id:106,
+  job:2,
+  name:'한지민',
+  email:'jimin.han@example.com',
+  stage:0,
+  years:2,
+  score:61,
+  skills:[
+    '채용',
+    '온보딩'
+  ],
+  education:'사회학 학사',
+  updated:'3일 전',
+
+  resume:
+`채용 코디네이션과 입사자 온보딩 경험.
+인력계획과 인건비 관리 경험은 없음.`
+},
+
+{
+  id:107,
+  job:1,
+  name:'오지훈',
+  email:'jihoon.oh@example.com',
+  stage:5,
+  years:4,
+  score:59,
+  skills:[
+    '총무',
+    '급여'
+  ],
+  education:'경영학 학사',
+  updated:'어제',
+
+  resume:
+`총무와 급여 운영 경험.
+채용 경험은 있으나 인사제도 기획과
+노무 경험이 제한적.`,
+
+  rejectReason:'직무 적합성 부족'
+}
+
+];
+
+
+/* ============================================================
+   상태
+   ============================================================ */
+
+let state = {
+
+  jobs:[],
+
+  candidates:[],
+
+  page:'dashboard',
+
+  jobFilter:'all',
+
+  query:'',
+
+  aiKey:GEMINI_API_KEY,
+
+  version:APP_VERSION,
+
+  lastSavedAt:null
+
+};
+
+
+let pdfModulePromise = null;
+
+
+/* ============================================================
+   기본 상태
+   ============================================================ */
+
+function createDefaultState(){
+
+  return {
+
+    jobs:[],
+
+    candidates:[],
+
+    page:'dashboard',
+
+    jobFilter:'all',
+
+    query:'',
+
+    aiKey:GEMINI_API_KEY,
+
+    version:APP_VERSION,
+
+    lastSavedAt:null
+
+  };
+
+}
+
+
+/* ============================================================
+   상태 정리 / 기존 데이터 호환
+   ============================================================ */
+
+function normalizeState(saved){
+
+  const base = createDefaultState();
+
+  const s = saved && typeof saved === 'object'
+    ? saved
+    : {};
+
+  return {
+
+    ...base,
+
+    ...s,
+
+    jobs:Array.isArray(s.jobs)
+      ? s.jobs
+      : [],
+
+    candidates:Array.isArray(s.candidates)
+      ? s.candidates
+      : [],
+
+    page:[
+      'dashboard',
+      'jobs',
+      'candidates',
+      'analysis',
+      'reports'
+    ].includes(s.page)
+      ? s.page
+      : 'dashboard',
+
+    jobFilter:
+      s.jobFilter !== undefined
+        ? s.jobFilter
+        : 'all',
+
+    query:
+      typeof s.query === 'string'
+        ? s.query
+        : '',
+
+    aiKey:
+      typeof s.aiKey === 'string'
+        ? s.aiKey
+        : GEMINI_API_KEY,
+
+    version:APP_VERSION
+
+  };
+
+}
+
+
+/* ============================================================
+   저장
+   ============================================================ */
+
+function save(){
+
+  try{
+
+    state.version = APP_VERSION;
+
+    state.lastSavedAt = new Date().toISOString();
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(state)
+    );
+
+    updateSaveStatus();
+
+    return true;
+
+  }catch(error){
+
+    console.error(
+      'K-ATS 데이터 저장 실패:',
+      error
+    );
+
+    const status = $('#saveStatus');
+
+    if(status){
+
+      status.textContent =
+        '● 저장 실패';
+
+      status.style.color =
+        '#dc2626';
+
+    }
+
+    toast(
+      '데이터 저장에 실패했습니다. 브라우저 저장공간을 확인하세요.'
+    );
+
+    return false;
+
+  }
+
+}
+
+
+/* ============================================================
+   불러오기
+   ============================================================ */
+
+function load(){
+
+  try{
+
+    const raw =
+      localStorage.getItem(STORAGE_KEY);
+
+    if(raw){
+
+      const parsed =
+        JSON.parse(raw);
+
+      state =
+        normalizeState(parsed);
+
+    }else{
+
+      /*
+       최초 실행 시에만 데모 데이터 제공
+       그리고 즉시 저장.
+      */
+
+      state =
+        normalizeState({
+
+          ...createDefaultState(),
+
+          jobs:
+            structuredClone(demoJobs),
+
+          candidates:
+            structuredClone(demoCandidates),
+
+          page:'dashboard'
+
+        });
+
+      save();
+
+    }
+
+  }catch(error){
+
+    console.error(
+      '저장 데이터 불러오기 실패:',
+      error
+    );
+
+    /*
+     기존 저장 데이터가 깨졌더라도
+     앱 자체가 죽지 않도록 데모 데이터로 시작.
+    */
+
+    state =
+      normalizeState({
+
+        ...createDefaultState(),
+
+        jobs:
+          structuredClone(demoJobs),
+
+        candidates:
+          structuredClone(demoCandidates)
+
+      });
+
+    toast(
+      '저장 데이터를 읽지 못해 데모 데이터로 시작합니다.'
+    );
+
+  }
+
+  render();
+
+}
+
+
+/* ============================================================
+   저장 상태 표시
+   ============================================================ */
+
+function updateSaveStatus(){
+
+  const el =
+    $('#saveStatus');
+
+  if(!el) return;
+
+  if(!state.lastSavedAt){
+
+    el.textContent =
+      '● 자동 저장';
+
+    return;
+
+  }
+
+  const d =
+    new Date(state.lastSavedAt);
+
+  const time =
+    d.toLocaleTimeString(
+      'ko-KR',
+      {
+        hour:'2-digit',
+        minute:'2-digit',
+        second:'2-digit'
+      }
+    );
+
+  el.textContent =
+    `● 저장됨 ${time}`;
+
+  el.style.color =
+    '#15803d';
+
+}
+
+
+/* ============================================================
+   Toast
+   ============================================================ */
+
+function toast(text){
+
+  const e =
+    $('#toast');
+
+  if(!e) return;
+
+  e.textContent =
+    text;
+
+  e.classList.add('show');
+
+  clearTimeout(
+    e._timer
+  );
+
+  e._timer =
+    setTimeout(
+      ()=>{
+        e.classList.remove('show');
+      },
+      2200
+    );
+
+}
+
+
+/* ============================================================
+   HTML escape
+   ============================================================ */
+
+function esc(s){
+
+  return String(s ?? '')
+    .replace(
+      /[&<>'"]/g,
+      c => ({
+        '&':'&amp;',
+        '<':'&lt;',
+        '>':'&gt;',
+        "'":'&#39;',
+        '"':'&quot;'
+      }[c])
+    );
+
+}
+
+
+/* ============================================================
+   PDF.js
+   ============================================================ */
+
+function initPdf(){
+
+  return pdfModulePromise ||
+    (
+      pdfModulePromise =
+        import(
+          'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs'
+        )
+        .then(m=>{
+
+          m.GlobalWorkerOptions.workerSrc =
+            'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs';
+
+          return m;
+
+        })
+    );
+
+}
+
+
+async function extractPdfText(file){
+
+  const pdfjs =
+    await initPdf();
+
+  const ab =
+    await file.arrayBuffer();
+
+  const pdf =
+    await pdfjs.getDocument({
+      data:ab
+    }).promise;
+
+  let out = [];
+
+  for(
+    let i=1;
+    i<=pdf.numPages;
+    i++
+  ){
+
+    const page =
+      await pdf.getPage(i);
+
+    const c =
+      await page.getTextContent();
+
+    out.push(
+      c.items
+        .map(x=>x.str)
+        .join(' ')
+    );
+
+  }
+
+  return out.join('\n');
+
+}
+
+
+/* ============================================================
+   PDF 기본 정보 추출
+   ============================================================ */
+
+function estimateResumeFields(text){
+
+  const t =
+    text.replace(/\s+/g,' ');
+
+  const email =
+    (
+      t.match(
+        /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i
+      ) || []
+    )[0] || '';
+
+  const phone =
+    (
+      t.match(
+        /(?:01[016789]|02|0[3-9][0-9])[- .]?\d{3,4}[- .]?\d{4}/
+      ) || []
+    )[0] || '';
+
+  const yearsMatch =
+    t.match(
+      /(?:경력|경력사항)[^0-9]{0,15}(\d{1,2})\s*년/
+    );
+
+  const years =
+    yearsMatch
+      ? +yearsMatch[1]
+      : 0;
+
+  return {
+    email,
+    phone,
+    years
+  };
+
+}
+
+
+/* ============================================================
+   Gemini
+   ============================================================ */
+
+function cleanAiText(x){
+
+  return String(x || '')
+    .trim()
+    .replace(/^```(?:json)?/,'')
+    .replace(/```$/,'')
+    .trim();
+
+}
+
+
+async function fileToBase64(file){
+
+  const ab =
+    await file.arrayBuffer();
+
+  let binary = '';
+
+  const bytes =
+    new Uint8Array(ab);
+
+  const chunk =
+    0x8000;
+
+  for(
+    let i=0;
+    i<bytes.length;
+    i+=chunk
+  ){
+
+    binary +=
+      String.fromCharCode(
+        ...bytes.subarray(
+          i,
+          Math.min(
+            i+chunk,
+            bytes.length
+          )
+        )
+      );
+
+  }
+
+  return btoa(binary);
+
+}
+
+
+function getGeminiApiKey(){
+
+  const direct =
+    String(
+      GEMINI_API_KEY || ''
+    ).trim();
+
+  const saved =
+    String(
+      state.aiKey || ''
+    ).trim();
+
+  const placeholder =
+    '여기에_GEMINI_API_KEY_붙여넣기';
+
+  if(
+    direct &&
+    direct !== placeholder
+  ){
+
+    return direct;
+
+  }
+
+  if(
+    saved &&
+    saved !== placeholder
+  ){
+
+    return saved;
+
+  }
+
+  return '';
+
+}
+
+
+async function analyzeResumeWithGemini(
+  text,
+  jd,
+  file
+){
+
+  const apiKey =
+    getGeminiApiKey();
+
+  if(!apiKey)
+    return null;
+
+  const prompt = `
+당신은 한국 기업의 전문 HR 채용담당자다.
+
+제공된 이력서/경력기술서 PDF를 실제 채용 검토에 사용한다고 생각하고 분석하라.
+
+문서에 명시된 사실만 사용하고 추측하지 마라.
+
+반드시 JSON 객체 하나만 반환한다.
+
+필드:
+name,
+email,
+phone,
+years,
+education,
+skills,
+resumeSummary,
+careerSummary,
+highlights,
+concerns.
+
+skills/highlights/concerns는 배열.
+
+years는 총 경력연수 숫자.
+
+resumeSummary는 2~3문장.
+
+careerSummary는 회사/직무/기간/핵심업무 중심의 4~6문장.
+
+지원 JD:
+${jd || '별도 JD 없음'}
+
+PDF 텍스트 추출본:
+${text || '(추출되지 않음)'}
+`;
+
+  const parts = [
+    {
+      text:prompt
+    }
+  ];
+
+  if(file){
+
+    const data =
+      await fileToBase64(file);
+
+    parts.push({
+
+      inlineData:{
+        mimeType:'application/pdf',
+        data
+      }
+
+    });
+
+  }
+
+  const r =
+    await fetch(
+      'https://generativelanguage.googleapis.com/v1beta/models/' +
+      GEMINI_MODEL +
+      ':generateContent',
+      {
+        method:'POST',
+
+        headers:{
+          'Content-Type':'application/json',
+          'x-goog-api-key':apiKey
+        },
+
+        body:JSON.stringify({
+
+          contents:[
+            {
+              parts
+            }
+          ],
+
+          generationConfig:{
+            responseMimeType:
+              'application/json'
+          }
+
+        })
+
+      }
+    );
+
+  const raw =
+    await r.text();
+
+  let data;
+
+  try{
+
+    data =
+      JSON.parse(raw);
+
+  }catch{
+
+    throw new Error(
+      'Gemini 응답을 읽을 수 없습니다.'
+    );
+
+  }
+
+  if(!r.ok){
+
+    const msg =
+      data?.error?.message ||
+      ('AI API 오류 ' + r.status);
+
+    throw new Error(msg);
+
+  }
+
+  const out =
+    (data.candidates || [])
+      .flatMap(
+        c=>c.content?.parts || []
+      )
+      .map(
+        p=>p.text || ''
+      )
+      .join('');
+
+  if(!out){
+
+    throw new Error(
+      'Gemini가 분석 결과를 반환하지 않았습니다.'
+    );
+
+  }
+
+  return JSON.parse(
+    cleanAiText(out)
+  );
+
+}
+
+
+/* ============================================================
+   렌더링
+   ============================================================ */
+
+function render(){
+
+  const titleMap = {
+
+    dashboard:'대시보드',
+    jobs:'채용공고',
+    candidates:'지원자 관리',
+    analysis:'ATS 분석',
+    reports:'리포트'
+
+  };
+
+  const title =
+    titleMap[state.page] ||
+    '대시보드';
+
+  $('#pageTitle').textContent =
+    title;
+
+  $$('.nav button')
+    .forEach(
+      b =>
+        b.classList.toggle(
+          'active',
+          b.dataset.page === state.page
+        )
+    );
+
+  const renderer = {
+
+    dashboard:renderDashboard,
+    jobs:renderJobs,
+    candidates:renderCandidates,
+    analysis:renderAnalysis,
+    reports:renderReports
+
+  }[state.page];
+
+  if(renderer)
+    renderer();
+
+  updateSaveStatus();
+
+}
+
+
+/* ============================================================
+   대시보드
+   ============================================================ */
+
+function renderDashboard(){
+
+  const avg =
+    Math.round(
+      state.candidates.reduce(
+        (a,c)=>a+(Number(c.score)||0),
+        0
+      ) /
+      Math.max(
+        1,
+        state.candidates.length
+      )
+    );
+
+  const open =
+    state.jobs.filter(
+      j=>j.status==='진행중'
+    ).length;
+
+  const high =
+    state.candidates.filter(
+      c=>(Number(c.score)||0)>=85
+    ).length;
+
+  $('#page').innerHTML = `
+
+    <div class="grid g4">
+
+      <div class="card">
+        <div class="stat">
+          <div>
+            <div class="eyebrow">진행중 공고</div>
+            <div class="num">${open}</div>
+          </div>
+          <span class="badge b-blue">LIVE</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="stat">
+          <div>
+            <div class="eyebrow">전체 지원자</div>
+            <div class="num">${state.candidates.length}</div>
+          </div>
+          <span class="badge b-gray">전체</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="stat">
+          <div>
+            <div class="eyebrow">평균 ATS 점수</div>
+            <div class="num">${avg}</div>
+          </div>
+          <span class="badge b-green">ATS</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="stat">
+          <div>
+            <div class="eyebrow">추천 후보</div>
+            <div class="num">${high}</div>
+          </div>
+          <span class="badge b-amber">85점+</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="height:18px"></div>
+
+    <div class="grid g2">
+
+      <div class="card">
+
+        <div class="title-row">
+          <h2>채용 Funnel</h2>
+          <span class="muted mini">
+            전체 공고 기준
+          </span>
+        </div>
+
+        ${stages.map(
+          (s,i)=>{
+
+            const n =
+              state.candidates.filter(
+                c=>(Number(c.stage)||0)>=i
+              ).length;
+
+            const pct =
+              Math.round(
+                n /
+                Math.max(
+                  1,
+                  state.candidates.length
+                ) *
+                100
+              );
+
+            return `
+
+              <div class="kpi-line">
+
+                <span>${s}</span>
+
+                <div class="bar">
+                  <i style="width:${pct}%"></i>
+                </div>
+
+                <b>${n}명</b>
+
+              </div>
+
+            `;
+
+          }
+        ).join('')}
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="title-row">
+
+          <h2>최근 지원자</h2>
+
+          <button
+            class="link-btn"
+            onclick="go('candidates')"
+          >
+            전체 보기 →
+          </button>
+
+        </div>
+
+        <table class="table">
+
+          <thead>
+            <tr>
+              <th>지원자</th>
+              <th>공고</th>
+              <th>ATS</th>
+              <th>상태</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+          ${
+            state.candidates
+              .slice()
+              .sort(
+                (a,b)=>
+                  (Number(b.score)||0) -
+                  (Number(a.score)||0)
+              )
+              .slice(0,6)
+              .map(c=>{
+
+                const j =
+                  state.jobs.find(
+                    j=>j.id===c.job
+                  );
+
+                const first =
+                  (c.name || '?')[0];
+
+                return `
+
+                <tr>
+
+                  <td>
+
+                    <div class="person">
+
+                      <div class="avatar">
+                        ${esc(first)}
+                      </div>
+
+                      <div>
+
+                        <b>
+                          ${esc(c.name || '이름 미확인')}
+                        </b>
+
+                        <div class="muted mini">
+                          ${esc(c.years || 0)}년
+                          ·
+                          ${esc(c.education || '학력 미확인')}
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                  </td>
+
+                  <td>
+                    ${esc(j?.title || '-')}
+                  </td>
+
+                  <td>
+
+                    <b class="score ${
+                      c.score>=85
+                        ? 'good'
+                        : c.score>=70
+                          ? 'mid'
+                          : 'low'
+                    }">
+                      ${Number(c.score)||0}
+                    </b>
+
+                  </td>
+
+                  <td>
+
+                    <span class="badge ${
+                      c.stage>=3
+                        ? 'b-green'
+                        : c.stage>=2
+                          ? 'b-blue'
+                          : 'b-gray'
+                    }">
+
+                      ${stages[
+                        Math.max(
+                          0,
+                          Math.min(
+                            5,
+                            Number(c.stage)||0
+                          )
+                        )
+                      ]}
+
+                    </span>
+
+                  </td>
+
+                </tr>
+
+                `;
+
+              })
+              .join('')
+          }
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+    <div class="data-info">
+      💾 데이터는 브라우저/APK 저장공간에 자동 저장됩니다.
+      지원자 추가·수정·삭제 및 채용공고 변경 시 즉시 저장됩니다.
+    </div>
+
+  `;
+
+}
+
+
+/* ============================================================
+   채용공고
+   ============================================================ */
+
+function renderJobs(){
+
+  $('#page').innerHTML = `
+
+    <div class="title-row">
+
+      <div>
+
+        <h2>채용공고</h2>
+
+        <div class="muted mini">
+          JD를 등록하면 ATS 분석에 바로 사용할 수 있습니다.
+        </div>
+
+      </div>
+
+      <button
+        class="btn primary"
+        onclick="openJob()"
+      >
+        + 새 공고
+      </button>
+
+    </div>
+
+
+    ${
+      state.jobs.length
+      ? `
+
+        <div class="grid g3">
+
+        ${
+          state.jobs.map(
+            j=>`
+
+            <div class="card">
+
+              <div class="title-row">
+
+                <span class="badge ${
+                  j.status==='진행중'
+                    ? 'b-green'
+                    : 'b-gray'
+                }">
+                  ${esc(j.status || '종료')}
+                </span>
+
+                <div style="display:flex;gap:8px">
+
+                  <button
+                    class="link-btn"
+                    onclick="openJob(${j.id})"
+                  >
+                    편집
+                  </button>
+
+                  <button
+                    class="link-btn"
+                    style="color:#dc2626"
+                    onclick="event.stopPropagation();deleteJob(${j.id})"
+                  >
+                    삭제
+                  </button>
+
+                </div>
+
+              </div>
+
+              <h3 style="margin:4px 0 6px">
+                ${esc(j.title)}
+              </h3>
+
+              <div class="muted mini">
+                ${esc(j.dept)}
+                ·
+                ${esc(j.location)}
+                ·
+                ${esc(j.open)}
+                ~
+                ${esc(j.close)}
+              </div>
+
+              <div class="chips">
+
+                ${(j.keywords || [])
+                  .slice(0,8)
+                  .map(
+                    k=>
+                      `<span class="chip">
+                        ${esc(k)}
+                      </span>`
+                  )
+                  .join('')
+                }
+
+              </div>
+
+              <div
+                style="margin-top:14px"
+                class="muted mini"
+              >
+
+                지원자
+                ${state.candidates.filter(
+                  c=>c.job===j.id
+                ).length}명
+
+                · 평균 ATS
+
+                ${
+                  Math.round(
+                    state.candidates
+                      .filter(c=>c.job===j.id)
+                      .reduce(
+                        (a,c)=>
+                          a+(Number(c.score)||0),
+                        0
+                      ) /
+                      Math.max(
+                        1,
+                        state.candidates.filter(
+                          c=>c.job===j.id
+                        ).length
+                      )
+                  )
+                }
+
+              </div>
+
+            </div>
+
+            `
+          ).join('')
+        }
+
+        </div>
+
+      `
+      :
+      `
+
+        <div class="card empty">
+          등록된 채용공고가 없습니다.
+        </div>
+
+      `
+    }
+
+  `;
+
+}
+
+
+/* ============================================================
+   지원자 관리
+   ============================================================ */
+
+function renderCandidates(){
+
+  const list =
+    state.candidates.filter(
+      c =>
+
+        (
+          state.jobFilter === 'all' ||
+          String(c.job) === String(state.jobFilter)
+        )
+
+        &&
+
+        (
+          !state.query ||
+
+          (
+            `${c.name || ''} ${c.email || ''} ${(c.skills || []).join(' ')} ${c.resume || ''}`
+          )
+          .toLowerCase()
+          .includes(
+            state.query.toLowerCase()
+          )
+
+        )
+    );
+
+
+  $('#page').innerHTML = `
+
+    <div class="title-row">
+
+      <div>
+
+        <h2>지원자 관리</h2>
+
+        <div class="muted mini">
+          PDF 이력서를 업로드하면 내용을 읽어 후보자 정보를 자동 입력하고,
+          카드를 드래그하여 채용단계를 이동할 수 있습니다.
+        </div>
+
+      </div>
+
+      <div style="display:flex;gap:8px">
+
+        <button
+          class="btn"
+          onclick="openAISettings()"
+        >
+          ⚙ AI 설정
+        </button>
+
+        <button
+          class="btn primary"
+          onclick="openCandidate()"
+        >
+          + 지원자 추가
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="searchrow">
+
+      <input
+        id="candSearch"
+        placeholder="이름 · 스킬 · 이력서 검색"
+        value="${esc(state.query)}"
+        oninput="state.query=this.value;renderCandidates()"
+      >
+
+      <select
+        onchange="state.jobFilter=this.value;renderCandidates()"
+      >
+
+        <option value="all">
+          전체 공고
+        </option>
+
+        ${
+          state.jobs.map(
+            j=>`
+
+            <option
+              value="${j.id}"
+              ${
+                String(state.jobFilter)===String(j.id)
+                  ? 'selected'
+                  : ''
+              }
+            >
+              ${esc(j.title)}
+            </option>
+
+            `
+          ).join('')
+        }
+
+      </select>
+
+    </div>
+
+
+    <div class="notice" style="margin-bottom:14px">
+
+      📎
+      <b>PDF 이력서 → 자동 추출</b>
+
+      · 이메일 / 경력연차 / 학력 / 스킬 / 경력요약을 자동 입력합니다.
+
+    </div>
+
+
+    <div class="stage-summary">
+
+      <div>
+        전체
+        <b>${list.length}</b>
+      </div>
+
+      <div>
+        진행중
+        <b>
+          ${list.filter(
+            c=>c.stage<5
+          ).length}
+        </b>
+      </div>
+
+      <div class="reject-summary">
+        불합격
+        <b>
+          ${list.filter(
+            c=>c.stage===5
+          ).length}
+        </b>
+      </div>
+
+    </div>
+
+
+    <div class="board">
+
+      ${
+        stages.map(
+          (stage,si)=>`
+
+          <div
+            class="column ${
+              si===5
+                ? 'reject-column'
+                : ''
+            }"
+
+            data-stage="${si}"
+
+            ondragover="dragOverStage(event)"
+
+            ondragleave="dragLeaveStage(event)"
+
+            ondrop="dropStage(event,${si})"
+          >
+
+            <div class="column-head">
+
+              <span>
+                ${stage}
+              </span>
+
+              <span class="badge ${
+                si===5
+                  ? 'b-red'
+                  : 'b-gray'
+              }">
+
+                ${
+                  list.filter(
+                    c=>c.stage===si
+                  ).length
+                }
+
+              </span>
+
+            </div>
+
+
+            ${
+              list
+                .filter(c=>c.stage===si)
+                .map(c=>candidateCard(c))
+                .join('')
+
+              ||
+
+              '<div class="empty">여기로 후보자를 드래그하세요</div>'
+            }
+
+          </div>
+
+          `
+        ).join('')
+      }
+
+    </div>
+
+  `;
+
+}
+
+
+/* ============================================================
+   지원자 카드
+   ============================================================ */
+
+function candidateCard(c){
+
+  const j =
+    state.jobs.find(
+      j=>j.id===c.job
+    );
+
+  const summary =
+    c.resumeSummary ||
+    c.resume ||
+    '요약 없음';
+
+  return `
+
+    <div
+      class="candidate"
+      draggable="true"
+      data-id="${c.id}"
+
+      ondragstart="dragStartCandidate(event,${c.id})"
+
+      ondragend="dragEndCandidate(event)"
+
+      onclick="openCandidate(${c.id})"
+    >
+
+      <div class="cand-top">
+
+        <div>
+
+          <div class="cand-name">
+            ${esc(
+              c.name ||
+              '이름 미확인'
+            )}
+          </div>
+
+          <div class="cand-meta">
+
+            ${esc(c.years || 0)}년
+
+            ·
+
+            ${esc(
+              c.education ||
+              '학력 미확인'
+            )}
+
+            ·
+
+            ${esc(
+              j?.title ||
+              '공고 미지정'
+            )}
+
+          </div>
+
+        </div>
+
+
+        <b class="score ${
+          c.score>=85
+            ? 'good'
+            : c.score>=70
+              ? 'mid'
+              : 'low'
+        }">
+
+          ${Number(c.score)||0}
+
+        </b>
+
+      </div>
+
+
+      <div class="chips">
+
+        ${(c.skills || [])
+          .slice(0,4)
+          .map(
+            k=>
+              `<span class="chip">
+                ${esc(k)}
+              </span>`
+          )
+          .join('')
+        }
+
+      </div>
+
+
+      <div
+        class="mini muted"
+        style="margin-top:9px"
+      >
+
+        ${esc(
+          summary
+        ).slice(0,110)}
+
+        ${
+          summary.length>110
+            ? '…'
+            : ''
+        }
+
+      </div>
+
+
+      <div class="cand-bottom">
+
+        <span class="muted mini">
+
+          ${
+            c.stage===5
+
+            ?
+
+            `<b style="color:#b91c1c">
+              불합격
+              ${
+                c.rejectReason
+                  ? ' · ' + esc(c.rejectReason)
+                  : ''
+              }
+            </b>`
+
+            :
+
+            esc(
+              c.updated ||
+              ''
+            )
+          }
+
+        </span>
+
+
+        <button
+          class="link-btn"
+          onclick="event.stopPropagation();openAnalysis(${c.id})"
+        >
+          분석 보기
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* ============================================================
+   Drag & Drop
+   ============================================================ */
+
+function dragStartCandidate(e,id){
+
+  e.stopPropagation();
+
+  e.dataTransfer.effectAllowed =
+    'move';
+
+  e.dataTransfer.setData(
+    'text/plain',
+    String(id)
+  );
+
+  e.currentTarget
+    .classList
+    .add('dragging');
+
+}
+
+
+function dragEndCandidate(e){
+
+  e.currentTarget
+    .classList
+    .remove('dragging');
+
+  $$('.column')
+    .forEach(
+      x=>x.classList.remove(
+        'drag-over'
+      )
+    );
+
+}
+
+
+function dragOverStage(e){
+
+  e.preventDefault();
+
+  e.dataTransfer.dropEffect =
+    'move';
+
+  e.currentTarget
+    .classList
+    .add('drag-over');
+
+}
+
+
+function dragLeaveStage(e){
+
+  e.currentTarget
+    .classList
+    .remove('drag-over');
+
+}
+
+
+function dropStage(e,stage){
+
+  e.preventDefault();
+
+  const id =
+    +e.dataTransfer.getData(
+      'text/plain'
+    );
+
+  const c =
+    state.candidates.find(
+      x=>x.id===id
+    );
+
+  if(!c)
+    return;
+
+  c.stage =
+    stage;
+
+  c.updated =
+    '방금 이동';
+
+  /*
+   불합격 단계에서 사유가 비어 있어도
+   나중에 상세에서 입력할 수 있도록 유지
+  */
+
+  save();
+
+  renderCandidates();
+
+  toast(
+    `${c.name || '지원자'} → ${stages[stage]}`
+  );
+
+}
+
+
+/* ============================================================
+   ATS 계산
+   ============================================================ */
+
+function computeAnalysis(c,j){
+
+  if(!c)
+    return {
+      score:0,
+      hit:[],
+      miss:[],
+      base:0,
+      exp:0,
+      edu:0
+    };
+
+  if(!j)
+    return {
+      score:0,
+      hit:[],
+      miss:[],
+      base:0,
+      exp:0,
+      edu:0
+    };
+
+  const keywords =
+    Array.isArray(j.keywords)
+      ? j.keywords
+      : [];
+
+  if(!keywords.length){
+
+    return {
+      score:0,
+      hit:[],
+      miss:[],
+      base:0,
+      exp:Math.min(
+        15,
+        Math.round(
+          (Number(c.years)||0)*1.8
+        )
+      ),
+      edu:0
+    };
+
+  }
+
+  const text =
+    (
+      `${c.resume || ''} ${(c.skills || []).join(' ')}`
+    ).toLowerCase();
+
+
+  const hit =
+    keywords.filter(
+      k=>
+        text.includes(
+          String(k).toLowerCase()
+        )
+    );
+
+
+  const miss =
+    keywords.filter(
+      k=>!hit.includes(k)
+    );
+
+
+  const base =
+    Math.round(
+      hit.length /
+      keywords.length *
+      100
+    );
+
+
+  const exp =
+    Math.min(
+      15,
+      Math.round(
+        (Number(c.years)||0)*1.8
+      )
+    );
+
+
+  const edu =
+    /석사|mba/i.test(
+      c.education || ''
+    )
+      ? 5
+      : 3;
+
+
+  const score =
+    Math.min(
+      100,
+      Math.round(
+        base*.78 +
+        exp +
+        edu
+      )
+    );
+
+
+  return {
+    score,
+    hit,
+    miss,
+    base,
+    exp,
+    edu
+  };
+
+}
+
+
+/* ============================================================
+   ATS 분석
+   ============================================================ */
+
+function renderAnalysis(){
+
+  const c =
+    state.candidates
+      .slice()
+      .sort(
+        (a,b)=>
+          (Number(b.score)||0) -
+          (Number(a.score)||0)
+      )[0];
+
+  const j =
+    c
+      ? state.jobs.find(
+          j=>j.id===c.job
+        )
+      : null;
+
+
+  $('#page').innerHTML = `
+
+    <div class="title-row">
+
+      <div>
+
+        <h2>ATS 분석 센터</h2>
+
+        <div class="muted mini">
+          지원자별 점수와 이력서/경력기술서 요약을 함께 확인합니다.
+        </div>
+
+      </div>
+
+      <button
+        class="btn"
+        onclick="openAISettings()"
+      >
+        ⚙ AI 설정
+      </button>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="searchrow">
+
+        <select id="analysisJob">
+
+          ${
+            state.jobs.length
+              ? state.jobs.map(
+                  x=>
+                    `<option value="${x.id}">
+                      ${esc(x.title)}
+                    </option>`
+                ).join('')
+              :
+                '<option>등록된 공고 없음</option>'
+          }
+
+        </select>
+
+
+        <select id="analysisCand">
+
+          ${
+            state.candidates.length
+              ? state.candidates.map(
+                  x=>
+                    `<option value="${x.id}">
+                      ${esc(x.name || '이름 미확인')}
+                      ·
+                      ${Number(x.score)||0}점
+                    </option>`
+                ).join('')
+              :
+                '<option>등록된 지원자 없음</option>'
+          }
+
+        </select>
+
+
+        <button
+          class="btn primary"
+          onclick="runAnalysis()"
+        >
+          ATS 점수 다시 계산
+        </button>
+
+      </div>
+
+
+      ${
+        state.candidates.length
+
+        ?
+
+        `<div class="table-wrap">
+
+          <table class="table">
+
+            <thead>
+
+              <tr>
+                <th>지원자</th>
+                <th>ATS</th>
+                <th>경력</th>
+                <th>핵심경력 요약</th>
+                <th>추천</th>
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+            ${
+              state.candidates
+                .slice()
+                .sort(
+                  (a,b)=>
+                    (Number(b.score)||0) -
+                    (Number(a.score)||0)
+                )
+                .map(
+                  x=>{
+
+                    const rec =
+                      x.score>=85
+                        ? '강력 추천'
+                        : x.score>=70
+                          ? '검토 추천'
+                          : '보완 검토';
+
+                    return `
+
+                    <tr
+                      onclick="showAnalysis(${x.id},${x.job})"
+                      style="cursor:pointer"
+                    >
+
+                      <td>
+
+                        <b>
+                          ${esc(
+                            x.name ||
+                            '이름 미확인'
+                          )}
+                        </b>
+
+                        <div class="muted mini">
+                          ${esc(
+                            x.email ||
+                            ''
+                          )}
+                        </div>
+
+                      </td>
+
+
+                      <td>
+
+                        <b class="score ${
+                          x.score>=85
+                            ? 'good'
+                            : x.score>=70
+                              ? 'mid'
+                              : 'low'
+                        }">
+
+                          ${Number(x.score)||0}
+
+                        </b>
+
+                      </td>
+
+
+                      <td>
+
+                        ${esc(
+                          x.years ||
+                          0
+                        )}년
+
+                        <br>
+
+                        <span class="muted mini">
+                          ${esc(
+                            x.education ||
+                            ''
+                          )}
+                        </span>
+
+                      </td>
+
+
+                      <td style="min-width:350px">
+
+                        ${esc(
+                          x.careerSummary ||
+                          x.resumeSummary ||
+                          x.resume ||
+                          '요약 없음'
+                        )}
+
+                      </td>
+
+
+                      <td>
+
+                        <span class="badge ${
+                          x.score>=85
+                            ? 'b-green'
+                            : x.score>=70
+                              ? 'b-blue'
+                              : 'b-red'
+                        }">
+
+                          ${rec}
+
+                        </span>
+
+                      </td>
+
+                    </tr>
+
+                    `;
+
+                  }
+                )
+                .join('')
+            }
+
+            </tbody>
+
+          </table>
+
+        </div>`
+
+        :
+
+        `<div class="empty">
+          분석할 지원자가 없습니다.
+        </div>`
+      }
+
+    </div>
+
+
+    <div style="height:18px"></div>
+
+    <div id="analysisResult"></div>
+
+  `;
+
+
+  if(c && j){
+
+    showAnalysis(
+      c.id,
+      j.id
+    );
+
+  }
+
+}
+
+
+/* ============================================================
+   분석 상세
+   ============================================================ */
+
+function showAnalysis(cid,jid){
+
+  const c =
+    state.candidates.find(
+      x=>x.id==cid
+    );
+
+  const j =
+    state.jobs.find(
+      x=>x.id==jid
+    );
+
+  if(!c || !j)
+    return;
+
+
+  const a =
+    computeAnalysis(
+      c,
+      j
+    );
+
+
+  const result =
+    $('#analysisResult');
+
+  if(!result)
+    return;
+
+
+  result.innerHTML = `
+
+    <div class="card">
+
+      <div class="title-row">
+
+        <h2>
+          ${esc(c.name || '이름 미확인')}
+          ·
+          ${esc(j.title)}
+          적합도
+        </h2>
+
+        <button
+          class="btn"
+          onclick="openCandidate(${c.id})"
+        >
+          지원자 보기
+        </button>
+
+      </div>
+
+
+      <div class="analysis-grid">
+
+
+        <div>
+
+          <div
+            class="score-ring"
+            style="--score:${a.score}"
+          >
+
+            <div class="ring-inner">
+              ${a.score}
+            </div>
+
+          </div>
+
+          <div
+            style="text-align:center"
+            class="muted"
+          >
+            ATS 종합 적합도
+          </div>
+
+        </div>
+
+
+        <div>
+
+          <div class="grid g3">
+
+            <div
+              class="card"
+              style="box-shadow:none"
+            >
+
+              <div class="eyebrow">
+                키워드
+              </div>
+
+              <div
+                class="num"
+                style="font-size:24px"
+              >
+                ${a.base}%
+              </div>
+
+            </div>
+
+
+            <div
+              class="card"
+              style="box-shadow:none"
+            >
+
+              <div class="eyebrow">
+                경력 가점
+              </div>
+
+              <div
+                class="num"
+                style="font-size:24px"
+              >
+                +${a.exp}
+              </div>
+
+            </div>
+
+
+            <div
+              class="card"
+              style="box-shadow:none"
+            >
+
+              <div class="eyebrow">
+                학력 보정
+              </div>
+
+              <div
+                class="num"
+                style="font-size:24px"
+              >
+                +${a.edu}
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <h3
+            style="font-size:14px;margin:20px 0 10px"
+          >
+            이력서 요약
+          </h3>
+
+          <div class="notice">
+
+            ${esc(
+              c.resumeSummary ||
+              '자동 요약 없음'
+            )}
+
+          </div>
+
+
+          <h3
+            style="font-size:14px;margin:20px 0 10px"
+          >
+            주요 경력
+          </h3>
+
+          <div
+            class="card"
+            style="
+              box-shadow:none;
+              background:#fafbfc;
+              line-height:1.7;
+              font-size:13px
+            "
+          >
+
+            ${esc(
+              c.careerSummary ||
+              c.resume ||
+              '경력 정보 없음'
+            )}
+
+          </div>
+
+
+          <h3
+            style="font-size:14px;margin:20px 0 10px"
+          >
+            JD 핵심 키워드
+          </h3>
+
+
+          <div class="keyword-wrap">
+
+            ${
+              a.hit.map(
+                k=>
+                  `<span class="keyword kw-hit">
+                    ✓ ${esc(k)}
+                  </span>`
+              ).join('')
+            }
+
+
+            ${
+              a.miss.map(
+                k=>
+                  `<span class="keyword kw-miss">
+                    × ${esc(k)}
+                  </span>`
+              ).join('')
+            }
+
+          </div>
+
+
+          <h3
+            style="font-size:14px;margin:20px 0 10px"
+          >
+            분석 결과
+          </h3>
+
+          <div class="notice">
+
+            ${
+              a.score>=85
+                ? 'ATS 기준 높은 적합도를 보이는 후보입니다.'
+                : a.score>=70
+                  ? 'ATS 기준 추가 검토가 필요한 후보입니다.'
+                  : 'ATS 기준 직무 키워드 및 경력 적합성을 추가 검토할 필요가 있습니다.'
+            }
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* ============================================================
+   분석 보기
+   기존 코드에서 빠져있던 함수
+   ============================================================ */
+
+function openAnalysis(cid){
+
+  const c =
+    state.candidates.find(
+      x=>x.id===cid
+    );
+
+  if(!c)
+    return;
+
+  state.page =
+    'analysis';
+
+  render();
+
+  requestAnimationFrame(
+    ()=>{
+      showAnalysis(
+        c.id,
+        c.job
+      );
+    }
+  );
+
+}
+
+
+/* ============================================================
+   분석 재계산
+   ============================================================ */
+
+function runAnalysis(){
+
+  const cand =
+    $('#analysisCand');
+
+  const job =
+    $('#analysisJob');
+
+  if(!cand || !job){
+
+    toast(
+      '분석할 지원자 또는 공고가 없습니다.'
+    );
+
+    return;
+
+  }
+
+  showAnalysis(
+    cand.value,
+    job.value
+  );
+
+}
+
+
+/* ============================================================
+   리포트
+   ============================================================ */
+
+function renderReports(){
+
+  const reports =
+    state.jobs.map(
+      j=>{
+
+        const cs =
+          state.candidates.filter(
+            c=>c.job===j.id
+          );
+
+        return {
+
+          ...j,
+
+          n:cs.length,
+
+          avg:
+            Math.round(
+              cs.reduce(
+                (a,c)=>
+                  a+(Number(c.score)||0),
+                0
+              ) /
+              Math.max(
+                1,
+                cs.length
+              )
+            ),
+
+          high:
+            cs.filter(
+              c=>(Number(c.score)||0)>=85
+            ).length
+
+        };
+
+      }
+    );
+
+
+  $('#page').innerHTML = `
+
+    <div class="title-row">
+
+      <div>
+
+        <h2>리포트</h2>
+
+        <div class="muted mini">
+          채용공고별 ATS 지표를 비교합니다.
+        </div>
+
+      </div>
+
+      <button
+        class="btn"
+        onclick="toast('CSV 리포트 기능은 다음 확장 모듈에 연결할 수 있습니다.')"
+      >
+        CSV 내보내기
+      </button>
+
+    </div>
+
+
+    <div class="card">
+
+      ${
+        reports.length
+
+        ?
+
+        `<table class="table">
+
+          <thead>
+
+            <tr>
+              <th>공고</th>
+              <th>지원자</th>
+              <th>평균 ATS</th>
+              <th>85점+ 후보</th>
+              <th>진행</th>
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+          ${
+            reports.map(
+              j=>`
+
+              <tr>
+
+                <td>
+
+                  <b>
+                    ${esc(j.title)}
+                  </b>
+
+                  <div class="muted mini">
+                    ${esc(j.dept)}
+                  </div>
+
+                </td>
+
+                <td>
+                  ${j.n}
+                </td>
+
+                <td>
+
+                  <b class="score ${
+                    j.avg>=85
+                      ? 'good'
+                      : j.avg>=70
+                        ? 'mid'
+                        : 'low'
+                  }">
+
+                    ${j.avg}
+
+                  </b>
+
+                </td>
+
+                <td>
+                  ${j.high}
+                </td>
+
+                <td>
+
+                  <span class="badge ${
+                    j.status==='진행중'
+                      ? 'b-green'
+                      : 'b-gray'
+                  }">
+
+                    ${esc(
+                      j.status ||
+                      ''
+                    )}
+
+                  </span>
+
+                </td>
+
+              </tr>
+
+              `
+            ).join('')
+          }
+
+          </tbody>
+
+        </table>`
+
+        :
+
+        `<div class="empty">
+          등록된 채용공고가 없습니다.
+        </div>`
+      }
+
+    </div>
+
+  `;
+
+}
+
+
+/* ============================================================
+   페이지 이동
+   ============================================================ */
+
+function go(p){
+
+  state.page =
+    p;
+
+  render();
+
+}
+
+
+/* ============================================================
+   채용공고 등록/수정
+   ============================================================ */
+
+function openJob(id){
+
+  const j =
+    id
+      ? state.jobs.find(
+          x=>x.id===id
+        )
+      : null;
+
+
+  $('#modalBox').innerHTML = `
+
+    <div class="modal-head">
+
+      <div>
+
+        <h2 style="margin:0">
+          ${
+            j
+              ? '채용공고 수정'
+              : '새 채용공고'
+          }
+        </h2>
+
+        <div class="muted mini">
+          ATS가 분석할 JD와 핵심 키워드를 입력하세요.
+        </div>
+
+      </div>
+
+      <button
+        class="close"
+        onclick="closeModal()"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        공고명
+      </label>
+
+      <input
+        id="jtitle"
+        value="${esc(
+          j?.title ||
+          'HR Manager'
+        )}"
+        placeholder="예: HR Manager"
+      >
+
+    </div>
+
+
+    <div class="grid g2">
+
+      <div class="field">
+
+        <label>
+          부서
+        </label>
+
+        <input
+          id="jdept"
+          value="${esc(
+            j?.dept ||
+            '인사팀'
+          )}"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          근무지
+        </label>
+
+        <input
+          id="jloc"
+          value="${esc(
+            j?.location ||
+            '서울'
+          )}"
+        >
+
+      </div>
+
+    </div>
+
+
+    <div class="grid g2">
+
+      <div class="field">
+
+        <label>
+          공고 시작일
+        </label>
+
+        <input
+          id="jopen"
+          type="date"
+          value="${esc(
+            j?.open ||
+            '2026-09-09'
+          )}"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          마감일
+        </label>
+
+        <input
+          id="jclose"
+          type="date"
+          value="${esc(
+            j?.close ||
+            '2026-09-30'
+          )}"
+        >
+
+      </div>
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Job Description
+      </label>
+
+      <textarea id="jjd">${esc(
+        j?.jd ||
+        `인사제도 기획 및 운영
+채용, 평가, 보상, 급여
+노무관리 및 취업규칙
+KPI/MBO 성과관리
+HR 시스템 구축 및 프로세스 개선`
+      )}</textarea>
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        핵심 키워드
+        <span class="muted">
+          쉼표 또는 줄바꿈으로 구분
+        </span>
+      </label>
+
+      <input
+        id="jkeys"
+        value="${esc(
+          j?.keywords?.join(', ') ||
+          'HR, 인사기획, 채용, 평가, 보상, 급여, 노무, KPI, MBO, HRIS'
+        )}"
+      >
+
+    </div>
+
+
+    <div class="form-actions">
+
+      <button
+        class="btn"
+        onclick="closeModal()"
+      >
+        취소
+      </button>
+
+      <button
+        class="btn primary"
+        onclick="saveJob(${id || 0})"
+      >
+        저장
+      </button>
+
+    </div>
+
+  `;
+
+  openModal();
+
+}
+
+
+/* ============================================================
+   채용공고 저장
+   ============================================================ */
+
+function saveJob(id){
+
+  const o = {
+
+    id:
+      id ||
+      Date.now(),
+
+    title:
+      $('#jtitle').value.trim(),
+
+    dept:
+      $('#jdept').value.trim(),
+
+    location:
+      $('#jloc').value.trim(),
+
+    status:
+      '진행중',
+
+    open:
+      $('#jopen').value,
+
+    close:
+      $('#jclose').value,
+
+    jd:
+      $('#jjd').value,
+
+    keywords:
+      $('#jkeys')
+        .value
+        .split(/[,\n]+/)
+        .map(
+          x=>x.trim()
+        )
+        .filter(Boolean)
+
+  };
+
+
+  if(!o.title){
+
+    toast(
+      '공고명을 입력해주세요.'
+    );
+
+    return;
+
+  }
+
+
+  if(id){
+
+    state.jobs =
+      state.jobs.map(
+        j=>
+          j.id===id
+            ? o
+            : j
+      );
+
+  }else{
+
+    state.jobs.push(o);
+
+  }
+
+
+  save();
+
+  closeModal();
+
+  render();
+
+  toast(
+    '채용공고가 저장되었습니다.'
+  );
+
+}
+
+
+/* ============================================================
+   지원자 등록/수정
+   ============================================================ */
+
+function openCandidate(id){
+
+  const c =
+    id
+      ? state.candidates.find(
+          x=>x.id===id
+        )
+      : null;
+
+
+  $('#modalBox').innerHTML = `
+
+    <div class="modal-head">
+
+      <div>
+
+        <h2 style="margin:0">
+
+          ${
+            c
+              ? '지원자 상세'
+              : '지원자 추가'
+          }
+
+        </h2>
+
+        <div class="muted mini">
+
+          PDF 업로드 후 자동 추출하거나 직접 수정할 수 있습니다.
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="close"
+        onclick="closeModal()"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div
+      class="dropzone"
+      onclick="$('#resumeFile').click()"
+    >
+
+      <b>
+        PDF 이력서 업로드
+      </b>
+
+      <div
+        class="mini"
+        style="margin-top:5px"
+      >
+
+        PDF를 선택하면 Gemini가 자동으로
+        이력서와 경력기술서를 분석합니다.
+
+      </div>
+
+
+      <input
+        id="resumeFile"
+        type="file"
+        accept="application/pdf,.pdf"
+        style="display:none"
+        onchange="handleResumePdf(this.files[0])"
+      >
+
+    </div>
+
+
+    <div id="fileStatus"></div>
+
+
+    <div
+      class="grid g2"
+      style="margin-top:14px"
+    >
+
+      <div class="field">
+
+        <label>
+          이름
+        </label>
+
+        <input
+          id="cname"
+          value="${esc(
+            c?.name ||
+            ''
+          )}"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          이메일
+        </label>
+
+        <input
+          id="cemail"
+          value="${esc(
+            c?.email ||
+            ''
+          )}"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          지원 공고
+        </label>
+
+        <select id="cjob">
+
+          ${
+            state.jobs.length
+
+            ?
+
+            state.jobs.map(
+              j=>`
+
+              <option
+                value="${j.id}"
+                ${
+                  c?.job===j.id
+                    ? 'selected'
+                    : ''
+                }
+              >
+                ${esc(j.title)}
+              </option>
+
+              `
+            ).join('')
+
+            :
+
+            '<option value="">등록된 공고 없음</option>'
+          }
+
+        </select>
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          경력 연차
+        </label>
+
+        <input
+          id="cyears"
+          type="number"
+          min="0"
+          value="${c?.years || 0}"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          학력
+        </label>
+
+        <input
+          id="cedu"
+          value="${esc(
+            c?.education ||
+            ''
+          )}"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          스킬
+        </label>
+
+        <input
+          id="cskills"
+          value="${esc(
+            c?.skills?.join(', ') ||
+            ''
+          )}"
+        >
+
+      </div>
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        이력서 / 경력기술서 원문
+      </label>
+
+      <textarea
+        id="cres"
+        placeholder="PDF 업로드 후 자동 입력됩니다."
+      >${esc(
+        c?.resume ||
+        ''
+      )}</textarea>
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        이력서 요약
+      </label>
+
+      <textarea
+        id="csummary"
+        style="min-height:90px"
+        placeholder="Gemini 분석 또는 자동 요약 결과"
+      >${esc(
+        c?.resumeSummary ||
+        ''
+      )}</textarea>
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        주요 경력 요약
+      </label>
+
+      <textarea
+        id="ccareer"
+        style="min-height:120px"
+        placeholder="회사/직무/기간/핵심업무 중심"
+      >${esc(
+        c?.careerSummary ||
+        ''
+      )}</textarea>
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        불합격 사유
+        <span class="muted">
+          불합격 후보자에게만 사용
+        </span>
+      </label>
+
+
+      <select id="creason">
+
+        <option value="">
+          선택 안 함
+        </option>
+
+        <option
+          ${
+            c?.rejectReason==='경력 부족'
+              ? 'selected'
+              : ''
+          }
+        >
+          경력 부족
+        </option>
+
+        <option
+          ${
+            c?.rejectReason==='직무 적합성 부족'
+              ? 'selected'
+              : ''
+          }
+        >
+          직무 적합성 부족
+        </option>
+
+        <option
+          ${
+            c?.rejectReason==='연봉 조건 불일치'
+              ? 'selected'
+              : ''
+          }
+        >
+          연봉 조건 불일치
+        </option>
+
+        <option
+          ${
+            c?.rejectReason==='면접 결과 미흡'
+              ? 'selected'
+              : ''
+          }
+        >
+          면접 결과 미흡
+        </option>
+
+        <option
+          ${
+            c?.rejectReason==='다른 후보자 우선'
+              ? 'selected'
+              : ''
+          }
+        >
+          다른 후보자 우선
+        </option>
+
+        <option
+          ${
+            c?.rejectReason==='지원자 철회'
+              ? 'selected'
+              : ''
+          }
+        >
+          지원자 철회
+        </option>
+
+        <option
+          ${
+            c?.rejectReason==='기타'
+              ? 'selected'
+              : ''
+          }
+        >
+          기타
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="form-actions">
+
+      ${
+        id
+
+        ?
+
+        `<button
+          class="btn"
+          style="color:#dc2626"
+          onclick="deleteCandidate(${id})"
+        >
+          지원자 삭제
+        </button>`
+
+        :
+
+        ''
+      }
+
+
+      <button
+        class="btn"
+        onclick="closeModal()"
+      >
+        취소
+      </button>
+
+
+      <button
+        class="btn primary"
+        onclick="saveCandidate(${id || 0})"
+      >
+        저장 및 ATS 계산
+      </button>
+
+    </div>
+
+  `;
+
+
+  openModal();
+
+}
+
+
+/* ============================================================
+   PDF 업로드
+   ============================================================ */
+
+async function handleResumePdf(file){
+
+  if(!file)
+    return;
+
+
+  if(
+    file.type !== 'application/pdf' &&
+    !/\.pdf$/i.test(file.name)
+  ){
+
+    toast(
+      'PDF 파일만 업로드할 수 있습니다.'
+    );
+
+    return;
+
+  }
+
+
+  if(
+    file.size >
+    20 * 1024 * 1024
+  ){
+
+    toast(
+      'PDF는 20MB 이하로 업로드하세요.'
+    );
+
+    return;
+
+  }
+
+
+  const status =
+    $('#fileStatus');
+
+
+  status.innerHTML = `
+
+    <div class="file-pill">
+
+      <span>
+        📄 ${esc(file.name)}
+      </span>
+
+      <span class="ai-status">
+        PDF 읽는 중…
+      </span>
+
+    </div>
+
+  `;
+
+
+  try{
+
+    let text = '';
+
+    try{
+
+      text =
+        await extractPdfText(
+          file
+        );
+
+    }catch(pdfErr){
+
+      console.warn(
+        'PDF.js text extraction skipped:',
+        pdfErr
+      );
+
+    }
+
+
+    $('#cres').value =
+      text;
+
+
+    const f =
+      estimateResumeFields(
+        text
+      );
+
+
+    if(f.email)
+      $('#cemail').value =
+        f.email;
+
+
+    if(f.years)
+      $('#cyears').value =
+        f.years;
+
+
+    status.innerHTML = `
+
+      <div class="file-pill">
+
+        <span>
+          📄 ${esc(file.name)}
+        </span>
+
+        <span class="ai-status">
+          PDF 확인 완료 · Gemini 자동 분석 중…
+        </span>
+
+      </div>
+
+    `;
+
+
+    await analyzeCurrentResume(
+      true,
+      file.name,
+      file
+    );
+
+
+  }catch(e){
+
+    console.error(e);
+
+    status.innerHTML = `
+
+      <div
+        class="notice"
+        style="
+          background:#fef2f2;
+          color:#b91c1c
+        "
+      >
+
+        <b>
+          분석 실패
+        </b>
+
+        <br>
+
+        ${esc(
+          e.message ||
+          'PDF 처리 중 오류가 발생했습니다.'
+        )}
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* ============================================================
+   Gemini 현재 이력서 분석
+   ============================================================ */
+
+async function analyzeCurrentResume(
+  silent=false,
+  fileName='',
+  file=null
+){
+
+  const text =
+    $('#cres')?.value?.trim();
+
+
+  if(!text && !file){
+
+    toast(
+      '먼저 PDF를 업로드하거나 이력서 원문을 입력하세요.'
+    );
+
+    return;
+
+  }
+
+
+  const apiKey =
+    getGeminiApiKey();
+
+
+  if(!apiKey){
+
+    if(fileName){
+
+      $('#fileStatus').innerHTML = `
+
+        <div
+          class="notice"
+          style="
+            background:#fff7ed;
+            color:#9a3412
+          "
+        >
+
+          <b>
+            Gemini API Key가 없습니다.
+          </b>
+
+          <br>
+
+          index.html 상단의
+          GEMINI_API_KEY에 키를 입력한 뒤
+          다시 업로드하세요.
+
+        </div>
+
+      `;
+
+    }else{
+
+      openAISettings();
+
+    }
+
+    return;
+
+  }
+
+
+  try{
+
+    if(!silent){
+
+      toast(
+        'Gemini가 이력서를 분석하고 있습니다…'
+      );
+
+    }
+
+
+    const job =
+      state.jobs.find(
+        x=>x.id===+
+          $('#cjob').value
+      );
+
+
+    const r =
+      await analyzeResumeWithGemini(
+        text,
+        job?.jd || '',
+        file
+      );
+
+
+    if(r){
+
+      if(r.name)
+        $('#cname').value =
+          r.name;
+
+      if(r.email)
+        $('#cemail').value =
+          r.email;
+
+      if(r.years)
+        $('#cyears').value =
+          r.years;
+
+      if(r.education)
+        $('#cedu').value =
+          r.education;
+
+      if(
+        r.skills?.length
+      )
+        $('#cskills').value =
+          r.skills.join(', ');
+
+      if(r.resumeSummary)
+        $('#csummary').value =
+          r.resumeSummary;
+
+      if(r.careerSummary)
+        $('#ccareer').value =
+          r.careerSummary;
+
+
+      const status =
+        $('#fileStatus');
+
+
+      if(status){
+
+        status.innerHTML = `
+
+          <div class="file-pill">
+
+            <span>
+              📄 ${esc(
+                fileName ||
+                '이력서.pdf'
+              )}
+            </span>
+
+            <span
+              class="ai-status"
+              style="color:#15803d"
+            >
+              ✓ Gemini 분석 완료
+            </span>
+
+          </div>
+
+        `;
+
+      }
+
+
+      toast(
+        'PDF 업로드 및 Gemini 자동 분석 완료'
+      );
+
+    }
+
+
+  }catch(e){
+
+    console.error(e);
+
+
+    const status =
+      $('#fileStatus');
+
+
+    if(status){
+
+      status.innerHTML = `
+
+        <div
+          class="notice"
+          style="
+            background:#fef2f2;
+            color:#b91c1c
+          "
+        >
+
+          <b>
+            Gemini 분석 실패
+          </b>
+
+          <br>
+
+          ${esc(
+            e.message ||
+            'API 호출 중 오류가 발생했습니다.'
+          )}
+
+        </div>
+
+      `;
+
+    }
+
+
+    toast(
+      'Gemini 분석 실패: ' +
+      e.message
+    );
+
+  }
+
+}
+
+
+/* ============================================================
+   지원자 저장
+   ============================================================ */
+
+function saveCandidate(id){
+
+  const jobId =
+    +$('#cjob').value;
+
+
+  const job =
+    state.jobs.find(
+      x=>x.id===jobId
+    );
+
+
+  if(!job){
+
+    toast(
+      '먼저 채용공고를 등록해주세요.'
+    );
+
+    return;
+
+  }
+
+
+  const existing =
+    id
+      ? state.candidates.find(
+          x=>x.id===id
+        )
+      : null;
+
+
+  const c = {
+
+    id:
+      id ||
+      Date.now(),
+
+    job:
+      jobId,
+
+    name:
+      $('#cname').value.trim(),
+
+    email:
+      $('#cemail').value.trim(),
+
+    stage:
+      existing
+        ? Number(existing.stage)||0
+        : 0,
+
+    years:
+      +$('#cyears').value || 0,
+
+    education:
+      $('#cedu').value.trim(),
+
+    skills:
+      $('#cskills')
+        .value
+        .split(/[，,\n]+/)
+        .map(
+          x=>x.trim()
+        )
+        .filter(Boolean),
+
+    resume:
+      $('#cres').value.trim(),
+
+    resumeSummary:
+      $('#csummary').value.trim(),
+
+    careerSummary:
+      $('#ccareer').value.trim(),
+
+    rejectReason:
+      $('#creason')?.value ||
+      '',
+
+    updated:
+      '방금 전'
+
+  };
+
+
+  const a =
+    computeAnalysis(
+      c,
+      job
+    );
+
+
+  c.score =
+    a.score;
+
+
+  if(id){
+
+    state.candidates =
+      state.candidates.map(
+        x=>
+          x.id===id
+            ? c
+            : x
+      );
+
+  }else{
+
+    /*
+      신규 지원자는 기존 지원자를
+      삭제하지 않고 누적
+    */
+
+    state.candidates.push(c);
+
+  }
+
+
+  save();
+
+  closeModal();
+
+  state.page =
+    'candidates';
+
+  render();
+
+  toast(
+    `저장 완료 · ATS ${c.score}점`
+  );
+
+}
+
+
+/* ============================================================
+   채용공고 삭제
+   ============================================================ */
 
 function deleteJob(id){
-  const j=state.jobs.find(x=>x.id===id);
-  if(!j)return;
-  const count=state.candidates.filter(c=>c.job===id).length;
-  if(!confirm(`채용공고 "${j.title}"을(를) 삭제하시겠습니까?\n연결된 지원자 ${count}명도 함께 삭제됩니다.`))return;
-  state.jobs=state.jobs.filter(x=>x.id!==id);
-  state.candidates=state.candidates.filter(c=>c.job!==id);
-  if(String(state.jobFilter)===String(id))state.jobFilter='all';
-  save();render();toast('채용공고와 연결 지원자가 삭제되었습니다.');
+
+  const j =
+    state.jobs.find(
+      x=>x.id===id
+    );
+
+  if(!j)
+    return;
+
+
+  const count =
+    state.candidates.filter(
+      c=>c.job===id
+    ).length;
+
+
+  const message =
+
+    `채용공고 "${j.title}"을(를) 삭제하시겠습니까?\n\n` +
+
+    `연결된 지원자 ${count}명도 함께 삭제됩니다.\n\n` +
+
+    `이 작업은 되돌릴 수 없습니다.`;
+
+
+  if(
+    !confirm(message)
+  )
+    return;
+
+
+  state.jobs =
+    state.jobs.filter(
+      x=>x.id!==id
+    );
+
+
+  state.candidates =
+    state.candidates.filter(
+      c=>c.job!==id
+    );
+
+
+  if(
+    String(state.jobFilter) ===
+    String(id)
+  ){
+
+    state.jobFilter =
+      'all';
+
+  }
+
+
+  save();
+
+  render();
+
+  toast(
+    '채용공고와 연결 지원자가 삭제되었습니다.'
+  );
+
 }
+
+
+/* ============================================================
+   지원자 삭제
+   ============================================================ */
+
 function deleteCandidate(id){
-  const c=state.candidates.find(x=>x.id===id);
-  if(!c)return;
-  if(!confirm(`지원자 "${c.name||'이름 미확인'}"을(를) 삭제하시겠습니까?`))return;
-  state.candidates=state.candidates.filter(x=>x.id!==id);
-  save();closeModal();state.page='candidates';render();toast('지원자가 삭제되었습니다.');
+
+  const c =
+    state.candidates.find(
+      x=>x.id===id
+    );
+
+  if(!c)
+    return;
+
+
+  if(
+    !confirm(
+      `지원자 "${c.name || '이름 미확인'}"을(를) 삭제하시겠습니까?\n\n이 작업은 되돌릴 수 없습니다.`
+    )
+  )
+    return;
+
+
+  state.candidates =
+    state.candidates.filter(
+      x=>x.id!==id
+    );
+
+
+  save();
+
+  closeModal();
+
+  state.page =
+    'candidates';
+
+  render();
+
+  toast(
+    '지원자가 삭제되었습니다.'
+  );
+
 }
-function openAISettings(){const key=getGeminiApiKey();$('#modalBox').innerHTML=`<div class="modal-head"><div><h2 style="margin:0">AI 설정</h2><div class="muted mini">브라우저 프로토타입용 Gemini API 연결</div></div><button class="close" onclick="closeModal()">×</button></div><div class="notice">이 버전은 <b>index.html 상단의 GEMINI_API_KEY 한 곳에만 키를 입력</b>하면 됩니다. 이후 PDF 업로드 시 자동으로 Gemini 분석을 시도합니다.<br><b style="color:#b91c1c">주의: GitHub 공개 저장소에 API Key를 넣으면 키가 노출됩니다. 개인 PC 테스트용으로 사용하세요.</b></div><div class="field" style="margin-top:14px"><label>Gemini API Key</label><input id="runtimeAiKey" type="password" value="${esc(key)}" placeholder="Gemini API Key 입력"></div><div class="form-actions"><button class="btn primary" onclick="state.aiKey=$('#runtimeAiKey').value.trim();save();closeModal();toast('AI 설정이 저장되었습니다.')">저장</button></div>`;openModal()}
-function saveAISettings(){closeModal()}
-function openModal(){$('#modal').classList.add('open')};function closeModal(){$('#modal').classList.remove('open')}
-$('#modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
-$('#newJobBtn').onclick=()=>openJob();$('#seedBtn').onclick=()=>{state={jobs:structuredClone(demoJobs),candidates:structuredClone(demoCandidates),page:'dashboard',jobFilter:'all',query:'',aiKey:GEMINI_API_KEY};save();render();toast('데모 데이터가 복구되었습니다.')};$$('.nav button').forEach(b=>b.onclick=()=>go(b.dataset.page));
+
+
+/* ============================================================
+   AI 설정
+   ============================================================ */
+
+function openAISettings(){
+
+  const key =
+    getGeminiApiKey();
+
+
+  $('#modalBox').innerHTML = `
+
+    <div class="modal-head">
+
+      <div>
+
+        <h2 style="margin:0">
+          AI 설정
+        </h2>
+
+        <div class="muted mini">
+          브라우저 프로토타입용 Gemini API 연결
+        </div>
+
+      </div>
+
+      <button
+        class="close"
+        onclick="closeModal()"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div class="notice">
+
+      이 버전은
+      <b>
+        index.html 상단의 GEMINI_API_KEY
+      </b>
+      또는 아래 입력창에 키를 저장하면 됩니다.
+
+      <br><br>
+
+      이후 PDF 업로드 시
+      Gemini 분석을 자동으로 시도합니다.
+
+      <br><br>
+
+      <b style="color:#b91c1c">
+        주의:
+        GitHub 공개 저장소에 API Key를 넣으면 키가 노출됩니다.
+        개인 PC 테스트용으로 사용하세요.
+      </b>
+
+    </div>
+
+
+    <div
+      class="field"
+      style="margin-top:14px"
+    >
+
+      <label>
+        Gemini API Key
+      </label>
+
+      <input
+        id="runtimeAiKey"
+        type="password"
+        value="${esc(key)}"
+        placeholder="Gemini API Key 입력"
+      >
+
+    </div>
+
+
+    <div class="form-actions">
+
+      <button
+        class="btn primary"
+        onclick="
+          state.aiKey=$('#runtimeAiKey').value.trim();
+          save();
+          closeModal();
+          toast('AI 설정이 저장되었습니다.')
+        "
+      >
+        저장
+      </button>
+
+    </div>
+
+  `;
+
+
+  openModal();
+
+}
+
+
+/* ============================================================
+   Modal
+   ============================================================ */
+
+function openModal(){
+
+  $('#modal')
+    .classList
+    .add('open');
+
+}
+
+
+function closeModal(){
+
+  $('#modal')
+    .classList
+    .remove('open');
+
+}
+
+
+$('#modal')
+  .addEventListener(
+    'click',
+    e=>{
+
+      if(
+        e.target.id ===
+        'modal'
+      ){
+
+        closeModal();
+
+      }
+
+    }
+  );
+
+
+/* ============================================================
+   ESC로 Modal 닫기
+   ============================================================ */
+
+document.addEventListener(
+  'keydown',
+  e=>{
+
+    if(
+      e.key==='Escape'
+    ){
+
+      closeModal();
+
+    }
+
+  }
+);
+
+
+/* ============================================================
+   홈 버튼
+   ============================================================ */
+
+$('#homeBtn').onclick = ()=>{
+
+  /*
+    중요:
+    홈으로 이동할 뿐,
+    데이터를 초기화하지 않습니다.
+  */
+
+  go('dashboard');
+
+};
+
+
+/* ============================================================
+   새 채용공고
+   ============================================================ */
+
+$('#newJobBtn').onclick =
+  ()=>openJob();
+
+
+/* ============================================================
+   데모 데이터
+   ============================================================ */
+
+$('#seedBtn').onclick = ()=>{
+
+  const answer =
+    confirm(
+
+      '현재 저장된 채용공고와 지원자 데이터가 모두 데모 데이터로 교체됩니다.\n\n' +
+
+      '실제 데이터가 있다면 먼저 백업했는지 확인하세요.\n\n' +
+
+      '계속하시겠습니까?'
+
+    );
+
+
+  if(!answer)
+    return;
+
+
+  /*
+    AI Key는 유지.
+    데모 데이터만 교체.
+  */
+
+  const currentAiKey =
+    state.aiKey ||
+    GEMINI_API_KEY;
+
+
+  state =
+    normalizeState({
+
+      ...createDefaultState(),
+
+      jobs:
+        structuredClone(
+          demoJobs
+        ),
+
+      candidates:
+        structuredClone(
+          demoCandidates
+        ),
+
+      page:
+        'dashboard',
+
+      aiKey:
+        currentAiKey
+
+    });
+
+
+  save();
+
+  render();
+
+  toast(
+    '데모 데이터를 불러왔습니다.'
+  );
+
+};
+
+
+/* ============================================================
+   사이드바
+   ============================================================ */
+
+$$('.nav button')
+  .forEach(
+    b=>{
+
+      b.onclick =
+        ()=>go(
+          b.dataset.page
+        );
+
+    }
+  );
+
+
+/* ============================================================
+   앱이 백그라운드로 갈 때 한 번 더 저장
+   ============================================================ */
+
+document.addEventListener(
+  'visibilitychange',
+  ()=>{
+
+    if(
+      document.visibilityState ===
+      'hidden'
+    ){
+
+      save();
+
+    }
+
+  }
+);
+
+
+/* ============================================================
+   초기 실행
+   ============================================================ */
+
 load();
-</script></body></html>
+
+</script>
+
+</body>
+</html>
