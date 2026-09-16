@@ -3680,75 +3680,102 @@ function showAnalysis(cid,jid){
   const result =
     computeAnalysis(c,j);
 
-  const coreSummary =
-    c.careerSummary ||
-    c.resumeSummary ||
-    'AI 요약 없음';
 
   /*
-   * 주요 경력은 반드시 keyCareers / careerDetail에서 가져온다.
-   * resume를 fallback으로 사용하지 않는다.
-   * 그래야 지원자 핵심 요약과 동일한 문장이 반복되지 않는다.
+   * 지원자 관리에서 사용하는 실제 주요 경력 데이터를
+   * 그대로 ATS 분석에서도 사용한다.
+   *
+   * 우선순위
+   * 1. careerDetail
+   * 2. keyCareers
+   *
+   * resume를 주요 경력으로 대신 사용하지 않는다.
    */
+
   let careerDetail = '';
 
+
   if(
+    c.careerDetail &&
+    String(c.careerDetail).trim()
+  ){
+
+    careerDetail =
+      String(c.careerDetail).trim();
+
+  }
+  else if(
     Array.isArray(c.keyCareers) &&
     c.keyCareers.length
   ){
+
     careerDetail =
       c.keyCareers
         .map(
-          x => {
+          item => {
+
             if(
-              typeof x === 'string'
+              typeof item === 'string'
             ){
-              return x;
+              return item;
             }
 
             if(
-              x &&
-              typeof x === 'object'
+              item &&
+              typeof item === 'object'
             ){
-              return [
-                x.company || '',
-                x.position || x.role || '',
-                x.period || x.duration || '',
-                x.description || x.detail || ''
-              ]
-                .filter(Boolean)
-                .join(' · ');
+
+              return Object
+                .values(item)
+                .filter(
+                  value =>
+                    value !== null &&
+                    value !== undefined &&
+                    String(value).trim()
+                )
+                .map(
+                  value =>
+                    String(value).trim()
+                )
+                .join(' ');
+
             }
 
             return '';
+
           }
         )
         .filter(Boolean)
         .join('\n');
+
   }
   else if(
     typeof c.keyCareers === 'string' &&
     c.keyCareers.trim()
   ){
+
     careerDetail =
       c.keyCareers.trim();
-  }
-  else if(
-    c.careerDetail &&
-    String(c.careerDetail).trim()
-  ){
-    careerDetail =
-      String(c.careerDetail).trim();
+
   }
 
-  /*
-   * 주요 경력 데이터가 실제로 없는 경우에는
-   * 지원자 핵심 요약을 복사하지 않고 안내문을 표시한다.
-   */
+
   if(!careerDetail){
+
     careerDetail =
       '등록된 주요 경력 정보가 없습니다.';
+
   }
+
+
+  /*
+   * 지원자 핵심 요약
+   */
+  const coreSummary =
+    c.careerSummary ||
+    c.resumeSummary ||
+    'AI 요약 없음';
+
 
   const hitHtml =
     result.hit.length
@@ -3760,6 +3787,7 @@ function showAnalysis(cid,jid){
           .join(' ')
       : '없음';
 
+
   const missHtml =
     result.miss.length
       ? result.miss
@@ -3770,10 +3798,12 @@ function showAnalysis(cid,jid){
           .join(' ')
       : '없음';
 
+
   const jdKeywords =
     Array.isArray(j?.keywords)
       ? j.keywords
       : [];
+
 
   const jdKeywordHtml =
     jdKeywords.length
@@ -3785,17 +3815,22 @@ function showAnalysis(cid,jid){
           .join(' ')
       : '등록된 JD 키워드가 없습니다.';
 
+
   const name =
     c.name || '이름 없음';
+
 
   const jobTitle =
     j?.title || '지원공고 없음';
 
+
   const careerYears =
     Number(c.years) || 0;
 
+
   const score =
     Number(result.score) || 0;
+
 
   const recommendation =
     score >= 75
@@ -3804,12 +3839,15 @@ function showAnalysis(cid,jid){
         ? '검토'
         : '보류';
 
+
   const page =
     $('#page');
+
 
   if(!page){
     return;
   }
+
 
   page.innerHTML = `
 
@@ -3849,6 +3887,7 @@ function showAnalysis(cid,jid){
 
         </div>
 
+
         <div
           style="
             font-size:30px;
@@ -3876,6 +3915,7 @@ function showAnalysis(cid,jid){
           <div class="stat-value">${score}</div>
         </div>
 
+
         <div class="stat">
           <div class="stat-label">경력</div>
           <div class="stat-value">
@@ -3883,12 +3923,14 @@ function showAnalysis(cid,jid){
           </div>
         </div>
 
+
         <div class="stat">
           <div class="stat-label">경력 적합도</div>
           <div class="stat-value">
             ${result.base || 0}
           </div>
         </div>
+
 
         <div class="stat">
           <div class="stat-label">추천</div>
@@ -3971,7 +4013,7 @@ function showAnalysis(cid,jid){
               ? c.skills
                   .map(
                     s =>
-                      `<span class="tag">${escapeHtml(s)}</span>`
+                      `<span class="tag">${escapeHtml(String(s))}</span>`
                   )
                   .join('')
               : '등록된 핵심 역량이 없습니다.'
@@ -4017,11 +4059,13 @@ function showAnalysis(cid,jid){
 
         <h3>ATS 분석 결과</h3>
 
+
         <div
           style="
             margin-bottom:14px;
           "
         >
+
           <strong>일치 키워드</strong>
 
           <div
@@ -4034,6 +4078,7 @@ function showAnalysis(cid,jid){
           >
             ${hitHtml}
           </div>
+
         </div>
 
 
@@ -4042,6 +4087,7 @@ function showAnalysis(cid,jid){
             margin-bottom:14px;
           "
         >
+
           <strong>부족 키워드</strong>
 
           <div
@@ -4054,6 +4100,7 @@ function showAnalysis(cid,jid){
           >
             ${missHtml}
           </div>
+
         </div>
 
 
@@ -4096,6 +4143,7 @@ function showAnalysis(cid,jid){
   `;
 
 }
+  
 /* ============================================================
    분석 보기
    기존 코드에서 빠져있던 함수
