@@ -11100,14 +11100,14 @@ function renderReports(){
   };
 
 
-  const stageKeys = [
-    'applied',
-    'review',
-    'interview1',
-    'interview2',
-    'final',
-    'hired'
-  ];
+const stageKeys = [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5
+];
 
 
   const stageLabels = [
@@ -11120,22 +11120,17 @@ function renderReports(){
   ];
 
 
-  const stageCounts =
-    stageKeys.map(
-      key => {
+const stageCounts =
+  stageKeys.map(
+    key => {
 
-        return candidates.filter(
-          c =>
-            String(
-              c.stage ||
-              c.status ||
-              'applied'
-            ).toLowerCase() ===
-            key
-        ).length;
+      return candidates.filter(
+        c =>
+          Number(c.stage) === key
+      ).length;
 
-      }
-    );
+    }
+  );
 
 
 const hiredCount =
